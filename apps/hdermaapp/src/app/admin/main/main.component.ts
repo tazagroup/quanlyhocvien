@@ -13,6 +13,11 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class MainComponent implements OnInit,AfterViewInit {
   AdminMenu = [
     {
+      Title:'Khóa Học',
+      Link:'khoa-hoc',
+
+    },
+    {
       Title:'Bài viết',
       Link:'baiviet',
 

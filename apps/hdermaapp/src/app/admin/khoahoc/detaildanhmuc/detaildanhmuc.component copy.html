@@ -1,0 +1,114 @@
+<form class="w-full pt-10" [formGroup]="DanhmucList">
+  <div class="flex flex-row space-x-4 px-2">
+    <div class="flex flex-col space-y-2 p-4 shadow w-1/3">
+      <div class="font-bold text-center">Hình 2</div>
+      <ng-container *ngIf="danhmuc.Image!=0; else elseTemplate">
+        <div class="relative">
+          <img src="https://drive.google.com/uc?id={{danhmuc.Image}}" width="200px">
+          <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+          (click)="removeSimpleImage('Image')">
+          cancel
+        </span>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="text-center">
+          <img src="/assets/image/logo.png" class="m-auto w-32" />
+          <div>Chưa có hình ảnh</div>
+        </div>
+      </ng-template>
+
+      <div class="space-y-3 text-center">
+        <button mat-raised-button color="primary" (click)="fileInput2.click()">
+          <span>Upload</span>
+          <input #fileInput2 (change)="onFileBrowse($event, 99)" type="file" accept="image/*" class="hidden">
+        </button>
+        <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB </div>
+      </div>
+    </div>
+    <div class="flex flex-col space-y-2 w-full">
+    <div class="w-full md:px-3 mb-6 md:mb-0">
+      <mat-form-field appearance="outline" class="flex w-full">
+        <mat-label>Loại Danh Mục</mat-label>
+        <mat-select [(ngModel)]="danhmuc.Type" [ngModelOptions]="{standalone: true}">
+          <!-- [compareWith]="compareFn" -->
+          <!-- (selectionChange)="selectDanhmuc($event.value)" -->
+          <mat-option value=""></mat-option>
+          <mat-option value="tintucsukien">Tin tức sự kiện</mat-option>
+          <!--<mat-option value="chuyennganh">Chuyên ngành</mat-option>
+                  <mat-option value="gochocvien">Góc học viên</mat-option>
+                  <mat-option value="letotnghiep">Lễ tốt nghiệp</mat-option>
+                  <mat-option value="hoatdongngoaikhoa">Hoạt động ngoại khoá</mat-option>-->
+          <!--<mat-option value="tintuc">Tin tức</mat-option>
+                  <mat-option value="sukien">Sự kiện</mat-option>
+                  <mat-option value="lamdep">Làm đẹp</mat-option>
+                  <mat-option value="letotnghiep">Lễ tốt nghiệp</mat-option>
+                  <mat-option value="cuocthiphunxam">Cuộc thi phun xăm</mat-option>-->
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="w-full md:px-3 mb-6 md:mb-0">
+      <mat-form-field appearance="outline" class="flex w-full">
+        <mat-label>Tiêu đề</mat-label>
+        <input matInput [(ngModel)]="danhmuc.Title" [ngModelOptions]="{standalone: true}" type="text" class="w-full text-xs" placeholder="Chuyên ngành"/>
+      </mat-form-field>
+    </div>
+    <div class="w-full md:px-3 mb-6 md:mb-0">
+      <mat-form-field appearance="outline" class="flex w-full">
+        <mat-label>Slug</mat-label>
+        <input matInput [(ngModel)]="danhmuc.Slug" [ngModelOptions]="{standalone: true}" type="text" class="w-full text-xs" placeholder="Slug"/>
+      </mat-form-field>
+    </div>
+    <div class="w-full md:px-3 mb-6 md:mb-0">
+      <mat-form-field appearance="outline" class="flex w-full">
+        <mat-label> Ordering</mat-label>
+        <input matInput [(ngModel)]="danhmuc.Ordering" [ngModelOptions]="{standalone: true}" type="text" class="w-full text-xs" placeholder="Ordering"/>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-row justify-center space-x-2 items-center">
+      <button mat-raised-button color="primary" (click)="Create(danhmuc)" *ngIf="!danhmuc.id">Tạo mới</button>
+      <button mat-raised-button class="text-white bg-green-500" (click)="Update(danhmuc)" *ngIf="danhmuc.id">Cập nhật</button>
+    </div>
+    </div>
+    <!-- <div class="flex items-center justify-between ">
+      <div class="w-1/2 ">
+          <label for="">Hình Thumbnail</label>
+          <input (change)="onFileBrowse($event, 99)" type="file" accept="image/*">
+          <img src="https://drive.google.com/uc?id={{danhmuc.Image}}" alt="">
+      </div>
+  </div> -->
+
+
+    <!-- <div class="flex flex-wrap my-4 md:px-3 w-full">
+          <div class="w-full">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  for="grid-password">
+                  Mô tả
+              </label>
+
+          </div>
+      </div> -->
+    <!-- <div class="flex flex-wrap md:mb-6">
+          <div class="w-full md:px-3 mb-6 md:mb-0">
+              <label>
+                  <input type="file" class="text-nowrap text-truncate" />
+              </label>
+              <button class="btn btn-success btn-sm mt-3 md:mt-0" [disabled]="!selectedFiles">
+                  Upload
+              </button>
+              <div class="progress mt-2">
+                  <div class="progress-bar progress-bar-info" role="progressbar"
+                      attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{ width: percentage + '%' }">
+                      {{ percentage }}%
+                  </div>
+              </div>
+          </div>
+
+
+      </div> -->
+  </div>
+
+
+</form>

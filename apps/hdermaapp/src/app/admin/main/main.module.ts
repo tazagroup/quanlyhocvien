@@ -66,6 +66,11 @@ import { MaterialModule } from '../../shared/material.module';
               import('../product/product.module').then((m) => m.ProductModule),
           },
           {
+            path: 'khoa-hoc',
+            loadChildren: () =>
+              import('../khoahoc/khoahoc.module').then((m) => m.KhoahocModule),
+          },
+          {
             path: 'sanpham',
             loadChildren: () =>
               import('../sanpham/sanpham.module').then((m) => m.SanphamModule),
