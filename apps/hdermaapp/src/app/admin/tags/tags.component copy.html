@@ -1,0 +1,111 @@
+<div class="flex flex-col flex-auto w-full tag">
+    <mat-drawer-container class="example-container" autosize>
+        <mat-drawer
+            class="example-sidenav w-1/2 px-4 py-2"
+            mode="side"
+            opened="true"
+            position="end">
+            <router-outlet></router-outlet>
+        </mat-drawer>
+        <div class="example-sidenav-content w-full">
+            <div class="flex flex-col w-full">
+                <div class="text-2xl text-center py-2 font-bold">
+                    Danh sách tags
+                </div>
+                <div class="flex items-center">
+                    <mat-form-field class="fuse-mat-no-subscript rounded-full
+                        m-auto w-full p-2">
+                        <input
+                            matInput
+                            class="w-full min-w-0 py-1 border-0"
+                            type="text"
+                            placeholder="Tìm Kiếm"
+                            [maxLength]="30"
+                            (keyup)="applyFilter($event)"
+                            #input
+                            />
+                        <mat-icon matPrefix>
+                            <span class="material-icons"> search </span>
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="w-full overflow-auto">
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        matSort
+                        class="w-full product-table">
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="Loaitag">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header>
+                                Loại tag
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.Loaitag === 0 ? 'Tình trạng da' : 'Loại sản phẩm' }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="Tieude">
+                            <th mat-header-cell *matHeaderCellDef>Tiêu đề</th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.Tieude }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Mota">
+                            <th mat-header-cell *matHeaderCellDef>Mô tả</th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.Mota }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Image">
+                            <th mat-header-cell *matHeaderCellDef>Hình ảnh</th>
+                            <td mat-cell *matCellDef="let row">
+                                <img
+                                    class="w-10 h-10 object-contain"
+                                    src="https://drive.google.com/uc?id={{
+                                    row.Image }}"
+                                    [ngClass]="{ hidden: row.image === '' }"
+                                    />
+                            </td>
+                        </ng-container>
+
+                      
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row">
+                                <button class="text-blue-400 flex items-center"
+                                    (click)="selectProduct(row)">
+                                    <span class="material-icons text-lg mr-2"
+                                        routerLink="{{ row.id }}">edit</span>
+                                    <span title="Xoá" class="material-icons
+                                        cursor-pointer text-red-500"
+                                        (click)="deleteProduct(row.id)"> delete
+                                    </span>
+                                    <span title="Xoá" class="material-icons
+                                        cursor-pointer text-yellow-500"
+                                        (click)="updateTag(row)"> {{row.Trangthai == 0 ? 'star' : 'star_border'}}
+                                    </span>
+                                </button>
+                            </td>
+                        </ng-container>
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+                    <mat-paginator
+                        [pageSizeOptions]="[10, 25, 100]"
+                        aria-label="Select page of users"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-container>
+</div>

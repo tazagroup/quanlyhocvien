@@ -1,0 +1,112 @@
+<div class="!flex flex-col flex-auto min-w-0 relative bg-white">
+  <div class="relative border-b-2 flex flex-row justify-between items-center p-3">
+    <span class="material-icons p-2 hover:bg-gray-200 rounded-full" (click)="CloseDrawer()">
+      arrow_back
+    </span>
+    <div class="text-xl">{{Detail.Title}}</div>
+    <div>
+      <button mat-raised-button color="primary" (click)="Update(Detail)">Cập Nhật</button>
+    </div>
+  </div>
+  <div class="relative h-full w-full overflow-auto flex flex-col space-y-2 justify-between p-4 bg-gray-100">
+    <div class="flex flex-col space-y-3 p-4 blog tintuc-sukien">
+      <div class="flex flex-row space-x-3 w-full">
+        <div class="flex flex-col space-y-3 p-3 rounded-lg shadow bg-white lg:w-1/3 w-full">
+          <ng-container *ngIf="CheckValue(Detail.Hinhanh,'hinhchinh'); else elseTemplate">
+            <div class="p-4 group relative">
+              <img [src]="GetImage(Detail.Hinhanh.hinhchinh.spath)" class="w-40 mx-auto rounded-md" />
+              <div
+                class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                (click)="onRemove(Detail.Hinhanh.hinhchinh)">
+                <span class="material-icons text-white flex items-center justify-center h-full">
+                  cancel
+                </span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #elseTemplate>
+            <ngx-dropzone (change)="onSelect($event)" [multiple]="false" class="flex flex-col spacey-3 !h-full">
+              <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+            </ngx-dropzone>
+          </ng-template>
+
+          <!-- <ng-container *ngIf="Detail.Hinhanh.spath; else elseTemplate">
+            <div class="p-4 group relative">
+              <img [src]="GetImage(Detail.Hinhanh.spath)" class="w-40 mx-auto rounded-md" />
+              <div
+                class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                (click)="onRemove(Detail.Hinhanh)">
+                <span class="material-icons text-white flex items-center justify-center h-full">
+                  cancel
+                </span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #elseTemplate>
+            <ngx-dropzone (change)="onSelect($event)" [multiple]="false" class="flex flex-col spacey-3 !h-full">
+              <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+            </ngx-dropzone>
+          </ng-template> -->
+
+        </div>
+        <div class="flex flex-col space-y-2 rounded-lg shadow bg-white p-3">
+          <div class="grid grid-cols-3 gap-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Tiêu Đề</mat-label>
+              <input [(ngModel)]="Detail.Title" [ngModelOptions]="{standalone: true}" matInput type="text"
+                class="w-full" placeholder="Tiêu Đề" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Slug</mat-label>
+              <input [(ngModel)]="Detail.Slug" [ngModelOptions]="{standalone: true}" matInput type="text" class="w-full"
+                placeholder="Slug" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Loại bài viết</mat-label>
+              <mat-select [(ngModel)]="Detail.Loaibaiviet" [ngModelOptions]="{standalone: true}">
+                <mat-option value="0"></mat-option>
+                <mat-option value="1">Nổi bật trên trang chủ</mat-option>
+                <mat-option value="2">Tin nổi bật</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="grid grid-cols-4 gap-4">
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Title Seo</mat-label>
+                <input [(ngModel)]="Detail.TitleSeo" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="Title Seo" />
+              </mat-form-field>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Des Seo</mat-label>
+                <input [(ngModel)]="Detail.DesSeo" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="Des Seo" />
+              </mat-form-field>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>KeywordSeo</mat-label>
+                <input [(ngModel)]="Detail.KeywordSeo" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="KeywordSeo" />
+              </mat-form-field>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>RobotsSeo</mat-label>
+                <input [(ngModel)]="Detail.RobotsSeo" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="RobotsSeo" />
+              </mat-form-field>
+            </div>
+          </div>
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="Detail.Mota" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny"></editor>
+        </div>
+      </div>
+        <editor [apiKey]="APITINYMCE" [(ngModel)]="Detail.Baiviet" [ngModelOptions]="{standalone: true}"
+          [init]="configTiny1"></editor>
+    </div>
+  </div>

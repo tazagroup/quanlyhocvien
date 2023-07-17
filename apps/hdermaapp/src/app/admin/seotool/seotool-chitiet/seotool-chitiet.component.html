@@ -1,0 +1,43 @@
+<div class="!flex flex-col flex-auto min-w-0 relative bg-white">
+  <div class="relative border-b-2 flex flex-row justify-between items-center p-3">
+    <span class="material-icons p-2 hover:bg-gray-200 rounded-full" [routerLink]="['../']">
+      arrow_back
+      </span>
+      <div class="text-xl">{{Detail.Tieude}}</div>
+      <div>
+        <button mat-raised-button color="primary" (click)="Update(Detail)">Cập Nhật</button>
+      </div>
+  </div>
+  <div class="relative h-full w-full overflow-auto flex flex-col space-y-2 p-4">
+    <div class="grid grid-cols-2 gap-3">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Tiêu Đề</mat-label>
+        <input type="text" [(ngModel)]="Detail.Title" [ngModelOptions]="{standalone: true}"
+         matInput class="w-full px-3 py-2 border border-gray-200 rounded"
+          [placeholder]="'Tiêu Đề'" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Slug</mat-label>
+        <input type="text" [(ngModel)]="Detail.Slug" [ngModelOptions]="{standalone: true}"
+         matInput class="w-full px-3 py-2 border border-gray-200 rounded"
+          [placeholder]="'Slug'" />
+      </mat-form-field>
+    </div>
+   <div class="grid grid-cols-4 gap-3">
+    <div *ngFor="let item of Meta;let i =index">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>{{item.Title}}</mat-label>
+        <input type="text" [(ngModel)]="Detail.Meta[item.Title]" [ngModelOptions]="{standalone: true}"
+         matInput class="w-full px-3 py-2 border border-gray-200 rounded"
+          [placeholder]="item.Title" />
+      </mat-form-field>  
+    </div>
+   </div>
+   <div class="w-full">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Schema</mat-label>
+      <textarea rows="10" matInput [(ngModel)]="Detail.Schema" [ngModelOptions]="{standalone: true}"></textarea>
+    </mat-form-field>
+   </div>
+   </div> 
+</div>

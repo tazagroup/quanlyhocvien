@@ -1,0 +1,82 @@
+<form class="w-full pt-10" [formGroup]="DanhmucList">
+    <div class="flex flex-wrap">
+        <div class="flex md:mx-3 md:flex-row flex-col mb-6 justify-between w-full">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Danh mục</mat-label>
+                <mat-select [formControlName]="'Type'">
+                    <!-- [compareWith]="compareFn" -->
+                    <!-- (selectionChange)="selectDanhmuc($event.value)" -->
+                    <mat-option value=""></mat-option>
+                    <mat-option value="tintucsukien">Tin tức sự kiện</mat-option>
+                    <!--<mat-option value="chuyennganh">Chuyên ngành</mat-option>
+                    <mat-option value="gochocvien">Góc học viên</mat-option>
+                    <mat-option value="letotnghiep">Lễ tốt nghiệp</mat-option>
+                    <mat-option value="hoatdongngoaikhoa">Hoạt động ngoại khoá</mat-option>-->
+                    <!--<mat-option value="tintuc">Tin tức</mat-option>
+                    <mat-option value="sukien">Sự kiện</mat-option>
+                    <mat-option value="lamdep">Làm đẹp</mat-option>
+                    <mat-option value="letotnghiep">Lễ tốt nghiệp</mat-option>
+                    <mat-option value="cuocthiphunxam">Cuộc thi phun xăm</mat-option>-->
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="w-full md:px-3 mb-6 md:mb-0">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Tiêu đề</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Chuyên ngành"
+                    [formControlName]="'Title'" />
+            </mat-form-field>
+            <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+        </div>
+        <div class="w-full md:px-3 mb-6 md:mb-0">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Slug</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Slug" [formControlName]="'Slug'" />
+            </mat-form-field>
+        </div>
+        <div class="w-full md:px-3 mb-6 md:mb-0">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Ordering</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Ordering"
+                    [formControlName]="'Ordering'" />
+            </mat-form-field>
+        </div>
+
+        <!-- <div class="flex flex-wrap my-4 md:px-3 w-full">
+            <div class="w-full">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                    for="grid-password">
+                    Mô tả
+                </label>
+
+            </div>
+        </div> -->
+        <!-- <div class="flex flex-wrap md:mb-6">
+            <div class="w-full md:px-3 mb-6 md:mb-0">
+                <label>
+                    <input type="file" class="text-nowrap text-truncate" />
+                </label>
+                <button class="btn btn-success btn-sm mt-3 md:mt-0" [disabled]="!selectedFiles">
+                    Upload
+                </button>
+                <div class="progress mt-2">
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                        attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+                        [ngStyle]="{ width: percentage + '%' }">
+                        {{ percentage }}%
+                    </div>
+                </div>
+            </div>
+
+
+        </div> -->
+        <div class="flex items-center  md:px-3 mb-6">
+            <span class="px-3 py-1 text-white rounded bg-green-500" *ngIf="!slug" (click)="onSubmit()">Tạo mới</span>
+            <span class="px-3 py-1 text-white rounded bg-blue-500" *ngIf="slug" (click)="updateDanhmuc()">Cập nhật</span>
+
+        </div>
+    </div>
+
+
+</form>

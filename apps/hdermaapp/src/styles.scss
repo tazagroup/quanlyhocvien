@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'node_modules/angular-notifier/styles';
+@import "swiper/css";
+@import "swiper/css/grid";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+@import "swiper/css/scrollbar";
+@font-face {
+  font-family: utm;
+  src: url("../src/assets/font/UTM/UTM_Helve.ttf");
+}
+/* You can add global styles to this file, and also import other style files */
+// html,
+// body {
+//   height: 100%;
+// }
+// body {
+//   margin: 0;
+//   font-family: Roboto, 'Helvetica Neue', sans-serif;
+// }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "utm";
+  //font-size: 20px;
+  //line-height: 1.5rem;
+  color: #000000;
+  .gia {
+    font-size: 19px;
+    line-height: 21px;
+  }
+}
+.header {
+  font-size: 14px;
+  line-height: 19.05px;
+}
+.container {
+  max-width: 1440px;
+  padding: 0 15px;
+}
+// .text-3xl {
+//   font-size: 32px !important;
+//   line-height: 2.5rem !important;
+// }
+// .text-2xl {
+//   font-size: 24px;
+//   line-height: 1.5rem;
+// }
+.centerX-img {
+  transform: translateX(-50%);
+}
+.centerY-img {
+  transform: translateY(-50%);
+}
+.center-img {
+  transform: translate(-50%, -50%);
+}
+.carouesl-product-main .swiper-pagination-bullet-active {
+  padding: 5px;
+  width: 20px;
+  background: #5d5a5a;
+  border-radius: 20px;
+}
+.mat-drawer-content::-webkit-scrollbar {
+  display: none !important;
+}
+.detail-product .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+.inner .mat-expansion-indicator:after {
+  border-width: 0 5px 5px 0 !important;
+  border: 1px solid black;
+  // padding: 9px !important;
+}
+.inner .mat-expansion-indicator:hover::after {
+  border-color: white;
+}
+.detail-product .mat-expansion-indicator:after {
+  border-color: black;
+}
+.review .mat-expansion-panel-header {
+  padding: 0 12px;
+}
+.review .mat-expansion-indicator:after {
+  border-color: black;
+}
+.review .mat-expansion-panel-body {
+  padding: 0 16px 16px;
+}
+.mySwiper-detail .swiper-slide {
+  height: 170px !important;
+}
+.mat-badge-content {
+  background: red;
+}
+.menu_bot_mobile #mat-badge-content-2
+{
+  right: 10px;
+  top: -6px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #ddd;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #00256e;
+}
+.layout_child router-outlet+* {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.adminmenu mat-tree-node[aria-level="2"]
+{
+  padding-left: 30px!important;
+}
+.mat-radio-label {
+  white-space: normal !important;
+}
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+ngx-dropzone-label
+{
+  text-overflow: ellipsis;
+  overflow: none;
+  white-space: nowrap;
+  position: relative !important;
+}

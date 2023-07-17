@@ -1,0 +1,48 @@
+.button-slide {
+    @media only screen and (max-width: 1024px) {
+        display: none;
+    }
+}
+.button-detail {
+    @media only screen and (max-width: 1024px) {
+        display: none;
+    }
+}
+.content h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 18px;
+    -webkit-line-clamp: 2;
+    height: 39px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.content p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 18px;
+    -webkit-line-clamp: 3;
+    height: 55px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.sold-out {
+    background-color: #8c8c8c;
+    border: 1px solid transparent;
+    color: #ccc;
+}
+.tieude {
+    font-size: 13px;
+}
+.mota {
+    font-size: 12px;
+    line-height: 18px;
+}
+.text-sm{
+    font-size: 19px;
+    line-height: 21px;
+}
+.text-xs{
+    font-size: 14px;
+    line-height: 15px;
+}

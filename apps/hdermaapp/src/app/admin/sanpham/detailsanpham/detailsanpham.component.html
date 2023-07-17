@@ -1,0 +1,203 @@
+<div class="!flex flex-col flex-auto min-w-0 relative bg-white">
+  <div class="relative border-b-2 flex flex-row justify-between items-center p-3">
+    <span class="material-icons p-2 hover:bg-gray-200 rounded-full" (click)="CloseDrawer()">
+      arrow_back
+    </span>
+    <div class="text-xl">{{Detail.Title}}</div>
+    <div>
+      <button mat-raised-button color="primary" (click)="Update(Detail)">Cập Nhật</button>
+    </div>
+  </div>
+  <div class="relative h-full w-full overflow-auto flex flex-col space-y-2 justify-between p-4 bg-gray-100">
+    <div class="flex flex-col space-y-3 p-4 blog tintuc-sukien">
+      <div class="flex flex-row space-x-3 w-full">
+        <div class="flex flex-row space-x-3 p-3 rounded-lg shadow bg-white lg:w-3/4 w-full">
+          <div class="flex flex-col space-y-2 max-w-[100px]">
+            <ng-container *ngIf="CheckValue(Detail.Hinhanh,'hinh1'); else elseTemplatehinh1">
+              <div class="p-4 group relative">
+                <img [src]="GetImage(Detail.Hinhanh.hinh1.spath)" class="w-40 mx-auto rounded-md" />
+                <div
+                  class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                  (click)="onRemove(Detail.Hinhanh,'hinh1')">
+                  <span class="material-icons text-white flex items-center justify-center h-full">
+                    cancel
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #elseTemplatehinh1>
+              <ngx-dropzone (change)="onSelect($event,'hinh1')" [multiple]="false"
+                class="flex flex-col spacey-3 !h-full">
+                <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+              </ngx-dropzone>
+            </ng-template>
+            <ng-container *ngIf="CheckValue(Detail.Hinhanh,'hinh2'); else elseTemplatehinh2">
+              <div class="p-4 group relative">
+                <img [src]="GetImage(Detail.Hinhanh.hinh2.spath)" class="w-40 mx-auto rounded-md" />
+                <div
+                  class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                  (click)="onRemove(Detail.Hinhanh,'hinh2')">
+                  <span class="material-icons text-white flex items-center justify-center h-full">
+                    cancel
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #elseTemplatehinh2>
+              <ngx-dropzone (change)="onSelect($event,'hinh2')" [multiple]="false"
+                class="flex flex-col spacey-3 !h-full">
+                <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+              </ngx-dropzone>
+            </ng-template>
+            <ng-container *ngIf="CheckValue(Detail.Hinhanh,'hinh3'); else elseTemplatehinh3">
+              <div class="p-4 group relative">
+                <img [src]="GetImage(Detail.Hinhanh.hinh3.spath)" class="w-40 mx-auto rounded-md" />
+                <div
+                  class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                  (click)="onRemove(Detail.Hinhanh,'hinh3')">
+                  <span class="material-icons text-white flex items-center justify-center h-full">
+                    cancel
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #elseTemplatehinh3>
+              <ngx-dropzone (change)="onSelect($event,'hinh3')" [multiple]="false"
+                class="flex flex-col spacey-3 !h-full">
+                <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+              </ngx-dropzone>
+            </ng-template>
+            <ng-container *ngIf="CheckValue(Detail.Hinhanh,'hinh4'); else elseTemplatehinh4">
+              <div class="p-4 group relative">
+                <img [src]="GetImage(Detail.Hinhanh.hinh4.spath)" class="w-40 mx-auto rounded-md" />
+                <div
+                  class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                  (click)="onRemove(Detail.Hinhanh,'hinh4')">
+                  <span class="material-icons text-white flex items-center justify-center h-full">
+                    cancel
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #elseTemplatehinh4>
+              <ngx-dropzone (change)="onSelect($event,'hinh4')" [multiple]="false"
+                class="flex flex-col spacey-3 !h-full">
+                <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+              </ngx-dropzone>
+            </ng-template>
+          </div>
+          <div class="w-full">
+              <div class="p-4 group relative">
+                <img [src]="GetImage(Detail.Hinhanh.hinh1.spath)" class="mx-auto rounded-md" />
+              </div>
+          </div>
+        </div>
+        <div class="w-full flex flex-col space-y-2 rounded-lg shadow bg-white p-3">
+          <div class="grid grid-cols-2 gap-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Tiêu Đề</mat-label>
+              <input [(ngModel)]="Detail.Tieude" [ngModelOptions]="{standalone: true}" matInput type="text"
+                class="w-full" placeholder="Tiêu Đề" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Slug</mat-label>
+              <input [(ngModel)]="Detail.Slug" [ngModelOptions]="{standalone: true}" matInput type="text" class="w-full"
+                placeholder="Slug" />
+            </mat-form-field>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <mat-form-field appearance="outline">
+              <mat-label>SKU</mat-label>
+              <input [(ngModel)]="Detail.SKU" [ngModelOptions]="{standalone: true}" matInput type="text" class="w-full"
+                placeholder="Tiêu Đề" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Danh Mục</mat-label>
+              <mat-select [(ngModel)]="Detail.Danhmuc.id" [ngModelOptions]="{standalone: true}">
+                <mat-option [value]="item.id" *ngFor="let item of Danhmuc">{{item.Title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="grid grid-cols-4 gap-4">
+
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Giá Sản Phẩm</mat-label>
+                <input [(ngModel)]="Detail.Gia" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="Giá Sản Phẩm" />
+                <mat-hint class="text-red-500">{{Detail.Gia|number:'1.0-2'}}đ</mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Giá Sale</mat-label>
+                <input [(ngModel)]="Detail.GiaSale" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="Giá Sale" />
+                <mat-hint class="text-red-500">{{Detail.GiaSale|number:'1.0-2'}}đ</mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Tình Trạng</mat-label>
+                <input [(ngModel)]="Detail.Tinhtrang" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="Tình Trạng" />
+              </mat-form-field>
+            </div>
+            <div class="w-full">
+              <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label>Trạng Thái</mat-label>
+                <input [(ngModel)]="Detail.Trangthai" [ngModelOptions]="{standalone: true}" matInput type="text"
+                  class="w-full" placeholder="Trạng Thái" />
+              </mat-form-field>
+            </div>
+          </div>
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="Detail.Mota" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny"></editor>
+        </div>
+      </div>
+      <mat-tab-group fitInkBarToContent #tabGroup (selectedTabChange)="handleTabChange($event)" class="bg-white">
+        <mat-tab label="Thông Tin Sản Phẩm">
+          <div class="flex flex-row space-x-2">
+            <div>
+              
+              <ng-container *ngIf="CheckValue(Detail.Hinhanh,'hinhthongtin'); else elseTemplatehinhthongtin">
+                   <div class="p-4 group relative">
+                     <img [src]="GetImage(Detail.Hinhanh.hinhthongtin.spath)" class="w-40 mx-auto rounded-md" />
+                     <div
+                       class="group-hover:block rounded-md hidden absolute inset-0 items-center justify-center bg-black opacity-10"
+                       (click)="onRemove(Detail.Hinhanh,'hinhthongtin')">
+                       <span class="material-icons text-white flex items-center justify-center h-full">
+                         cancel
+                       </span>
+                     </div>
+                   </div>
+                 </ng-container>
+                 <ng-template #elseTemplatehinhthongtin>
+                   <ngx-dropzone (change)="onSelect($event,'hinhthongtin')" [multiple]="false" class="flex flex-col spacey-3 !h-full">
+                     <ngx-dropzone-label>Chọn File</ngx-dropzone-label>
+                   </ngx-dropzone>
+                 </ng-template>
+            </div>
+            <div>         
+             <editor [apiKey]="APITINYMCE" [(ngModel)]="Detail.Noidung.Thongtin" [ngModelOptions]="{standalone: true}"
+              [init]="configTiny1" *ngIf="activeTabIndex===0"></editor>
+            <textarea hidden matInput [(ngModel)]="Detail.Noidung.Thongtin"
+              [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Cách Sử Dụng">
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="Detail.Noidung.Sudung" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny1" *ngIf="activeTabIndex===1"></editor>
+          <textarea hidden matInput [(ngModel)]="Detail.Noidung.Sudung"
+            [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-tab>
+        <mat-tab label="Thành Phần">
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="Detail.Noidung.Thanhphan" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny1" *ngIf="activeTabIndex===2"></editor>
+          <textarea hidden matInput [(ngModel)]="Detail.Noidung.Thanhphan"
+            [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>

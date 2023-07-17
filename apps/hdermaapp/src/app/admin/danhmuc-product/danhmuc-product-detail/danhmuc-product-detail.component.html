@@ -1,0 +1,36 @@
+<form class="w-full pt-10" >
+    <div class="space-y-5 px-5">
+        <div class="">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Tiêu đề</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Tẩy trang" [(ngModel)]="danhmuc.Title" [ngModelOptions]="{standalone: true}"/>
+            </mat-form-field>
+            <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
+        </div>
+        <div class="">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Slug</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Slug" [(ngModel)]="danhmuc.Slug" [ngModelOptions]="{standalone: true}" />
+            </mat-form-field>
+        </div>
+        <div class="">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Ordering</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Ordering"
+                [(ngModel)]="danhmuc.Ordering" [ngModelOptions]="{standalone: true}" />
+            </mat-form-field>
+        </div>
+        <div class="flex items-center justify-between ">
+            <div class="w-1/2 ">
+                <label for="">Hình Thumbnail</label>
+                <input (change)="onFileBrowse($event, 99)" type="file" accept="image/*">
+                <img src="https://drive.google.com/uc?id={{danhmuc.Image}}" alt="">
+            </div>
+        </div>
+    
+        <div class="flex items-center  ">
+            <span class="px-3 py-1 text-white rounded bg-green-500" *ngIf="!slug" (click)="onSubmit()">Tạo mới</span>
+            <span class="px-3 py-1 text-white rounded bg-blue-500" *ngIf="slug" (click)="updateDanhmuc()">Cập nhật</span>
+        </div>
+    </div>
+</form>

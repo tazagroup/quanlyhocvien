@@ -1,0 +1,77 @@
+<div class="pt-2 pb-10 bg-white">
+    <div class="container flex mx-auto">
+        <mat-drawer-container class="example-container w-full" autosize>
+            <mat-drawer #drawer class="example-sidenav {{!isMobile ? 'w-1/4' : 'w-2/3 !fixed left-0 h-[100vh] overflow-auto'}}" [opened] = "!isMobile" [mode]="!isMobile ? 'side' : 'over'">
+                <div class="bg-white space-x-2 py-1 home-product lg:block hidden">
+                    <span>HOME</span>
+                    <span>/</span>
+                    <span>SẢN PHẨM</span>
+                </div>
+                <div class="p-2 bg-[#D9D9D9]">
+                    <h3 class="text-xl font-bold text-[#000000] uppercase">Bộ lọc tìm kiếm</h3>
+                </div>
+                <div class="p-2">
+                    <mat-expansion-panel class="bg-transparent" [expanded]="true" (opened)="panelOpenState= true" (closed)="panelOpenState= false" style="box-shadow: none;">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-bold uppercase text-base text-[#000000]">
+                                Tình trạng da
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="space-y-3 flex flex-col">
+                            <mat-checkbox color="primary" [(ngModel)]="item.checked" (ngModelChange)="checkboxTags(item)" class="{{item.Loaitag === 0 ? '!block' : '!hidden'}}" *ngFor="let item of tags">
+                               <span class="whitespace-normal">{{item.Tieude}}</span> 
+                            </mat-checkbox>
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel class="bg-transparent" [expanded]="true" (opened)="panelOpenState= true" (closed)="panelOpenState= false" style="box-shadow: none;">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-bold uppercase text-base text-[#000000]">
+                                Loại sản phẩm
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="space-y-3 flex flex-col">
+                            <mat-checkbox color="primary" [(ngModel)]="item1.checked" (ngModelChange)="checkboxTags(item1)"  class="{{item1.Loaitag === 1 ? '!block' : '!hidden'}}" *ngFor="let item1 of tags">
+                               <span class="whitespace-normal">{{item1.Tieude}}</span> 
+                            </mat-checkbox>
+                        </div>
+                    </mat-expansion-panel>
+                </div>
+            </mat-drawer>
+            <div class="example-sidenav-content w-full px-4 lg:px-0">
+              <div class="w-full">
+                <div class="p-2 mt-2 inline-block lg:hidden" style="background:#1c213f">
+                    <div class="flex space-x-3 space-y-1 cursor-pointer" mat-button (click)="drawer.toggle()">
+                        <span class="material-icons text-2xl text-white">menu</span>
+                        <span class="lg:text-xl text-base tracking-wide font-bold text-white uppercase">Bộ lọc tìm kiếm</span>
+                    </div>
+                </div>
+               <div class="bg-white " style="min-height: 100vh;">
+                <tazagroup-slider [danhmucs]="danhmucs"></tazagroup-slider>
+               </div>
+            </div>
+            </div>
+          </mat-drawer-container>
+    </div>
+</div>
+<!--<div class="text-white py-10 mt-10" style="background: #231f20;">
+    <div class="container">
+        <div class="font-bold text-xs grid lg:grid-cols-4 grid-cols-2 lg:gap-10 gap-5">
+            <div class="flex space-x-2 items-center">
+                <img src="https://staging-ap12-lorealsa.demandware.net/on/demandware.static/-/Sites-acd-vn-ng-Library/vi_VN/vc4f8a883b5a895238f395bd7649a966d670d6568/SIS%20SKINC/original%20%282%29.png" alt="">
+                <span class="text-xs">Đảm bảo chính hãng</span>
+            </div>
+            <div class="flex space-x-2 items-center">
+                <img src="https://staging-ap12-lorealsa.demandware.net/on/demandware.static/-/Sites-acd-vn-ng-Library/vi_VN/vc4f8a883b5a895238f395bd7649a966d670d6568/SIS%20SKINC/consulting.png" alt="">
+                <span>Tư vấn cùng chuyên gia</span>
+            </div>
+            <div class="flex space-x-2 items-center">
+                <img src="https://staging-ap12-lorealsa.demandware.net/on/demandware.static/-/Sites-acd-vn-ng-Library/vi_VN/vc4f8a883b5a895238f395bd7649a966d670d6568/SIS%20SKINC/fast%20%281%29.png" alt="">
+                <span>Giao hàng nhanh chóng</span>
+            </div>
+            <div class="flex space-x-2 items-center">
+                <img src="https://staging-ap12-lorealsa.demandware.net/on/demandware.static/-/Sites-acd-vn-ng-Library/vi_VN/vc4f8a883b5a895238f395bd7649a966d670d6568/SIS%20SKINC/discount%20%281%29.png" alt="">
+                <span>Ưu đãi độc quyền</span>
+            </div>
+        </div>
+    </div>
+</div>-->

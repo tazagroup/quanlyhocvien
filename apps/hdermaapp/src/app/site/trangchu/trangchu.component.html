@@ -1,0 +1,196 @@
+<div class="bg-white">
+  <div class="container mx-auto">
+    <swiper [config]="confighomepage" class="mySwiper">
+      <ng-template swiperSlide>
+        <div class="w-full h-full">
+          <img src="/assets/trangchu/trangchu1.jpg" alt="">
+        </div>
+      </ng-template>
+      <ng-template swiperSlide>
+        <div class="w-full h-full">
+          <img src="/assets/trangchu/trangchu1.jpg" alt="">
+        </div>
+      </ng-template>
+    </swiper>
+
+  </div>
+  <div class="lg:pt-20 pt-10 px-3 lg:px-0">
+    <div class="container mx-auto lg:flex">
+      <div class="lg:w-1/2 relative">
+        <img src="/assets/trangchu/trangchu2.jpg" class="w-[830px]" alt="" />
+        <div class="absolute left-1/2 -bottom-10" style="border: 6px solid white;">
+          <img src="/assets/trangchu/trangchu3.jpg" class="w-[671px]" alt="" />
+        </div>
+      </div>
+      <div class="lg:w-1/2 lg:p-5 flex flex-col items-center lg:space-y-5 space-y-3 pt-5 lg:pt-0 banner-hot-product">
+        <div class="relative">
+          <img src="/assets/trangchu/trangchu4.jpg" class="z-10 relative w-[338px]" alt="" />
+        </div>
+        <h3 class="text-3xl uppercase text-center font-bold">
+          Bọt rửa mặt phục hồi dịu nhẹ da H.Derma Revitalizing Cleanser
+        </h3>
+        <p class=" text-center font-medium lg:w-3/4 w-full lg:px-5 font-mt">
+          Sữa rửa mặt tạo bọt sạch sâu và phục hồi dịu nhẹ với 15% Niacinamide, 10% Vitamin B5
+        </p>
+        <div class="flex items-center pr-5">
+          <div class="flex items-center space-x-2 font-bold border-b border-black cursor-pointer">
+            <span class="text-2xl">Mua ngay</span>
+            <span class="material-icons"> east </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:pt-20 pt-10 px-3 lg:px-0" *ngIf="items?.length > 0">
+    <div class="container mx-auto space-y-10">
+      <div class="flex flex-col items-center justify-center space-y-5">
+        <h2 class="lg:text-[40px] text-3xl text-center font-bold uppercase">
+          Làn da bạn đang mong muốn điều gì?
+        </h2>
+        <p class="text-center">
+          H.Derma cung cấp giải pháp điều trị và phục hồi chuyên sâu cho từng
+          tình trạng da ở mức độ cấp tế bào.
+        </p>
+      </div>
+      <div class="lg:block hidden">
+        <swiper [config]="config" class="mySwiper">
+          <ng-template swiperSlide *ngFor="let item of items">
+            <div class="space-y-5 cursor-pointer" (click)="getTags(item)" routerLink="san-pham">
+              <img src="https://drive.google.com/uc?id={{ item.Image }}" class="w-full h-full bg-white shadow-md" alt="" />
+              <div [innerHTML]="item.Tieude" class="text-center font-thin font-mt">
+                <sup>12</sup>
+              </div>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+
+      <div class="lg:hidden block">
+        <swiper [config]="config" [pagination]="{ clickable: true }" class="mySwiper carouesl-product">
+          <ng-template swiperSlide *ngFor="let child of itemsMobile">
+            <div class="grid grid-cols-1 gap-5">
+              <div class="space-y-5 cursor-pointer" *ngFor="let item of child"  routerLink="san-pham">
+                <img src="https://drive.google.com/uc?id={{ item.Image }}" class="w-full bg-white" alt="" />
+                <div [innerHTML]="item.Tieude" class="text-center font-thin font-mt">
+                  <sup>12</sup>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </swiper>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="lg:pt-20 pt-10 px-3 lg:px-0">
+    <div class="container mx-auto lg:flex items-center lg:space-x-10 space-y-10 lg:space-y-0">
+      <div class="lg:w-1/2 w-full relative banner-hover group cursor-pointer rounded-md">
+        <img src="https://drive.google.com/uc?id=1uENY3qp0iwV1EnUxu33XHPGI5huKbSGL" alt="" class="w-full" />
+        <div class="absolute z-0 left-0 top-0 w-full h-full bg-black opacity-0 group-hover:opacity-40"></div>
+        <div class="banner-line"></div>
+      </div>
+      <div class="lg:w-1/2 w-full relative banner-hover group cursor-pointer rounded">
+        <img src="https://drive.google.com/uc?id=1xazMKBUPuzRXwulGJ2zea0G2P5tGtuoM" alt="" class="w-full" />
+        <div class="absolute z-0 left-0 top-0 w-full h-full bg-black opacity-0 group-hover:opacity-40"></div>
+        <div class="banner-line"></div>
+      </div>
+    </div>
+  </div> -->
+  <div class="pt-10 px-3 lg:px-0">
+    <div class="container mx-auto space-y-4">
+      <div class="py-4 lg:flex space-y-3 lg:space-y-0 items-center justify-between">
+        <h3 class="text-3xl font-bold uppercase">
+          Sản phẩm được yêu thích nhất
+        </h3>
+        <div>
+          <span class="lg:text-base text-sm uppercase font-bold border-b border-black">Xem Thêm</span>
+        </div>
+      </div>
+      <tazagroup-san-pham [products]="hotProduct" [data]="wishlists"></tazagroup-san-pham>
+    </div>
+  </div>
+  <div class="lg:pt-20 pt-10 px-3 lg:px-0">
+    <div class="container mx-auto space-y-10">
+      <div class="py-4 lg:flex space-y-3 lg:space-y-0 items-center justify-between">
+        <h3 class="lg:text-4xl text-2xl font-bold uppercase">Sản phẩm bán chạy nhất</h3>
+        <div>
+          <span class="lg:text-base text-sm uppercase font-bold border-b border-black">View all products</span>
+        </div>
+      </div>
+      <tazagroup-san-pham [products]="bestSeller" [data]="wishlists"></tazagroup-san-pham>
+    </div>
+  </div>
+  <div class="lg:pt-20 pt-10">
+    <div class="container mx-auto lg:flex items-center lg:space-x-20">
+      <div class="lg:w-1/2">
+        <div class="relative">
+          <img src="/assets/trangchu/matna1.jpg" class="lg:w-2/3" alt="" />
+          <div class="absolute left-[55%] top-[13%] hidden lg:block">
+            <img src="/assets/trangchu/matna2.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/2 lg:space-y-5 space-y-3 px-3 lg:px-0">
+        <h3 class="text-3xl leading-none w-full font-bold uppercase text-justify">
+          Mặt nạ tảo biển phục hồi sáng da H.Derma Algae Extract Hydrating Mask
+        </h3>
+        <p class="lg:w-[90%] w-full text-justify">
+          Với chiết xuất Laminaria Ochroleuca Extract (tảo lục) cao cấp được nhập khẩu từ Pháp kết hợp cùng thành phần
+          Niacinamide, HA, Vitamin B5, Peptide dưỡng ẩm phục hồi, giúp da săn chắc và ngăn ngừa mụn hiệu quả.
+        </p>
+        <div class="flex items-center pr-5">
+          <div class="flex items-center space-x-2 font-bold border-b border-black cursor-pointer">
+            <span>Khám phá ngay</span>
+            <span class="material-icons"> east </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg:pt-20 pt-10 px-3 lg:px-0">
+    <div class="container mx-auto space-y-10">
+      <h3 class="text-4xl text-center font-bold uppercase">Blog làm đẹp</h3>
+      <div class="grid lg:grid-cols-3 grid-cols-1 gap-5">
+        <div class="space-y-3 blog-item cursor-pointer" *ngFor="let item of data" routerLink="/bai-viet/{{item.Slug}}">
+          <div class="w-full overflow-hidden rounded-xl ">
+              <img src="https://drive.google.com/uc?id={{item.Image}}" alt="">
+          </div>
+
+          <div>
+              <div class="text-xl, !text-black font-gb underline-title text-justify three-dot w-full" [innerHTML]="item.Title">
+              </div>
+          </div>
+          <p class="text-justify lg:text-xl text-sm one-dot" [innerHTML]="item.Mota">
+          </p>
+          <div class="lg:hidden block">
+              <a class="text-sm underline">Đọc thêm</a>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-white py-7 mt-5" style="background: #231f20;">
+    <div class="container mx-auto">
+      <div class="font-bold grid lg:grid-cols-4 grid-cols-2 lg:gap-10 gap-5">
+        <div class="flex space-x-2 items-center">
+          <img src="/assets/trangchu/thanhtoanicon.png" alt="">
+          <span>Thanh toán an toàn</span>
+        </div>
+        <div class="flex space-x-2 items-center">
+          <img src="/assets/trangchu/giaohangicon.png" alt="">
+          <span>Giao hàng nhanh chóng</span>
+        </div>
+        <div class="flex space-x-2 items-center">
+          <img src="/assets/trangchu/uudaiicon.png" alt="">
+          <span>Ưu đãi độc quyền</span>
+        </div>
+        <div class="flex space-x-2 items-center">
+          <img src="/assets/trangchu/tuvanicon.png" alt="">
+          <span>Tư vấn cùng chuyên gia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

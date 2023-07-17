@@ -1,0 +1,66 @@
+
+<div class="flex flex-col w-full">
+  <div class="w-full rounded-lg flex flex-row space-x-2 p-2">
+    <div class="p-4 rounded-md bg-white shadow-md flex flex-col space-y-2">
+        <span> API Nhanh.vn</span>
+        <ng-container *ngIf="nhanhApi; else elseTemplate">
+          <div class="flex flex-row space-x-2">        
+            <span class="text-blue-500">Đã Kết Nối</span>
+            <span class="material-icons text-red-500" (click)="Disconect()">
+              power_settings_new
+              </span></div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <ng-container *ngIf="accessCode; else elseTemplate1">
+                  <div class="flex flex-col space-y-2 text-sm">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Đường Link</mat-label>
+                      <input matInput placeholder="VD: https://nhanh.vn/oauth/access_token" [(ngModel)]="apifield.url" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                  </div>
+                  <div class="flex flex-col space-y-2 text-sm">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Version</mat-label>
+                      <input matInput placeholder="VD: 2.0" [(ngModel)]="apifield.version" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                  </div>
+                  <div class="flex flex-col space-y-2 text-sm">
+                    <mat-form-field appearance="outline">
+                      <mat-label>App ID</mat-label>
+                      <input matInput placeholder="App ID" [(ngModel)]="apifield.appId" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                  </div>
+                  <div class="flex flex-col space-y-2 text-sm">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Access Code</mat-label>
+                      <input matInput placeholder="Access Code" [(ngModel)]="apifield.accessCode" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                  </div>
+                  <div class="flex flex-col space-y-2 text-sm">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Secret Key</mat-label>
+                      <input matInput placeholder="Secret Key" [(ngModel)]="apifield.secretKey" [ngModelOptions]="{standalone: true}">
+                      </mat-form-field>
+                  </div>
+                <button mat-stroked-button [color]="'primary'" (click)="getToken(apifield)">Kết Nối</button>
+          </ng-container>
+          <ng-template #elseTemplate1>
+            <a [href]="apifield.oauth" class="text-red-500">Chưa Kết Nối</a>
+          </ng-template>
+          
+        </ng-template>
+    </div>
+    <div class="p-4 rounded-md bg-white shadow-md">API Giao Hàng Tiết Kiệm</div>
+  </div>
+  <!-- <div class="flex w-full justify-center items-center p-4">
+    <div class="grid grid-cols-2 gap-4">
+        <div *ngFor="let item of MenuDashboard" class="w-80 h-80 rounded-md shadow p-4 bg-white">
+          <div class="flex flex-row justify-between">
+           <a class="text-xl" [href]="[item.Link]">{{item.Tieude}}</a>
+            <span class="material-icons text-4xl">{{item.Icon}}</span>
+          </div>
+        </div>
+    </div>
+  </div> -->
+  </div>
+  

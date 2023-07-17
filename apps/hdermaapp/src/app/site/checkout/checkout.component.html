@@ -1,0 +1,185 @@
+<div class="lg:max-w-2xl lg:mx-auto lg:px-5 md:px-10 py-10 md:my-10 px-3 bg-white rounded-xl">
+  <div class="flex flex-col space-y-3">
+      <ng-container *ngIf="!editThongtin; else elseTemplate">
+        <div class="flex flex-col w-full p-5">
+          <div class="flex flex-row justify-between">
+          <div class="text-2xl font-bold py-4">Thông Tin Giao Hàng</div>
+          <button mat-flat-button (click)="editThongtin=!editThongtin"><span class="material-icons">edit</span></button>
+        </div>
+          {{Khachhang.Hoten}} - {{Khachhang.SDT}}
+          {{Khachhang.email}} 
+          <ng-container *ngIf="Khachhang.Diachi.id!=0; else elseDiachi">
+              {{Khachhang.Diachi.Diachi+','||''}}
+              {{Khachhang.Diachi.Phuong+','||''}}
+              {{Khachhang.Diachi.Quan+','||''}}
+              {{Khachhang.Diachi.Tinh||''}}
+          </ng-container>
+          <ng-template #elseDiachi>
+              <span class="text-red-500">Chưa Có Địa Chỉ</span>
+          </ng-template>   
+
+      </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="flex flex-col w-full p-5">
+          <div class="text-2xl font-bold py-4">Thông Tin Giao Hàng</div>
+          <mat-form-field appearance="outline">
+          <mat-label>Họ và tên</mat-label>
+          <input matInput [(ngModel)]="Khachhang.Hoten" [ngModelOptions]="{standalone: true}" placeholder="Họ và tên">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+          <mat-label>Số Điện Thoại</mat-label>
+          <input matInput type="number" [(ngModel)]="Khachhang.SDT" [ngModelOptions]="{standalone: true}" placeholder="Số Điện Thoại">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="Khachhang.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+          </mat-form-field>
+         <div class="flex flex-row justify-between py-2">
+          <ng-container *ngIf="Khachhang.Diachi.id!=0; else elseDiachi">
+            <mat-radio-group [(ngModel)]="Khachhang.Diachi" class="flex flex-col space-y-3">
+              <mat-radio-button *ngFor="let option of CUser.Diachi" [value]="option">
+                {{option.Diachi+','||''}}
+                {{option.Phuong+','||''}}
+                {{option.Quan+','||''}}
+                {{option.Tinh||''}} 
+              </mat-radio-button>
+            </mat-radio-group>
+        </ng-container>
+        <ng-template #elseDiachi>
+            <span class="text-red-500">Chưa Có Địa Chỉ</span>
+        </ng-template>
+
+
+          <button mat-stroked-button [routerLink]="['diachi']">
+            <span class="material-icons">add_circle</span>
+          </button>
+        </div>
+        <router-outlet></router-outlet>
+          <mat-form-field appearance="outline">
+            <mat-label>Ghi Chú</mat-label>
+            <textarea matInput [(ngModel)]="Khachhang.Ghichu" [ngModelOptions]="{standalone: true}" placeholder="Ghi Chú"></textarea>
+          </mat-form-field>
+      </div>
+      </ng-template>
+      
+
+    <div class="w-full p-5 flex flex-col space-y-4">
+      <div class="text-2xl font-bold py-4">Đơn Hàng Của Bạn</div>
+      <div class="flex flex-row items-center justify-between space-x-4 border-b border-gray-100 last:border-b-0 p-2"
+      *ngFor="let item of carts">
+      <div class="p-4">
+        <img src="https://drive.google.com/uc?id={{ item.Image }}" class="w-16 h-16 rounded-md" />
+      </div>
+      <div class="flex flex-col space-y-2">
+        <div class="font-bold">{{ item.Tieude }}</div>
+       <div class="flex flex-row justify-between">
+        <div>{{item.cartNum}}x{{ item.Gia |number:'1.0-2'}}đ</div>
+        <div class="flex font-bold min-w-16 text-right">
+          {{ item.cartNum*item.GiaSale |number:'1.0-2'}}đ
+        </div>
+       </div>        
+
+      </div>
+
+    </div>
+    <div class="flex flex-row justify-between font-bold">
+      <div>Phí Ship</div>
+      <div>0đ</div>
+    </div>
+    <div class="flex flex-row justify-between font-bold">
+      <div>Tổng Cộng</div>
+      <div>{{Total(carts)|number:'1.0-2'}}đ</div>
+    </div>
+      <!-- <div class="pt-5">
+        <table class="w-full">
+          <thead>
+            <tr class="text-left">
+              <th class="text-purple-500 font-bold pl-2">Sản phẩm</th>
+              <th class="text-purple-500 font-bold pr-2">Giá tiền</th>
+            </tr>
+          </thead>
+          <tbody class="border border-gray-200 rounded-xl">
+            <tr
+              class="border-b border-gray-200 px-2"
+              *ngFor="let item of carts"
+            >
+              <td class="py-2 px-2 text-gray-500">
+                {{ item.Tieude }} |
+                {{ item.cartNum ? "Số lượng: " + item.cartNum : "" }}
+              </td>
+              <td class="py-2 px-2">
+                {{ item.GiaSale * item.cartNum | currency: "VND" }}
+              </td>
+            </tr>
+            <tr class="border-b border-gray-200 px-2">
+              <td class="py-2 px-2 text-purple-500 font-bold">Tiền ship</td>
+              <td class="py-2 px-2">{{ phiship | currency: "VND" }}</td>
+            </tr>
+            <tr class="border-b border-gray-200 px-2">
+              <td class="py-2 px-2 text-purple-500 font-bold">Tổng cộng</td>
+              <td class="py-2 px-2">{{ amount | currency: "VND" }}</td>
+            </tr>
+           <tr class="border-b border-gray-200 px-2">
+              <td class="py-2 px-2 text-purple-500 font-bold">Total</td>
+              <td class="py-2 px-2">{{ amount | currency: "VND" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+      <!-- <div class="pt-10 checkout">
+        <div class="border border-gray-400 rounded-xl">
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel hideToggle class="border-b border-gray-400">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="flex items-center">
+                  <mat-radio-button class="example-margin" value="after"
+                    >Personal data</mat-radio-button
+                  >
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p class="px-3 bg-gray-200 text-blue-500 text-sm rounded-xl">
+                Đơn hàng từ 999K trở lên sẽ được miễn phí vẫn chuyển, còn lại Hồ Chí Minh: 30k, tỉnh 40k
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle class="border-b border-gray-400">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="flex items-center">
+                  <mat-radio-button class="example-margin" value="after"
+                    >Check payments</mat-radio-button
+                  >
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p class="px-3 bg-gray-200 text-blue-500 text-sm rounded-xl">
+                Please send a check to Store Name, Store Street, Store Town,
+                Store State / County, Store Postcode.
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle class="border-b border-gray-400">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="flex items-center">
+                  <mat-radio-button class="example-margin" value="after"
+                    >Cash on delivery</mat-radio-button
+                  >
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p class="px-3 bg-gray-200">Pay with cash upon delivery.</p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div> -->
+    </div>
+    <div class="flex flex-row justify-center">
+      <span class="p-4 rounded-md bg-black hover:bg-gray-700 text-white"(click)="DatHang(Khachhang,dialogTemplate)">Đặt hàng</span>
+    </div>
+  </div>
+</div>
+
+<ng-template #dialogTemplate>
+  <div class="text-center">
+  <h2 mat-dialog-title class="to-blue-600">Đặt Hàng Thành Công</h2>
+  <mat-dialog-content>
+    <p>Chuyển Sang Đơn Hàng trong <span class="text-red-500">{{ countDown }} giây..</span></p>
+  </mat-dialog-content>
+</div>
+</ng-template>

@@ -1,0 +1,368 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@tazagroup/api/auth": ["libs/api/auth/src/index.ts"],
+      "@tazagroup/backend/hocvien": ["libs/backend/hocvien/src/index.ts"],
+      "@tazagroup/backend/tailieunguon": [
+        "libs/backend/tailieunguon/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao-hocvien/feature/main": [
+        "libs/daotao/baocao-hocvien/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/danhgianangluc/main": [
+        "libs/daotao/baocao/feature/danhgianangluc/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/hocvien/main": [
+        "libs/daotao/baocao/feature/hocvien/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/huyhieu/main": [
+        "libs/daotao/baocao/feature/huyhieu/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/khoahoc/main": [
+        "libs/daotao/baocao/feature/khoahoc/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/lotrinhhoc/detail": [
+        "libs/daotao/baocao/feature/lotrinhhoc/detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/lotrinhhoc/hocvien-detail": [
+        "libs/daotao/baocao/feature/lotrinhhoc/hocvien-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/lotrinhhoc/main": [
+        "libs/daotao/baocao/feature/lotrinhhoc/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/main": [
+        "libs/daotao/baocao/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/nhomhocvien/main": [
+        "libs/daotao/baocao/feature/nhomhocvien/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/tongquan/main": [
+        "libs/daotao/baocao/feature/tongquan/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/baocao/feature/tracnghiem/main": [
+        "libs/daotao/baocao/feature/tracnghiem/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/dangky-hocvien/feature/list": [
+        "libs/daotao/dangky-hocvien/feature/list/src/index.ts"
+      ],
+      "@tazagroup/daotao/dangky-hocvien/feature/main": [
+        "libs/daotao/dangky-hocvien/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/dangky-hocvien/feature/shell": [
+        "libs/daotao/dangky-hocvien/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia-hocvien/feature/khaosat/data-access": [
+        "libs/daotao/danhgia-hocvien/feature/khaosat/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia-hocvien/feature/khaosat/main": [
+        "libs/daotao/danhgia-hocvien/feature/khaosat/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia-hocvien/feature/khaosat/shell": [
+        "libs/daotao/danhgia-hocvien/feature/khaosat/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia-hocvien/feature/tracnghiem/data-access": [
+        "libs/daotao/danhgia-hocvien/feature/tracnghiem/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia-hocvien/feature/tracnghiem/main": [
+        "libs/daotao/danhgia-hocvien/feature/tracnghiem/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia-hocvien/feature/tracnghiem/shell": [
+        "libs/daotao/danhgia-hocvien/feature/tracnghiem/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/baitracnghiem/data-access": [
+        "libs/daotao/danhgia/feature/baitracnghiem/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/baitracnghiem/main": [
+        "libs/daotao/danhgia/feature/baitracnghiem/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/baitracnghiem/shell": [
+        "libs/daotao/danhgia/feature/baitracnghiem/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/baitracnghiem/taobaitracnghiem": [
+        "libs/daotao/danhgia/feature/baitracnghiem/taobaitracnghiem/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/chamdiem/data-access": [
+        "libs/daotao/danhgia/feature/chamdiem/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/chamdiem/detail": [
+        "libs/daotao/danhgia/feature/chamdiem/detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/chamdiem/main": [
+        "libs/daotao/danhgia/feature/chamdiem/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/chamdiem/shell": [
+        "libs/daotao/danhgia/feature/chamdiem/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/khaosat/data-access": [
+        "libs/daotao/danhgia/feature/khaosat/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/khaosat/main": [
+        "libs/daotao/danhgia/feature/khaosat/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/khaosat/shell": [
+        "libs/daotao/danhgia/feature/khaosat/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/khaosat/taomoi": [
+        "libs/daotao/danhgia/feature/khaosat/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/nangluc/data-access": [
+        "libs/daotao/danhgia/feature/nangluc/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/nangluc/main": [
+        "libs/daotao/danhgia/feature/nangluc/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/nangluc/shell": [
+        "libs/daotao/danhgia/feature/nangluc/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/nangluc/taomoi": [
+        "libs/daotao/danhgia/feature/nangluc/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/thuviencauhoi/data-access": [
+        "libs/daotao/danhgia/feature/thuviencauhoi/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/thuviencauhoi/main": [
+        "libs/daotao/danhgia/feature/thuviencauhoi/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/thuviencauhoi/shell": [
+        "libs/daotao/danhgia/feature/thuviencauhoi/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/danhgia/feature/thuviencauhoi/taomoi": [
+        "libs/daotao/danhgia/feature/thuviencauhoi/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/footer/feature/main": [
+        "libs/daotao/footer/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/header/feature/main": [
+        "libs/daotao/header/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/data-access": [
+        "libs/daotao/hocvien/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/feature/chietxuatdulieu": [
+        "libs/daotao/hocvien/feature/chietxuatdulieu/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/feature/main": [
+        "libs/daotao/hocvien/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/feature/nhapdulieu": [
+        "libs/daotao/hocvien/feature/nhapdulieu/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/feature/phanquyen": [
+        "libs/daotao/hocvien/feature/phanquyen/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/feature/shell": [
+        "libs/daotao/hocvien/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/hocvien/feature/taomoi": [
+        "libs/daotao/hocvien/feature/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/data-access": [
+        "libs/daotao/khoahoc/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/caidat-detail": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/caidat-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/hocvien-nhom-detail": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/hocvien-nhom-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/layout-edit": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/layout-edit/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/main": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/noidung-detail": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/noidung-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/shell": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/thongtin-detail": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/thongtin-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahoccongty/xemtruoc": [
+        "libs/daotao/khoahoc/feature/khoahoccongty/xemtruoc/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahocmorong/detail": [
+        "libs/daotao/khoahoc/feature/khoahocmorong/detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahocmorong/main": [
+        "libs/daotao/khoahoc/feature/khoahocmorong/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/khoahocmorong/shell": [
+        "libs/daotao/khoahoc/feature/khoahocmorong/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/caidat-detail": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/caidat-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/hocvien-nhom-detail": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/hocvien-nhom-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/layout-form": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/layout-form/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/main": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/noidung-detail": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/noidung-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/shell": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/taomoi": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/lotrinhhoc/thongtin-detail": [
+        "libs/daotao/khoahoc/feature/lotrinhhoc/thongtin-detail/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/thuvientailen/data-access": [
+        "libs/daotao/khoahoc/feature/thuvientailen/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/thuvientailen/main": [
+        "libs/daotao/khoahoc/feature/thuvientailen/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/thuvientailen/scorm": [
+        "libs/daotao/khoahoc/feature/thuvientailen/scorm/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/thuvientailen/shell": [
+        "libs/daotao/khoahoc/feature/thuvientailen/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/thuvientailen/taomoi": [
+        "libs/daotao/khoahoc/feature/thuvientailen/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/khoahoc/feature/thuvientailen/thungrac": [
+        "libs/daotao/khoahoc/feature/thuvientailen/thungrac/src/index.ts"
+      ],
+      "@tazagroup/daotao/nhom/data-access": [
+        "libs/daotao/nhom/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/nhom/feature/main": [
+        "libs/daotao/nhom/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/nhom/feature/shell": [
+        "libs/daotao/nhom/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/nhom/feature/taomoi": [
+        "libs/daotao/nhom/feature/taomoi/src/index.ts"
+      ],
+      "@tazagroup/daotao/student/data-access": [
+        "libs/daotao/student/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/student/feature/main": [
+        "libs/daotao/student/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/student/feature/shell": [
+        "libs/daotao/student/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/sukien/feature/data-access": [
+        "libs/daotao/sukien/feature/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/sukien/feature/main": [
+        "libs/daotao/sukien/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/sukien/feature/shell": [
+        "libs/daotao/sukien/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/vaohoc/data-access": [
+        "libs/daotao/vaohoc/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/vaohoc/feature/main": [
+        "libs/daotao/vaohoc/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/vaohoc/feature/overview": [
+        "libs/daotao/vaohoc/feature/overview/src/index.ts"
+      ],
+      "@tazagroup/daotao/vaohoc/feature/shell": [
+        "libs/daotao/vaohoc/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/vaohoc/feature/video": [
+        "libs/daotao/vaohoc/feature/video/src/index.ts"
+      ],
+      "@tazagroup/daotao/yeucaudaotao/data-access": [
+        "libs/daotao/yeucaudaotao/data-access/src/index.ts"
+      ],
+      "@tazagroup/daotao/yeucaudaotao/feature/main": [
+        "libs/daotao/yeucaudaotao/feature/main/src/index.ts"
+      ],
+      "@tazagroup/daotao/yeucaudaotao/feature/shell": [
+        "libs/daotao/yeucaudaotao/feature/shell/src/index.ts"
+      ],
+      "@tazagroup/daotao/yeucaudaotao/feature/taomoi": [
+        "libs/daotao/yeucaudaotao/feature/taomoi/src/index.ts"
+      ],
+      "@tazagroup/dtv2": ["libs/dtv2/src/index.ts"],
+      "@tazagroup/dtv2/api": ["libs/dtv2/api/src/index.ts"],
+      "@tazagroup/dtv2/shell": ["libs/dtv2/shell/src/index.ts"],
+      "@tazagroup/dtv2/shell/baihoc": ["libs/dtv2/shell/baihoc/src/index.ts"],
+      "@tazagroup/dtv2/shell/cauhoi": ["libs/dtv2/shell/cauhoi/src/index.ts"],
+      "@tazagroup/dtv2/shell/dethi": ["libs/dtv2/shell/dethi/src/index.ts"],
+      "@tazagroup/dtv2/shell/kythi": ["libs/dtv2/shell/kythi/src/index.ts"],
+      "@tazagroup/dtv2/shell/lophoc": ["libs/dtv2/shell/lophoc/src/index.ts"],
+      "@tazagroup/dtv2/shell/quytrinh": [
+        "libs/dtv2/shell/quytrinh/src/index.ts"
+      ],
+      "@tazagroup/dtv2/shell/tailieunguon": [
+        "libs/dtv2/shell/tailieunguon/src/index.ts"
+      ],
+      "@tazagroup/hderma": ["libs/hderma/src/index.ts"],
+      "@tazagroup/hdermav2/api": ["libs/hdermav2/api/src/index.ts"],
+      "@tazagroup/hdermav2/site": ["libs/hdermav2/site/src/index.ts"],
+      "@tazagroup/libhrm/site": ["libs/libhrm/site/src/index.ts"],
+      "@tazagroup/libwheel/api": ["libs/libwheel/api/src/index.ts"],
+      "@tazagroup/libwheel/site": ["libs/libwheel/site/src/index.ts"],
+      "@tazagroup/models": ["libs/models/src/index.ts"],
+      "@tazagroup/my-lib": ["libs/my-lib/src/index.ts"],
+      "@tazagroup/products": ["libs/products/src/index.ts"],
+      "@tazagroup/products/tailieunguon": [
+        "libs/products/tailieunguon/src/index.ts"
+      ],
+      "@tazagroup/shared": ["libs/shared/src/index.ts"],
+      "@tazagroup/shared/api": ["libs/shared/api/src/index.ts"],
+      "@tazagroup/shared/api/auth": ["libs/shared/api/auth/src/index.ts"],
+      "@tazagroup/shared/api/upload": ["libs/shared/api/upload/src/index.ts"],
+      "@tazagroup/shared/datatype": ["libs/shared/datatype/src/index.ts"],
+      "@tazagroup/shared/environments": [
+        "libs/shared/environments/src/index.ts"
+      ],
+      "@tazagroup/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@tazagroup/sharing": ["libs/sharing/src/index.ts"],
+      "@tazagroup/sharing/auth": ["libs/sharing/auth/src/index.ts"],
+      "@tazagroup/sharing/auth/dangky": [
+        "libs/sharing/auth/dangky/src/index.ts"
+      ],
+      "@tazagroup/sharing/auth/dangnhap": [
+        "libs/sharing/auth/dangnhap/src/index.ts"
+      ],
+      "@tazagroup/timona/admin": ["libs/timona/admin/src/index.ts"],
+      "@tazagroup/timona/api": ["libs/timona/api/src/index.ts"],
+      "@tazagroup/timona/site": ["libs/timona/site/src/index.ts"],
+      "@tazagroup/ui": ["libs/ui/src/index.ts"],
+      "@tazagroup/vttech": ["libs/vttech/src/index.ts"],
+      "@tazagroup/vttech/khachhang/feature": [
+        "libs/vttech/khachhang/feature/src/index.ts"
+      ],
+      "@tazagroup/vttech/shell/feature": [
+        "libs/vttech/shell/feature/src/index.ts"
+      ],
+      "@tazagroup/vttechapi/core/feature": [
+        "libs/vttechapi/core/feature/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

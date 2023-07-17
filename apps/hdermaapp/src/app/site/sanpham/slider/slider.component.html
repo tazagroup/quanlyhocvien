@@ -1,0 +1,108 @@
+<div *ngIf="tagsFilter.length === 0">
+    <div class="lg:pl-10 pl-0 pt-5" *ngFor="let danhmuc of danhmucs">
+        <h1 class="text-3xl font-bold uppercase">{{danhmuc.Title}}</h1>
+        <div class="w-full h-px bg-black my-2"></div>
+        <div class="flex lg:flex-row flex-col pt-5 lg:space-x-5 space-x-0">
+            <div class="lg:w-1/2 w-full">
+                <img class="lg:block hidden w-full" src="https://drive.google.com/uc?id={{danhmuc.Image}}" alt="">
+                <img class="lg:hidden block w-full" src="https://drive.google.com/uc?id={{danhmuc.Image}}" alt="">
+            </div>
+            <div class="lg:w-1/2 w-full">
+                <div class="relative">
+                    <swiper [config]="configProduct1" class="lg:mt-0 mt-5">
+                        <ng-template swiperSlide *ngFor="let item of danhmuc.Products">
+                            <div class="space-y-3 cursor-pointer" routerLink="/chi-tiet/{{item.Slug}}">
+                                <div class="relative group w-full h-full"> 
+                                    <img class="group-hover:hidden block overflow-hidden" src="https://drive.google.com/uc?id={{item.Image}}" alt="">
+                                    <img class="group-hover:block hidden overflow-hidden" src="https://drive.google.com/uc?id={{item.Image1}}" alt="">
+                                </div>    
+                                <div class="content">
+                                    <h3 class="tieude font-bold text-justify" title="{{item.Tieude}}">{{item.Tieude}}</h3>
+                                    <p class="text-justify mota !text-[#000000] mt-1" [innerHTML]="item.Mota"></p>
+                                </div> 
+                                <div class="flex items-center justify-center space-x-2">
+                                    <span class="font-bold text-sm"> {{item.GiaSale | currency: "VND"}} </span>
+                                    <span class="w-2 h-px bg-black {{item.GiaSale === item.Gia ? '!hidden' : '!block'}}"></span>
+                                    <span class="font-bold text-sm {{item.GiaSale === item.Gia ? '!hidden' : '!block'}}"> {{item.Gia | currency: "VND"}} </span>
+                                </div>
+                                <p *ngIf="item.Trangthai === 0" class="uppercase text-xs text-center p-2 bg-black text-white border hover:text-black hover:bg-white">THÊM VÀO GIỎ HÀNG</p>
+                                <p *ngIf="item.Trangthai !== 0" class="uppercase text-xs text-center p-2 sold-out">HẾT HÀNG</p>     
+                            </div>
+                        </ng-template>
+                    </swiper>
+                    <div >
+                        <div class="button-slide">
+                            <div class="absolute left-[-25px] z-10 top-1/2 centerY-img">
+                                <span
+                                    class="material-icons p-1 rounded-full cursor-pointer"
+                                    (click)="slidePrev()">
+                                    chevron_left
+                                </span>
+                            </div>
+                            <div class="absolute right-[-10px] z-10 top-1/2 centerY-img">
+                                <span
+                                    class="material-icons p-1 rounded-ful cursor-pointer"
+                                    (click)="slideNext()">
+                                    chevron_right
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="tagsFilter.length > 0">
+    <div class="lg:pl-10 pl-0 pt-5" *ngFor="let item1 of tagsFilter">
+        <h1 class="text-3xl font-bold">{{item1.Tieude}}</h1>
+        <div class="w-full h-px bg-black my-2"></div>
+        <div class="flex lg:flex-row flex-col pt-5 lg:space-x-5 space-x-0">
+           
+            <div class=" w-full">
+                <div class="relative" *ngIf="item1.Products.length >0 ">
+                    <swiper [config]="configProduct2" class="lg:mt-0 mt-5">
+                        <ng-template swiperSlide *ngFor="let item of item1.Products">
+                            <div class="space-y-3 cursor-pointer" routerLink="/chi-tiet/{{item.Slug}}">
+                                <div class="relative group w-full h-full"> 
+                                    <img class="group-hover:hidden block overflow-hidden" src="https://drive.google.com/uc?id={{item.Image}}" alt="">
+                                    <img class="group-hover:block hidden overflow-hidden" src="https://drive.google.com/uc?id={{item.Image1}}" alt="">
+                                </div>    
+                                <div class="content">
+                                    <h3 class="tieude font-bold" title="{{item.Tieude}}">{{item.Tieude}}</h3>
+                                    <p class="text-justify mota !text-[#000000]" [innerHTML]="item.Mota"></p>
+                                </div> 
+                                <div class="flex items-center justify-center space-x-2">
+                                    <span class="font-bold"> {{item.GiaSale | currency: "VND"}} </span>
+                                    <span class="w-2 h-px bg-black {{item.GiaSale === item.Gia ? '!hidden' : '!block'}}"> </span>
+                                    <span class="font-bold {{item.GiaSale === item.Gia ? '!hidden' : '!block'}}"> {{item.Gia | currency: "VND"}} </span>
+                                </div>
+                                <p *ngIf="item.Trangthai === 0" class="uppercase text-xs text-center p-2 bg-black text-white border hover:text-black hover:bg-white">THÊM VÀO GIỎ HÀNG</p>
+                                <p *ngIf="item.Trangthai !== 0" class="uppercase text-xs text-center p-2 sold-out">HẾT HÀNG</p>     
+                            </div>
+                        </ng-template>
+                    </swiper>
+                    <div >
+                        <div class="button-slide">
+                            <div class="absolute left-[-25px] z-10 top-1/2 centerY-img">
+                                <span
+                                    class="material-icons p-1 rounded-full cursor-pointer"
+                                    (click)="slidePrev()">
+                                    chevron_left
+                                </span>
+                            </div>
+                            <div class="absolute right-[-10px] z-10 top-1/2 centerY-img">
+                                <span
+                                    class="material-icons p-1 rounded-ful cursor-pointer"
+                                    (click)="slideNext()">
+                                    chevron_right
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

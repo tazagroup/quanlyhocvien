@@ -1,0 +1,125 @@
+<div class="flex md:flex-row md:space-x-2 flex-col w-full">
+  <div class="w-full p-4">
+    <p class="text-2xl text-blue-500 font-bold">Thông tin tài khoản</p>
+    <div class="flex flex-col space-y-3 pt-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Số Điện Thoại</mat-label>
+        <input matInput [(ngModel)]="user.SDT" [ngModelOptions]="{standalone: true}" placeholder="Số Điện Thoại">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Họ Tên</mat-label>
+        <input matInput [(ngModel)]="user.Hoten" [ngModelOptions]="{standalone: true}" placeholder="Họ Tên">
+      </mat-form-field>
+      <div class="flex flex-row justify-between w-full py-y">
+        <ng-container *ngIf="user.Diachi.length>0; else elseTemplate">
+          <div class="flex flex-col space-y-3">
+            <div class="flex flex-row space-x-2 items-center" *ngFor="let item of user.Diachi">
+              <button mat-icon-button (click)="OpenDelete(item,dialogTemplate)">
+                <span class="material-icons text-red-500">delete</span>
+              </button>
+              <span>{{item.Diachi+','||''}}{{item.Phuong}}, {{item.Quan}}, {{item.Tinh}}</span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          Chưa Có Địa Chỉ
+        </ng-template>
+        <div>
+         <button mat-stroked-button [routerLink]="['diachi']">
+          <span class="material-icons">
+          add_circle
+          </span>
+        </button>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+   
+      <!-- <mat-accordion class="example-headers-align py-3">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+             <div>Thêm Địa Chỉ</div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Tên Đường, Số Nhà, Toà Nhà</mat-label>
+              <input matInput placeholder="Tên Đường, Số Nhà, Toà Nhà" [(ngModel)]="ChosenDiachi" />
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Tỉnh/Thành Phố</mat-label>
+              <input type="text" matInput placeholder="Tỉnh/Thành Phố" [(ngModel)]="ChosenTinh"
+                (ngModelChange)="onTinhChange($event)" [matAutocomplete]="autoTinh">
+              <mat-autocomplete #autoTinh="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filterTinh" [value]="option">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Quận/Huyện</mat-label>
+              <input type="text" matInput placeholder="Quận/Huyện" [(ngModel)]="ChosenQuan"
+                (ngModelChange)="onQuanChange($event)" [matAutocomplete]="autoQuan">
+              <mat-autocomplete #autoQuan="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filterQuan" [value]="option">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Phường/Xã</mat-label>
+              <input type="text" matInput placeholder="Phường/Xã" [(ngModel)]="ChosenPhuong"
+                (ngModelChange)="onPhuongChange($event)" [matAutocomplete]="autoPhuong">
+              <mat-autocomplete #autoPhuong="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filterPhuong" [value]="option">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <button mat-raised-button (click)="ThemDiachi()">Thêm Mới</button>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion> -->
+      <div>
+        <button mat-raised-button color="primary" (click)="UpdateProfile(user)">Cập Nhật</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="w-full p-4">
+    <p class="text-2xl text-blue-500 font-bold">Thay đổi password</p>
+    <div class="flex flex-col pt-4">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Mật Khẩu Cũ</mat-label>
+        <input matInput type="password" autocomplete="current-password" [(ngModel)]="Data.oldpass"
+          [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Mật Khẩu Mới</mat-label>
+        <input matInput type="password" autocomplete="new-password" [(ngModel)]="Data.newpass"
+          [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nhập Lại Mật Khẩu Mới</mat-label>
+        <input matInput type="password" autocomplete="new-password" [(ngModel)]="Data.newpass2"
+          [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" (click)="ChangePass(Data)">Cập Nhật</button>
+      </div>
+    </div>
+  </div> -->
+</div>
+<ng-template #dialogTemplate>
+  <div mat-dialog-title>Xoá Địa Chỉ</div>
+  <div mat-dialog-content>
+    Bạn Có Chắc Chắn Muốn Xoá Địa Chỉ Này
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="warn" mat-dialog-close="false">Huỷ</button>
+    <button mat-button color="primary" mat-dialog-close="true">Đồng Ý</button>
+  </div>
+</ng-template>

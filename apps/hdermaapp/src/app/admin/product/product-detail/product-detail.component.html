@@ -1,0 +1,146 @@
+<form action="">
+    <div class="flex flex-col space-y-4 px-2">
+        <mat-form-field class="example-full-width hidden">
+            <mat-label>Mã sản phẩm</mat-label>
+            <input matInput placeholder="Mã sản phẩm" [(ngModel)]="product.SKU" [ngModelOptions]="{standalone: true}"
+                value="">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Danh mục</mat-label>
+            <mat-select [(ngModel)]="product.idDM" [ngModelOptions]="{standalone: true}">
+                <mat-option value="{{item.id}}" *ngFor="let item of danhmucs">{{item.Title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Tên sản phẩm</mat-label>
+            <input matInput placeholder="Tên sản phẩm" [(ngModel)]="product.Tieude"
+                [ngModelOptions]="{standalone: true}" value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <p>Mô tả</p>
+            <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Mota" [ngModelOptions]="{standalone: true}"
+                [init]="configTiny"></editor>
+            <textarea hidden matInput [(ngModel)]="product.Mota" [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Slug</mat-label>
+            <input matInput placeholder="Slug" [(ngModel)]="product.Slug" [ngModelOptions]="{standalone: true}"
+                value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Thương hiệu</mat-label>
+            <input matInput placeholder="Thương hiệu" [(ngModel)]="product.Thuonghieu"
+                [ngModelOptions]="{standalone: true}" value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Trạng thái</mat-label>
+            <input matInput placeholder="Trạng thái" [(ngModel)]="product.Trangthai"
+                [ngModelOptions]="{standalone: true}" value="">
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width">
+            <mat-label>Tình Trạng</mat-label>
+            <input matInput placeholder="Tình Trạng" [(ngModel)]="product.Tinhtrang"
+                [ngModelOptions]="{standalone: true}" value="">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Sản phẩm nổi bật</mat-label>
+            <mat-select [(ngModel)]="product.Noibat" [ngModelOptions]="{standalone: true}" multiple>
+                <mat-option value=0>Sản phẩm yêu thích nhất</mat-option>
+                <mat-option value=1>Sản phẩm bán chạy</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Giá sản phẩm</mat-label>
+            <input matInput placeholder="Giá sản phẩm" [(ngModel)]="product.Gia" [ngModelOptions]="{standalone: true}"
+                value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Giá Sale</mat-label>
+            <input matInput placeholder="Giá Sale" [(ngModel)]="product.GiaSale" [ngModelOptions]="{standalone: true}"
+                value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <p>Thành phần nổi bật</p>
+            <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Thannhphannoibat" [ngModelOptions]="{standalone: true}"
+                [init]="configTiny"></editor>
+            <textarea hidden matInput [(ngModel)]="product.Thannhphannoibat"
+                [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <p>Thành phần chi tiết</p>
+            <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Thannhphanchitiet" [ngModelOptions]="{standalone: true}"
+                [init]="configTiny"></editor>
+            <textarea hidden matInput [(ngModel)]="product.Thannhphanchitiet"
+                [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <p>Hướng dẫn</p>
+            <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Huongdan" [ngModelOptions]="{standalone: true}"
+                [init]="configTiny"></editor>
+            <textarea matInput hidden [(ngModel)]="product.Huongdan" [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <p>Loại da phù hợp</p>
+            <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Loaidaphuhop" [ngModelOptions]="{standalone: true}"
+                [init]="configTiny"></editor>
+            <textarea matInput hidden [(ngModel)]="product.Loaidaphuhop"
+                [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Tình trạng da</mat-label>
+            <mat-select [(ngModel)]="tagsTinhtrangData" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn"
+                (ngModelChange)="selectTags()" multiple>
+                <mat-option [value]="item" *ngFor="let item of tinhtrangdas">{{item.Tieude}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Loại sản phẩm</mat-label>
+            <mat-select [(ngModel)]="tagsLoaiSpData" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn"
+                (ngModelChange)="selectTags()" multiple>
+                <mat-option [value]="item" *ngFor="let item of loaisanphams">{{item.Tieude}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <label for="" class="font-bold">Content Image</label>
+        <input (change)="onFileBrowse($event, 3)" type="file" accept="image/*">
+        <img src="https://drive.google.com/uc?id={{product.ContentImage}}" alt="">
+
+        <label for="" class="font-bold">Hình cách sử dụng</label>
+        <input (change)="onFileBrowse($event, 4)" type="file" accept="image/*">
+        <img src="https://drive.google.com/uc?id={{product.Imagecachsudung}}" alt="">
+
+        <label for="" class="font-bold">Hình Thumbnail</label>
+        <input (change)="onFileBrowse($event, 1)" type="file" accept="image/*">
+        <img src="https://drive.google.com/uc?id={{product.Image}}" alt="">
+
+        <label for="" class="font-bold">Hình 2</label>
+        <input (change)="onFileBrowse($event, 2)" type="file" accept="image/*">
+        <img src="https://drive.google.com/uc?id={{product.Image1}}" alt="">
+
+        <div class="flex flex-col space-y-3">
+            <label class="font-bold">Danh sách hình</label>
+            <input type="file" class="text-nowrap text-truncate" (change)="selectFile($event)" multiple />
+            <button class="w-1/2 border-2 border-blue-500 p-2 bg-blue-500 text-white"
+                [ngClass]="{ '': !selectedFiles, 'hover:bg-white hover:text-blue-500': selectedFiles }"
+                [disabled]="!selectedFiles" (click)="uploadListImage()">
+                Upload File Hình
+            </button>
+            <div class="grid grid-cols-2 gap-5">
+                <div class="relative" *ngFor="let item of product.ListImage | keyvalue">
+                    <img src="https://drive.google.com/uc?id={{item.value}}" alt="">
+                    <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+                        (click)="removeImage(item.key)">
+                        cancel
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center">
+            <span class="px-3 py-1 text-white rounded bg-green-500 cursor-pointer" *ngIf="!slug"
+                (click)="onSubmit()">Tạo mới</span>
+            <span class="px-3 py-1 text-white rounded bg-blue-500 cursor-pointer" *ngIf="slug"
+                (click)="updateSanpham()">Cập nhật</span>
+        </div>
+    </div>
+</form>

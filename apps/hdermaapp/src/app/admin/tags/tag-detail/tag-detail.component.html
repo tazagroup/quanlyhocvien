@@ -1,0 +1,98 @@
+<div class="!flex flex-col flex-auto min-w-0 relative bg-white">
+    <div class="relative border-b-2 flex flex-row justify-between items-center p-3">
+        <div></div>
+        <div class="text-xl">{{tag.Tieude}}</div>
+        <div>
+            <div class="flex items-center w-full">
+                <span class="px-3 py-1 text-white rounded bg-green-500 cursor-pointer" *ngIf="!id"
+                    (click)="onSubmit()">Tạo
+                    mới</span>
+                <span class="px-3 py-1 text-white rounded bg-blue-500 cursor-pointer" *ngIf="id"
+                    (click)="updateTag()">Cập
+                    nhật</span>
+            </div>
+        </div>
+    </div>
+    <div class="relative h-full w-full overflow-auto flex flex-row space-x-2 justify-between p-4">
+        <div class="w-1/2">
+            <div class="flex flex-col space-y-2 p-4 shadow">
+                <div class="font-bold text-center">Content Image</div>
+                <div
+                    class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                    <span
+                        class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Cloud</span>
+                    <img src="https://drive.google.com/uc?id={{tag.Image}}">
+                </div>
+                <ng-container *ngIf="tag.Image; else elseTemplate">
+                    <div class="relative">
+                        <div
+                            class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                            <span
+                                class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Server</span>
+                            <ng-container *ngIf="tag.Hinhanh.spath!='' ; else elseTemplate">
+                                <img src="{{tag.Hinhanh.spath}}">
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <img src="https://drive.google.com/uc?id={{tag.Hinhanh.idDrive}}">
+                            </ng-template>
+                            <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+                                (click)="removeSimpleImage('ContentImage')">
+                                cancel
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <div class="text-center">
+                        <img src="/assets/image/logo.png" class="m-auto w-32" />
+                        <div>Chưa có hình ảnh</div>
+                    </div>
+                </ng-template>
+                <div class="space-y-3 text-center">
+                    <div class="flex flex-row space-x-3 justify-between text-sm">
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-label>Alt Hình</mat-label>
+                            <input matInput #altInput1 placeholder="Alt Hình" class="w-full">
+                        </mat-form-field>
+                        <div>
+                            <button mat-raised-button color="primary" (click)="fileInput1.click()">
+                                <span>Upload</span>
+                                <input #fileInput1 (change)="Uploadfile($event,'',altInput1.value)" type="file"
+                                    accept="image/*" class="hidden">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2 text-sm w-full">
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Tiêu đề</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Tẩy trang" [(ngModel)]="tag.Tieude"
+                    [ngModelOptions]="{standalone: true}" />
+            </mat-form-field>
+            <div class="flex flex-row space-x-3">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Loại Tags</mat-label>
+                    <mat-select [(ngModel)]="tag.Loaitag" [ngModelOptions]="{standalone: true}">
+                        <mat-option value=0>Tình trạng da</mat-option>
+                        <mat-option value=1>Loại sản phẩm</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <div class="flex flex-col text-center min-w-[100px] p-2 hover:bg-gray-200">
+                        <span class="material-icons">add_circle</span>
+                        <span class="text-sm">Thêm Mới</span>
+                    </div>
+                </div>
+            </div>
+            <mat-form-field appearance="outline" class="flex w-full">
+                <mat-label> Ordering</mat-label>
+                <input matInput type="text" class="w-full text-xs" placeholder="Ordering" [(ngModel)]="tag.Ordering"
+                    [ngModelOptions]="{standalone: true}" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>

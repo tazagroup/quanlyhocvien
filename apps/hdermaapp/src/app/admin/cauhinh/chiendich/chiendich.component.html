@@ -1,0 +1,211 @@
+<mat-drawer-container class="example-container w-full h-full" autosize>
+  <mat-drawer #drawer mode="side" class="!flex flex-col flex-auto min-w-0 relative h-full lg:w-2/3 w-full"
+    position="end">
+    <div class="relative flex flex-col h-full w-full overflow-auto">
+      <span class="material-icons p-3 hover:bg-gray-200 rounded-full absolute" (click)="drawer.toggle()">
+        arrow_back
+      </span>
+      <div class="flex flex-col w-full space-y-2 bg-white p-4">
+        <div class="text-center font-bold text-xl">{{Chiendich.TenCD||"Thêm Mới"}}</div>
+        <div class="flex flex-col space-y-2  p-3 justify-between">
+          <div class="flex flex-col space-y-3">
+            <div class="flex flex-row space-x-2 justify-between">
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Tên Chiến Dịch</mat-label>
+                <input matInput placeholder="VD: Vàng" [(ngModel)]="Chiendich.TenCD">
+              </mat-form-field>
+
+              <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Loại Chiến Dịch</mat-label>
+                <input type="text" matInput placeholder="Chọn Sản Phẩm" [(ngModel)]="Chiendich.Loai"
+                  (ngModelChange)="onLoaiChange($event)" [matAutocomplete]="autoLoai">
+                <mat-autocomplete #autoLoai="matAutocomplete" [displayWith]="displayFn" (blur)="onBlur()">
+                  <mat-option *ngFor="let option of filterLoai" [value]="option">
+                    {{ option.Tieude }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Deadline</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Bắt Đầu" [(ngModel)]="Chiendich.Deadline.Batdau">
+                  <input matEndDate placeholder="Kết Thúc" [(ngModel)]="Chiendich.Deadline.Ketthuc">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+
+            </div>
+            <div class="flex flex-row space-x-2 justify-between">
+             
+             
+             <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Sản Phẩm</mat-label>
+                <input type="text" matInput placeholder="Chọn Sản Phẩm" [(ngModel)]="Chiendich.Sanpham"
+                  (ngModelChange)="onValueChange($event)" [matAutocomplete]="autoSP">
+                <mat-autocomplete #autoSP="matAutocomplete" [displayWith]="displayFn" (blur)="onBlur()">
+                  <mat-option *ngFor="let option of filteredSanphams" [value]="option">
+                    {{ option.Tieude }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="w-20">
+                <mat-label>Số Lượng</mat-label>
+                <input matInput type="number" placeholder="VD: Vàng" [(ngModel)]="Chiendich.Soluong">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="w-40">
+                <mat-label>Doanh Thu</mat-label>
+                <input matInput type="number" placeholder="VD: Vàng" [(ngModel)]="Chiendich.DoanhThu">
+                  <mat-hint><span class="ml-2 text-red-500" *ngIf="Chiendich.DoanhThu">{{Chiendich.DoanhThu|number:'1.0-2'}}đ</span></mat-hint>
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Nội Dung Chiến Dịch</mat-label>
+              <textarea matInput placeholder="Placeholder" [(ngModel)]="Chiendich.Noidung"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="grid grid-cols-7 gap-3">
+            <div class="flex flex-col space-y-3 items-center justify-between" *ngFor="let item of Hoahongs; let i=index">              
+                <div>{{item.capbac}}</div>
+                <div><span class="text-red-500">({{Chiendich.ListActive[i]}}%)</span> - <span>({{Chiendich.ListMax[i]}}%)</span></div>
+              <mat-form-field appearance="outline" class="!w-full">
+                <mat-label>Điểm Đạt Được</mat-label>
+                <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.ListDiem[i]"
+                  (input)="CheckListDiem(i,$event)">
+                <span matSuffix>%</span>
+                <mat-hint class="text-blue-500"
+                  *ngIf="Chiendich.ListDiem[i]">{{Chiendich.DoanhThu*Chiendich.ListDiem[i]/100|number:'1.0-2'}}đ</mat-hint>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="!w-full">
+                <mat-label>Giá Trị Quà</mat-label>
+                <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.ListGiatriqua[i]"
+                  (input)="CheckListGiatriqua(i,$event)">
+                <span matSuffix>%</span>
+                <mat-hint class="text-blue-500"
+                  *ngIf="Chiendich.ListGiatriqua[i]">{{Chiendich.DoanhThu*Chiendich.ListGiatriqua[i]/100|number:'1.0-2'}}đ</mat-hint>
+              </mat-form-field>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row space-x-2 justify-center">
+          <ng-container *ngIf="!Chiendich.id; else elseTemplate">
+            <button mat-raised-button color="basic" class="bg-blue-500 text-white hover:shadow-md" *ngIf="Chiendich"
+              (click)="CreateChiendich(Chiendich)">Thêm</button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <button mat-raised-button class="bg-green-500 text-white hover:shadow-md" color="basic" *ngIf="Chiendich"
+              (click)="UpdateChiendich(Chiendich)">Cập Nhật</button>
+            <button mat-raised-button class="bg-red-500 text-white hover:shadow-md" color="basic" *ngIf="Chiendich"
+              (click)="DeleteChiendich(Chiendich)">Xoá</button>
+          </ng-template>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative bg-white !h-[100vh]">
+    <div class="relative border-b-2 flex flex-col">
+      <div class="flex flex-row">
+        <div class="px-3">
+          <div class="flex flex-row space-x-3 py-3 items-center min-h-[50px] justify-between">
+            <div class="flex rounded-md border-2 border-slate-100 w-full">
+              <input id="user" type="text"
+                class="block w-full py-4 px-2 first-letter:w-full bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder="Tìm Kiếm" (keyup)="applyFilter($event)" />
+              <div class="inline-flex items-center px-3">
+                <span class="material-icons">search</span>
+              </div>
+            </div>
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tùy Chỉnh">
+              tune
+            </span>
+            <!-- <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Lấy Mẫu" *ngIf="Phanquyen|checkquyen:'CHTG-EX':'CanView'">
+              file_download
+            </span> -->
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Upload File">
+              file_upload
+            </span>
+            <!-- <span [routerLink]="['datcauhoi']" class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tạo mới" *ngIf="Phanquyen|checkquyen:'CHTG-AD':'CanView'">
+              add_circle
+            </span> -->
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tạo mới"
+              (click)="drawer.open();Chiendich = ChiendichInit">
+              add_circle
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative flex flex-col h-full w-full overflow-auto">
+     <!-- <div class="flex flex-col space-y-4 p-4">
+      <div class="flex flex-col space-y-4 shadow p-4" *ngFor="let item of ListChiendich" (click)="Chiendich=item;drawer.open()">
+        <div class="grid grid-cols-3 gap-4">
+          <div class="relative border border-gray-200 rounded-lg">
+            <span class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 absolute -translate-y-1/2 -translate-x-1/2 right-auto top-0 left-10">Tên Chiến Dịch</span>
+            <div class="p-3"> {{item.TenCD}}</div>
+          </div>
+          <div class="relative border border-gray-200 rounded-lg">
+            <span class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 absolute -translate-y-1/2 -translate-x-1/2 right-auto top-0 left-10">Nội Dung</span>
+            <div class="p-3"> {{item.Noidung}}</div>
+          </div>
+          <div class="relative border border-gray-200 rounded-lg">
+            <span class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 absolute -translate-y-1/2 -translate-x-1/2 right-auto top-0 left-10">Deadline</span>
+            <div class="p-3"> {{item.Deadline.Batdau|date:'dd/MM/yyyy'}}-{{item.Deadline.Ketthuc|date:'dd/MM/yyyy'}}</div>
+          </div>
+          <div class="relative border border-gray-200 rounded-lg">
+            <span class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 absolute -translate-y-1/2 -translate-x-1/2 right-auto top-0 left-10">Sản Phẩm</span>
+            <div class="p-3"> {{item.Sanpham.Tieude}}</div>
+          </div>
+          <div class="relative border border-gray-200 rounded-lg">
+            <span class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 absolute -translate-y-1/2 -translate-x-1/2 right-auto top-0 left-10">Số Lượng</span>
+            <div class="p-3"> {{item.Soluong}}</div>
+          </div>
+          <div class="relative border border-gray-200 rounded-lg">
+            <span class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 absolute -translate-y-1/2 -translate-x-1/2 right-auto top-0 left-10">Doanh Thu</span>
+            <div class="p-3"> {{item.DoanhThu|number:'1.0-2'}}đ</div>
+          </div>
+        </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col w-full justify-between px-4" *ngFor="let hh of Hoahongs; let i=index">
+            <span>{{hh.capbac}}</span>
+            <span>({{item.ListDiem[i]}}%) - {{item.ListDiem[i]*item.DoanhThu/100|number:'1.0-2'}}đ</span>
+            <span>({{item.ListGiatriqua[i]}}%) - {{item.ListGiatriqua[i]*item.DoanhThu/100|number:'1.0-2'}}đ</span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+      <div class="mat-elevation-z8">
+        <table class="w-full" mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="TenCD">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên Chiến Dịch</th>
+            <td mat-cell *matCellDef="let row"> {{row.TenCD}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Doanhthu">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Doanh Thu</th>
+            <td mat-cell *matCellDef="let row"> {{row.DoanhThu|number:'1.0-2'}}đ</td>
+          </ng-container>
+          <ng-container matColumnDef="Noidung">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nội Dung</th>
+            <td mat-cell *matCellDef="let row"> {{row.Noidung}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Deadline">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nội Dung</th>
+            <td mat-cell *matCellDef="let row"> {{row.Deadline.Batdau|date:'dd/MM/yyyy'}} - {{row.Deadline.Ketthuc|date:'dd/MM/yyyy'}}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Chiendich=row;drawer.open()"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter </td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

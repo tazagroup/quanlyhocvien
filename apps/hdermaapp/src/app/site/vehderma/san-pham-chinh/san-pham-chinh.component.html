@@ -1,0 +1,53 @@
+<div class="container mx-auto space-y-3 mt-10">
+    <!--<h3 data-aos="fade-up" data-aos-duration="2000" class="text-4xl mt-[20px]
+        text-center font-bold">
+        H.Derma
+        </h3>-->
+        <h3 data-aos="fade-up" data-aos-duration="2000" class="text-4xl mt-[20px] text-center font-bold uppercase">
+            Các dòng sản phẩm nổi bật
+        </h3>
+        <p data-aos="fade-up" data-aos-duration="2000" class="text-center">
+            H.Derma cung cấp dưỡng chất giúp điều trị và phục hồi da từ cấp độ tế bào
+        </p>
+    <div class="lg:hidden block">
+        <swiper [config]="confighomepage" [pagination]="{ clickable: true }" class="mySwiper carouesl-product-main">
+            <ng-template swiperSlide *ngFor="let item1 of product">
+                <div class="swiper-slide" style="background: #f4fafe;">
+                    <div class="space-y-5 mx-5">
+                        <div class="w-full lg:pt-10 pt-5">
+                            <div class="des">
+                                <h3 class="mt-10 lg:text-2xl text-xl uppercase font-bold">{{item1.name}}</h3>
+                            </div>
+                            <div class="content">
+                                <p class="text-justify" [innerHTML]="item1.description">
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <img src="{{item1.image}}" alt="" class="w-full">
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </swiper>
+    </div>
+</div>
+<div class="lg:block hidden">
+    <div class="pt-10" *ngFor="let item of product">
+        <div class="space-y-5 relative">
+            <div class="flex container items-center justify-center mx-auto !p-0 {{item.id % 2 === 1 ? 'product-01' : 'product-02 flex-row-reverse'}}">
+                <div class="w-1/3 {{item.id % 2 === 1 ? 'mr-10' : 'ml-10'}}">
+                    <div data-aos="fade-up" data-aos-duration="2000" class="w-[90%]">
+                        <h3 class=" text-3xl uppercase font-bold">{{item.name}}</h3>
+                        <div class="h-px w-[20%] my-5 bg-black"></div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-duration="3000">
+                        <p class="text-justify" [innerHTML]="item.description"></p>
+                    </div>
+                </div>
+                <div class="w-1/3" data-aos="fade-up" data-aos-duration="2000">
+                    <img src="{{item.image}}" alt="" class="w-full h-full">
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

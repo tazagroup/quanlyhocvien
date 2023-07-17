@@ -1,0 +1,115 @@
+<!-- <div class="flex flex-col flex-auto min-w-0 relative h-[100vh]">
+<div class="relative flex flex-row h-full">
+  <div class="w-28 h-full shadow">
+    <div class="m-auto p-4" routerLink="/admin">
+      <img class="mx-auto w-48" src="/assets/image/logo.png" alt="logo" />
+    </div>
+    <div class="h-full overflow-auto pb-5">
+      <div class="flex flex-col items-center justify-center cursor-pointer p-3" routerLink="{{ item.Link }}"
+        routerLinkActive="menu-active" *ngFor="let item of menu">
+        <span class="material-icons"> widgets </span>
+        <span class="text-sm">
+          {{ item.Title }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="w-full h-full pl-28">
+    <router-outlet></router-outlet>
+  </div>
+  </div>
+<div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+    <span class="font-medium text-secondary">Taza Group © 2022</span>
+  </div>
+</div> -->
+
+
+<mat-drawer-container class="example-container flex h-[100vh]" autosize>
+  <mat-drawer #drawer mode="side" opened class="h-full">
+    <div class="flex flex-col h-full shadow w-28">
+        <div class="m-auto p-4" routerLink="/admin">
+          <img class="mx-auto w-20" src="/assets/image/logo.png" alt="logo" />
+        </div>
+        <mat-divider></mat-divider>
+        <div class="h-full overflow-auto pb-5">
+          <div class="flex flex-col items-center justify-center cursor-pointer p-3" routerLink="{{ item.Link }}"
+            routerLinkActive="bg-gray-200" *ngFor="let item of AdminMenu">
+            <span class="material-icons"> widgets </span>
+            <span class="text-sm text-center">
+              {{ item.Title }}
+            </span>
+          </div>
+        </div>
+      </div>
+  </mat-drawer>
+  <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative">
+    <div class="relative items-center flex flex-row justify-between shadow bg-white py-2">
+      <div class="flex flex-row space-x-2">
+        <button type="button" mat-icon-button (click)="drawer.toggle()">
+          <span class="material-icons">
+            menu
+          </span>
+        </button>
+        <div>
+          <img src="https://v2.tazagroup.vn/assets/images/logo/logo.png" class="w-[50px] h-[50px]">
+        </div>
+      </div>
+      <!-- <div class="md:w-96">
+              <div class="w-full flex">
+                  <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Tìm Kiếm</mat-label>
+                      <input matInput placeholder="Nhập nội dung cần tìm">
+                      <span class="material-icons mr-2" matPrefix>
+                          search
+                      </span>
+                  </mat-form-field>
+              </div>
+          </div> -->
+      <div class="px-4">
+        <span class="material-icons" [matMenuTriggerFor]="menu">
+          account_circle
+        </span>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            PHẠM CHÍ KIỆT
+            chikiet88@gmail.com
+          </button>
+          <hr>
+          <button mat-menu-item [routerLink]="['/profile']">
+            <div class="flex flex-row space-x-2 items-center">
+            <span class="material-icons">
+              account_circle
+            </span>
+            <span>Thông Tin</span>
+          </div>
+          </button>
+          <hr>
+          <button mat-menu-item [routerLink]="['/profile/datlaimatkhau']">
+            <div class="flex flex-row space-x-2 items-center">
+            <span class="material-icons">
+              vpn_key
+            </span>
+            <span>Đổi Mật Khẩu</span>
+          </div>
+          </button>
+          <hr>
+          <button mat-menu-item>
+            <div class="flex flex-row space-x-2 items-center">
+            <span class="material-icons">
+              logout
+            </span>
+            <span>  Đăng xuất</span>
+          </div>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+    <div class="flex flex-col border border-blue-50 h-full overflow-auto">
+      <router-outlet></router-outlet>
+    </div>
+    <div
+      class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+      <span class="font-medium text-secondary">Hderma © 2023</span>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,32 @@
+.container {
+  max-width: 1200px;
+  margin: auto;
+  box-sizing: border-box;
+  @media only screen and (max-width: 680px) {
+    max-width: 600px;
+  }
+  @media only screen and (max-width: 500px) {
+    max-width: 450px;
+  }
+  @media only screen and (max-width: 320px) {
+    max-width: 300px;
+  }
+}
+.mota{
+  font-size: 17px;
+  line-height: 20px;
+}
+.input-qty::-webkit-outer-spin-button,
+.input-qty::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.mat-expansion-panel-body {
+  padding: 0 !important;
+}
+.title .mat-expansion-panel-header-title{
+  padding: 5px;
+}
+.mat-expansion-panel-header:hover {
+  background: #f5f9fe !important;
+}

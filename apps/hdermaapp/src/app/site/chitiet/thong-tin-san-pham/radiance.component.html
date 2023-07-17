@@ -1,0 +1,116 @@
+<div class="container lg:space-y-10 space-y-5 pt-5">
+    <!-- RADIANCE ++ -->
+    <mat-accordion>
+        <mat-expansion-panel expanded="true" class="h-full w-full" style="box-shadow: none;background: #f5f9fe;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header class="inner title" style="height: 100%;">
+            <mat-panel-title class="lg:text-2xl uppercase font-bold lg:tracking-normal tracking-tight">
+              Thông tin sản phẩm
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="grid lg:grid-cols-2 grid-cols-1 gap-5 pt-5">
+            <div class="h-full w-full">
+              <img src="https://drive.google.com/uc?id={{product.ContentImage}}" alt="">
+            </div>
+            <div class="h-full w-full container detail-product">
+                <h3 class="mota text-justify" [innerHTML]="product.Mota"></h3>
+                <mat-accordion>
+                    <mat-expansion-panel expanded="true" style="box-shadow: none;background: transparent;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header style="padding: 2px;">
+                        <mat-panel-title class="font-bold text-xl">
+                          Thành phần nổi bật
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="space-y-3 text-justify" [innerHTML]="product.Thannhphannoibat"></div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <div class="h-[1px] w-full bg-gray-300 mt-3"></div>
+                <mat-accordion>
+                    <mat-expansion-panel expanded="true" style="box-shadow: none;background: transparent;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header style="padding: 2px;">
+                        <mat-panel-title class="font-bold text-xl">
+                          Thành phần chi tiết
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="space-y-5">
+                        <p class="text-justify" [innerHTML]="product.Thannhphanchitiet"></p>
+                      </div>            
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+          </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!-- RADIANCE ++ -->
+    <div class="h-[1px] w-full bg-gray-300" style="margin-bottom: 15px;"></div>
+    <!-- DIRECTIONS -->
+    <mat-accordion>
+        <mat-expansion-panel expanded="true" class="h-full w-full" style="box-shadow: none;background: #f5f9fe;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header class="inner title" style="height: 100%;">
+            <mat-panel-title class="uppercase lg:tracking-normal font-bold lg:text-2xl tracking-tight">
+              Cách sử dụng
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="grid lg:grid-cols-2 grid-cols-1 gap-5 pt-5">
+            <div class="h-full w-full">
+              <img src="https://drive.google.com/uc?id={{product.Imagecachsudung}}" alt="">
+            </div>
+            <div class="h-full w-full container detail-product">
+                <mat-accordion>
+                    <mat-expansion-panel expanded="true" style="box-shadow: none;background: transparent;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header style="padding: 2px;">
+                        <mat-panel-title class="font-bold text-xl">
+                          Hướng dẫn chi tiết
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="space-y-3">
+                        <p class="text-justify" [innerHTML]="product.Huongdan">
+                      </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <div class="h-[0.5px] w-full bg-gray-300 mt-3"></div>
+                <mat-accordion>
+                    <mat-expansion-panel expanded="true" style="box-shadow: none;background: transparent;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header style="padding: 2px;">
+                        <mat-panel-title class="font-bold text-xl">
+                          Loại da phù hợp?
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="space-y-5">
+                        <p class="text-justify" [innerHTML]="product.Loaidaphuhop"></p>
+                      </div>            
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <div class="h-[1px] w-full bg-gray-300 mt-3"></div>
+                <!-- <mat-accordion>
+                    <mat-expansion-panel style="box-shadow: none;background: transparent;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header style="padding: 2px;">
+                        <mat-panel-title class="font-medium">
+                            FEATURES
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="space-y-3">
+                        <p class="tracking-wide">7 - 7.40 pH Texture: aqueous gel Fragrance-free</p>
+                      </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <div class="h-[0.5px] w-full bg-gray-300 mt-3"></div>
+                <mat-accordion>
+                    <mat-expansion-panel style="box-shadow: none;background: transparent;" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header style="padding: 2px;">
+                        <mat-panel-title class="font-medium">
+                            RECYCLABLE GLASS BOTTLE
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="space-y-5">
+                        <p>Product includes a glass bottle, glass pipette and recyclable Polypropylene (PP) ring.</p>
+                        <p>The nitrile teat must be disposed of with your household rubbish.</p>
+                      </div>            
+                    </mat-expansion-panel>
+                </mat-accordion> -->
+            </div>
+          </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div class="h-[0.5px] w-full bg-gray-300 mt-3"></div>
+    <!-- DIRECTIONS -->
+</div>

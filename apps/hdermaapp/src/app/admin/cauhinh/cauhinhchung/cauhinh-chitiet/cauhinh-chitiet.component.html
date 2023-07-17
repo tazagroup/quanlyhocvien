@@ -1,0 +1,52 @@
+<div class="!flex flex-col flex-auto min-w-0 relative bg-white" *ngIf="Detail">
+    <div class="relative border-b-2 flex flex-row justify-between items-center p-3">
+        <div></div>
+        <div class="text-xl">{{Detail.Tieude}}</div>
+        <div>
+          <button mat-stroked-button color="primary" (click)="Update(Detail)">Cập Nhật</button>
+        </div>
+        <!-- <div>
+            <div class="flex items-center w-full">
+                <span class="px-3 py-1 text-white rounded bg-green-500 cursor-pointer" *ngIf="!id"
+                    (click)="onSubmit()">Tạo
+                    mới</span>
+                <span class="px-3 py-1 text-white rounded bg-blue-500 cursor-pointer" *ngIf="id"
+                    (click)="updateTag()">Cập
+                    nhật</span>
+            </div>
+        </div> -->
+    </div>
+    <div class="relative h-full w-full overflow-auto flex flex-col space-y-2 justify-between p-4">
+      <div class="flex flex-col w-full space-y-4 p-4">
+        <div class="flex flex-row space-x-2">
+          <mat-form-field appearance="outline" class="w-1/2">
+            <mat-label>Tiêu Đề</mat-label>
+            <input matInput [(ngModel)]="Detail.Tieude" [ngModelOptions]="{standalone: true}" placeholder="Tiêu Đề">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-1/2">
+            <mat-label>Slug</mat-label>
+            <input matInput [(ngModel)]="Detail.Slug" [ngModelOptions]="{standalone: true}" placeholder="Slug">
+            </mat-form-field>
+        </div>
+          <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Mota</mat-label>
+          <textarea rows="5" matInput [(ngModel)]="Detail.Mota" [ngModelOptions]="{standalone: true}" placeholder="Mô Tả">
+          </textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Dữ Liệu</mat-label>
+          <textarea rows="5" matInput [(ngModel)]="Detail.Content" [ngModelOptions]="{standalone: true}" placeholder="Mô Tả">
+          </textarea>
+          </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Công Ty</mat-label>
+              <mat-select [(ngModel)]="Detail.Branch" [ngModelOptions]="{standalone: true}" >
+                <mat-option value="hderma">Hderma</mat-option>
+                <mat-option value="tazagroup">Tazagroup</mat-option>
+                <mat-option value="timona">Timona Academy</mat-option>
+                <mat-option value="tazaskin">Tazaskin Clininc</mat-option>
+              </mat-select>
+            </mat-form-field>        
+            
+          </div>
+</div>

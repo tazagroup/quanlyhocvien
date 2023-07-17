@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "hdermaapp": "apps/hdermaapp",
+    "hdermaapp-e2e": "apps/hdermaapp-e2e",
+    "hdermav2-api": "libs/hdermav2/api",
+    "hdermav2-site": "libs/hdermav2/site",
+    "my-lib": "libs/my-lib",
+    "shared": "libs/shared",
+    "shared-api": "libs/shared/api",
+    "shared-api-upload": "libs/shared/api/upload",
+    "shared-datatype": "libs/shared/datatype",
+    "shared-environments": "libs/shared/environments",
+    "shared-utils": "libs/shared/utils",
+    "tailwind-preset": "libs/tailwind-preset",
+    "ui": "libs/ui"
+  }
+}

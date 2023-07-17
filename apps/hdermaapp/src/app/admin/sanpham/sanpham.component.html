@@ -1,0 +1,250 @@
+<mat-drawer-container class="example-container w-full h-full" autosize>
+    <mat-drawer #drawer mode="side" class="!flex flex-col flex-auto min-w-0 relative h-full w-full" position="end">
+        <div class="relative flex flex-col h-full w-full overflow-auto">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative bg-white !h-[90vh]">
+        <div class="relative border-b-2 flex flex-col">
+                <div class="flex flex-row space-x-4 p-3 justify-between items-center w-full">
+                    <button type="button" mat-icon-button (click)="ToggleMat()">
+                        <span class="material-icons">menu</span>
+                      </button> 
+                    <mat-form-field appearance="outline" class="text-xs">
+                        <mat-label>Tiêu Đề</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" class="w-full" placeholder="Mô Tả">
+                        <span matPrefix class="material-icons mr-2">search</span>
+                    </mat-form-field>
+                    <div class="flex flex-row space-x-3 items-center">
+                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
+                        <span class="material-icons text-xl" matTooltip="Tùy Chỉnh">tune</span>
+                        <span class="text-sm">Cấu Hình</span>
+                    </div>
+                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
+                        <span class="material-icons text-xl" matTooltip="Lấy Mẫu">file_download</span>
+                        <span class="text-sm">Download</span>
+                    </div>
+                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
+                        (click)="openDialog(dlImportDanhmuc)">
+                        <span class="material-icons text-xl" matTooltip="Upload File">file_upload</span>
+                        <span class="text-sm">Upload</span>
+                    </div>
+                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
+                        (click)="openDialog(dialogDanhmuc)">
+                        <span class="material-icons text-xl" matTooltip="Tạo mới">add_circle</span>
+                        <span class="text-sm">Thêm</span>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="relative flex flex-col h-full w-full overflow-auto">
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <div class="flex items-center justify-between space-x-4 cursor-pointer w-full px-3 py-1 group">
+                        <div class="flex items-center space-x-2" *ngIf="node.isDM" (click)="drawer.open()"
+                            routerLink="danhmuc/{{node.id}}">
+                            <span class="material-icons text-yellow-500"> collections_bookmark </span>
+                            <span class="">{{ node.Title ||"Chưa Có Tiêu Đề"}}</span>
+                        </div>
+                        <div class="flex items-center space-x-2" (click)="drawer.open()"
+                            routerLink="chitiet/{{node.id}}" *ngIf="!node.isDM">
+                            <!-- <span class="material-icons text-blue-500"> menu_book </span> -->
+                            <img [src]="GetImage(node.Hinhanh.hinhchinh?node.Hinhanh.hinhchinh.spath:'')"
+                                class="rounded max-w-[50px] max-h-[50px]" />
+                            <div>{{node.Tieude}}</div>
+                        </div>
+                        <div class="items-center space-x-2" *ngIf="node.isDM">
+                            <span class="material-icons cursor-pointer text-green-500"
+                                (click)="openDialog(dialogSanpham);BVDetail.idDM=node.id">
+                                note_add
+                            </span>
+                            <span class="material-icons cursor-pointer text-red-500" title="Xoá"
+                                (click)="DLDeleteDanhmuc(dialogXoaDanhmuc,node)">
+                                delete
+                            </span>
+                        </div>
+                        <div class="items-center space-x-2" *ngIf="!node.isDM">
+                            <ng-container *ngIf="node.Trangthai; else elseTemplate1">
+                                <span class="material-icons cursor-pointer text-green-500">visibility</span>
+                            </ng-container>
+                            <ng-template #elseTemplate1>
+                                <span class="material-icons cursor-pointer text-blue-500">visibility_off</span>
+                            </ng-template>
+                            <span class="material-icons cursor-pointer text-red-500" title="Xoá"
+                                (click)="DLDeleteBaivet(dialogXoaSanpham,node)">
+                                delete
+                            </span>
+                        </div>
+                    </div>
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.Title">
+                        <mat-icon class="mat-icon-rtl-mirror">
+                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        </mat-icon>
+                    </button>
+                    <div
+                        class="flex items-center space-x-4 justify-between cursor-pointer w-full group hover:bg-gray-200 px-3 py-1 rounded">
+                        <div class="flex items-center space-x-2" (click)="drawer.open()" *ngIf="node.isDM"
+                            routerLink="danhmuc/{{node.id}}">
+                            <span class="material-icons text-yellow-500"> collections_bookmark </span>
+                            <span class="">{{ node.Title ||"Chưa Có Tiêu Đề"}} </span>
+                        </div>
+                        <ng-container *ngIf="node.isDM; else elseTemplate">
+                            <div class="flex flex-row space-x-2 items-center">
+                                <span class="material-icons cursor-pointer text-green-500"
+                                    (click)="openDialog(dialogSanpham);BVDetail.pid=node.id">
+                                    note_add
+                                </span>
+                                <span class="material-icons cursor-pointer text-red-500"
+                                    (click)="DLDeleteDanhmuc(dialogXoaDanhmuc,node)">
+                                    delete
+                                </span>
+                            </div>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+
+                        </ng-template>
+                    </div>
+                </mat-tree-node>
+            </mat-tree>
+            <div class="flex flex-col">
+                <div [routerLink]="[item.id]" routerLinkActive="router-link-active" (click)="drawer.open()"
+                    class="flex flex-row justify-between items-center p-4 hover:bg-gray-200"
+                    *ngFor="let item of FilterLists; let i = index">
+                    <div class="flex flex-row space-x-2 items-center justify-between w-full">
+                        <div class="flex flex-col space-y-2">
+                            <span>{{item.Tieude}} </span>
+                            <span class="text-xs italic">Oldlink : {{item.Oldlink}}</span>
+                            <span class="text-xs italic">Newlink : {{item.Newlink}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+<ng-template #dialogTemplate>
+    <div class="min-w-[672px]">
+        <div mat-dialog-title>Thêm Mới</div>
+        <div mat-dialog-content>
+            <div class="flex flex-col w-full space-y-4 p-4">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Tiêu Đề</mat-label>
+                    <input matInput [(ngModel)]="Detail.Tieude" [ngModelOptions]="{standalone: true}"
+                        placeholder="Tiêu Đề">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Oldlink</mat-label>
+                    <input matInput [(ngModel)]="Detail.Oldlink" [ngModelOptions]="{standalone: true}"
+                        placeholder="Oldlink">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Newlink</mat-label>
+                    <input matInput [(ngModel)]="Detail.Newlink" [ngModelOptions]="{standalone: true}"
+                        placeholder="Newlink">
+                </mat-form-field>
+            </div>
+        </div>
+        <div mat-dialog-actions class="justify-center">
+            <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
+            <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #dialogSanpham>
+    <div class="min-w-[672px]">
+        <div mat-dialog-title>Thêm Sản Phẩm</div>
+        <div mat-dialog-content>
+            <div class="flex flex-col w-full space-y-4 p-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Danh Mục</mat-label>
+                    <mat-select [(ngModel)]="BVDetail.idDM" [ngModelOptions]="{standalone: true}">
+                        <mat-option [value]="item.id" *ngFor="let item of danhmuc">{{item.Title}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Tiêu Đề</mat-label>
+                    <input matInput [(ngModel)]="BVDetail.Tieude" [ngModelOptions]="{standalone: true}"
+                        placeholder="Tiêu Đề">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Slug</mat-label>
+                    <input matInput [(ngModel)]="BVDetail.Slug" [ngModelOptions]="{standalone: true}"
+                        placeholder="Slug">
+                </mat-form-field>
+            </div>
+        </div>
+        <div mat-dialog-actions class="justify-center">
+            <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
+            <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true"
+                (click)="CreateSanpham(BVDetail)">Đồng Ý</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #dialogDanhmuc>
+    <div class="min-w-[672px]">
+        <div mat-dialog-title>Thêm Mới Danh Mục</div>
+        <div mat-dialog-content>
+            <div class="flex flex-col w-full space-y-4 p-4">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Tiêu Đề</mat-label>
+                    <input matInput [(ngModel)]="DMDetail.Title" [ngModelOptions]="{standalone: true}"
+                        placeholder="Tiêu Đề">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Slug</mat-label>
+                    <input matInput [(ngModel)]="DMDetail.Slug" [ngModelOptions]="{standalone: true}" placeholder="LOC">
+                </mat-form-field>
+            </div>
+        </div>
+        <div mat-dialog-actions class="justify-center">
+            <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
+            <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true"
+                (click)="CreateDM(DMDetail)">Đồng Ý</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #dialogXoaDanhmuc>
+    <div mat-dialog-title class="text-center">Xoá Danh Mục</div>
+    <div mat-dialog-actions class="justify-center">
+        <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
+        <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
+    </div>
+</ng-template>
+<ng-template #dialogXoaSanpham>
+    <div mat-dialog-title class="text-center">Xoá Bài Viết</div>
+    <div mat-dialog-actions class="justify-center">
+        <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
+        <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
+    </div>
+</ng-template>
+<ng-template #dlImportDanhmuc>
+    <div mat-dialog-title class="text-center">Import Danh Mục</div>
+    <div mat-dialog-content class="text-center">
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="small_size">Small file
+            input</label>
+        <input
+            class="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="small_size" type="file">
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="default_size">Default
+            size</label>
+        <input
+            class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="default_size" type="file">
+
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Large file
+            input</label>
+        <input
+            class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="large_size" type="file">
+
+    </div>
+    <div mat-dialog-actions class="justify-center">
+        <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
+        <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
+    </div>
+</ng-template>

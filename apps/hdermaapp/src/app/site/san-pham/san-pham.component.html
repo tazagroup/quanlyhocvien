@@ -1,0 +1,99 @@
+<div class="">
+  <swiper [config]="configProduct" class="mySwiper carouesl-product">
+    <ng-template swiperSlide *ngFor="let item of products">
+      <div class="space-y-5">
+        <div class="relative group product-item cursor-pointer">
+          <img src="https://drive.google.com/uc?id={{item.Image}}" class="group-hover:hidden block"
+            routerLink="/chi-tiet/{{item.Slug}}" alt="" />
+          <img src="https://drive.google.com/uc?id={{item.Image1 === '' ? item.Image : item.Image1}}"
+            routerLink="/chi-tiet/{{item.Slug}}" class="group-hover:block hidden" alt="" />
+          <div></div>
+          <div class="absolute left-2 top-2 flex flex-col space-y-2 deal">
+            <!-- <span class="px-4 py-2 bg-[#1469d9] text-white font-bold rounded-lg text-center">-33%</span> -->
+            <span class="px-4 py-2 bg-[#e2837b] text-black font-bold rounded-lg text-center">Hot</span>
+          </div>
+          <div class="absolute top-1/2 centerY-img flex flex-col space-y-2 product-wrap">
+            <span (click)="AddCart(item)"
+              class="material-icons w-12 h-12 text-2xl bg-white rounded-full flex items-center justify-center product-icon">
+              redeem
+            </span>
+            <span
+              class="material-icons hidden lg:flex w-12 h-12 text-2xl bg-white rounded-full items-center justify-center product-icon">
+              visibility
+            </span>
+            <span (click)="AddWishlist(item)"
+              class="material-icons w-12 h-12 text-2xl bg-white rounded-full flex items-center justify-center product-icon">
+              star_border
+            </span>
+            <span
+              class="material-icons hidden lg:flex w-12 h-12 text-2xl bg-white rounded-full items-center justify-center product-icon">
+              compare_arrows
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center flex-col">
+          <div class="flex items-center justify-center space-x-2">
+            <span class="font-bold"> {{item.GiaSale | currency: "VND"}} </span>
+            <span class="w-2 h-px bg-black {{item.GiaSale === item.Gia ? '!hidden' : '!block'}}"> </span>
+            <span class="font-bold {{item.GiaSale === item.Gia ? '!hidden' : '!block'}}"> {{item.Gia | currency: "VND"}}
+            </span>
+          </div>
+          <div [innerHTML]="item.Tieude" class="text-center font-bold one-dot"></div>
+          <div class="cusror-pointer items-center" (click)="OpenDialog(CommentDialog, item)">
+            <span class="material-icons text-xl">
+              star
+            </span>
+            <span class="material-icons text-xl">
+              star
+            </span>
+            <span class="material-icons text-xl">
+              star
+            </span>
+            <span class="material-icons text-xl">
+              star
+            </span>
+            <span class="material-icons text-xl">
+              star
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+</div>
+<ng-template #CommentDialog>
+  <form class="!bg-white lg:p-5 p-3">
+
+    <div class="border border-yellow-500  rounded-2xl lg:p-5 p-3 lg:w-[550px] relative">
+      <div class=" mt-5">
+        <textarea class="border border-gray-200 rounded-2xl shadow-lg w-full h-32 p-5" [(ngModel)]="commentForm.Comment"
+          [ngModelOptions]="{ standalone: true }" placeholder="Nội dung đánh giá sản phẩm ..."></textarea>
+      </div>
+
+      <div class="space-y-4 mt-7 flex flex-col justify-center items-center">
+        <div class="flex items-center space-x-3 text-yellow-500  ">
+          <div class="flex items-center justify-center">
+            <span class="material-icons lg:text-5xl text-lg cursor-pointer"
+              *ngFor="let item of [1,2,3,4,5]; let i = index" (click)="rating = item">
+              {{rating >= item ?'star' : 'star_border'}}
+            </span>
+
+          </div>
+        </div>
+        <span (click)="postComment()"
+          class="lg:text-2xl text-lg uppercase text-white lg:px-7 px-3 py-1 rounded-2xl bg-yellow-500 cursor-pointer">đánh
+          giá
+          ngay</span>
+      </div>
+
+
+
+      <span class="bottom-2 w-48 h-[2px] rounded left-1/2 centerX-img bg-yellow-500 absolute"></span>
+      <div
+        class="flex items-center px-3 py-1 rounded-3xl bg-white shadow-lg text-yellow-500 cursor-pointer absolute left-5 top-0"
+        style="margin-top: -20px;">
+        <span class="uppercase lg:text-xl">chất lượng sản phẩm</span>
+      </div>
+    </div>
+  </form>
+</ng-template>

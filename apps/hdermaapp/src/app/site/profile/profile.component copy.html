@@ -1,0 +1,20 @@
+<div class="lg:max-w-7xl lg:mx-auto lg:px-5 md:px-10 py-10 md:mt-10 px-3">
+  <div class="flex lg:flex-row lg:space-x-2 flex-col w-full">
+    <div class="hidden lg:flex flex-col space-y-4 rounded-md shadow border p-4 w-[270px]">
+      <div class="p-2 hover:bg-gray-200 rounded-md" routerLink="account"  routerLinkActive="bg-gray-200">Thông Tin Tài Khoản</div>
+      <div class="p-2 hover:bg-gray-200 rounded-md" routerLink="donhang"  routerLinkActive="bg-gray-200">Đơn Hàng</div>
+      <div class="p-2 hover:bg-gray-200 rounded-md" routerLink="tichdiem" routerLinkActive="bg-gray-200">Tích Điểm</div>
+      <div class="p-2 hover:bg-gray-200 rounded-md" routerLink="referral" routerLinkActive="bg-gray-200">Giới Thiệu</div>
+    </div>
+    <mat-tab-group class="lg:!hidden flex py-4" (selectedTabChange)="onTabChanged($event)">
+        <mat-tab label="Thông Tin Tài Khoản"></mat-tab>
+        <mat-tab label="Đơn Hàng"></mat-tab>
+        <mat-tab label="Tích Điểm"></mat-tab>
+        <mat-tab label="Giới Thiệu"></mat-tab>
+      </mat-tab-group>
+    <div class="w-full p-4 rounded-md shadow border"><router-outlet></router-outlet></div>
+  </div>
+
+  mat
+</div>
+

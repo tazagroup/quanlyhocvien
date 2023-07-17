@@ -1,0 +1,18 @@
+<div class="flex p-8 rounded-md border shadow">
+    <div class="flex flex-col max-w-xl lg:mx-auto p-4">
+        <mat-slide-toggle color="primary" [(ngModel)]="isPermission" (click)="ActivePermission()">
+            Nhận Thông Báo
+        </mat-slide-toggle>    
+        <ng-container *ngIf="deferredPrompt; else elseTemplate">
+            <div class="flex-row flex space-x-2 items-center justify-center">
+                Vui Lòng Cài Đặt Ứng Dụng Để Nhận Thông Báo
+                <button mat-icon-button>
+                    <span class="material-icons" (click)="showInstallPrompt()">phonelink_setup</span>
+                  </button> 
+            </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <mat-slide-toggle (click)="ActiveNoti()">Đơn Hàng</mat-slide-toggle>
+        </ng-template>
+        </div>
+</div>

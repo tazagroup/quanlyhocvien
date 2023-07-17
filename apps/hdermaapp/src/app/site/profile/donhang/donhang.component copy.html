@@ -1,0 +1,48 @@
+<div class="flex flex-col space-y-4">
+  <div>               
+    <mat-form-field appearance="outline">
+    <mat-label>Tìm Kiếm</mat-label>
+    <input matInput placeholder="Tìm Kiếm" (keyup)="applyFilter($event)">
+    </mat-form-field>
+  </div>
+  <div class="relative overflow-hidden w-56 h-56 bg-white border">
+    <div class="absolute left-0 top-0 h-16 w-16">
+      <div
+        class="absolute transform -rotate-45 bg-gray-600 text-center text-white font-semibold py-1 left-[-34px] top-[32px] w-[170px]">
+        Popular
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let item of filterDonhangs" class="flex flex-col rounded-md shadow space-y-3 p-4 border odd:bg-gray-200 overflow-auto">
+      <div class="flex flex-row space-x-3 justify-between text-blue-500">
+        <div class="font-bold">Mã Đơn Hàng : {{item.MaDonHang}}</div>
+        <div class="flex flex-row space-x-2">
+          <div>{{item.Ngaytao|date:'dd-MM-YYYY'}}</div>
+          <div>
+            <span class="p-2 rounded-md text-base text-white
+            {{item.Trangthai==1?'bg-blue-500':item.Trangthai==2?'bg-yellow-500':item.Trangthai==3?'bg-green-500':item.Trangthai==4?'bg-red-500':''}}
+            "> {{Findbyid(item.Trangthai,TTDonhang)}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row space-x-3 justify-between" *ngFor="let item1 of item.Donhangchitiets; let i=index">
+        <div class="flex flex-row space-x-3">
+          <img src="https://drive.google.com/uc?id={{item1.Product.Image}}" class="w-16 h-16">
+          <div class="flex flex-col space-y-3">
+            <span>{{item1.Product.Tieude}}</span>
+            <div class="flex flex-row space-x-2">
+              <span>x{{item1.Soluong}}</span>
+              <span>{{item1.Product.Gia|number:'1.0-2'}}đ</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col space-y-3 font-bold">
+          {{item1.Soluong*item1.Product.Gia|number:'1.0-2'}}đ
+        </div>
+      </div>
+      <div class="ml-auto font-bold">
+        Tổng Cộng : {{SumTotal(item.Donhangchitiets)|number:'1.0-2'}}đ
+      </div>
+  </div>
+</div>
+

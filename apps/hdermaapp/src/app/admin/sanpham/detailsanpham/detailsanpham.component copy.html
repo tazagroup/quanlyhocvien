@@ -1,0 +1,373 @@
+<div class="p-4 w-full">
+  <div class="flex flex-col space-y-2 px-2">
+    <div class="flex flex-row space-x-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Mã sản phẩm</mat-label>
+        <input matInput placeholder="Mã sản phẩm" [(ngModel)]="product.SKU" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Danh mục</mat-label>
+        <mat-select [(ngModel)]="product.idDM" [ngModelOptions]="{standalone: true}">
+          <mat-option value="{{item.id}}" *ngFor="let item of danhmucs">{{item.Title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Thương hiệu</mat-label>
+        <input matInput placeholder="Thương hiệu" [(ngModel)]="product.Thuonghieu" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+    </div>
+    <div class="flex flex-row space-x-2">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Tên sản phẩm</mat-label>
+        <input matInput placeholder="Tên sản phẩm" [(ngModel)]="product.Tieude" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Slug</mat-label>
+        <input matInput placeholder="Slug" [(ngModel)]="product.Slug" [ngModelOptions]="{standalone: true}" value="">
+      </mat-form-field>
+    </div>
+    <div class="grid grid-cols-5 gap-2">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Trạng thái</mat-label>
+        <input matInput placeholder="Trạng thái" [(ngModel)]="product.Trangthai" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Tình Trạng</mat-label>
+        <input matInput placeholder="Tình Trạng" [(ngModel)]="product.Tinhtrang" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Giá sản phẩm</mat-label>
+        <input matInput placeholder="Giá sản phẩm" [(ngModel)]="product.Gia" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Giá Sale</mat-label>
+        <input matInput placeholder="Giá Sale" [(ngModel)]="product.GiaSale" [ngModelOptions]="{standalone: true}"
+          value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Sản phẩm nổi bật</mat-label>
+        <mat-select [(ngModel)]="product.Noibat" [ngModelOptions]="{standalone: true}" multiple>
+          <mat-option value=0>Sản phẩm yêu thích nhất</mat-option>
+          <mat-option value=1>Sản phẩm bán chạy</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-tab-group fitInkBarToContent #tabGroup (selectedTabChange)="handleTabChange($event)">
+      <mat-tab label="Mô tả">
+        <div class="py-3">
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Mota" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny" *ngIf="activeTabIndex===0"></editor>
+        </div>
+      </mat-tab>
+      <mat-tab label="Thông Tin Sản Phẩm">
+        <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Noidung.Thongtin" [ngModelOptions]="{standalone: true}"
+          [init]="configTiny" *ngIf="activeTabIndex===1"></editor>
+        <textarea hidden matInput [(ngModel)]="product.Noidung.Thongtin"
+          [ngModelOptions]="{standalone: true}"></textarea>
+      </mat-tab>
+      <mat-tab label="Cách Sử Dụng">
+        <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Noidung.Sudung" [ngModelOptions]="{standalone: true}"
+          [init]="configTiny" *ngIf="activeTabIndex===2"></editor>
+        <textarea hidden matInput [(ngModel)]="product.Noidung.Sudung"
+          [ngModelOptions]="{standalone: true}"></textarea>
+      </mat-tab>
+      <mat-tab label="Thành Phần">
+        <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Noidung.Thanhphan" [ngModelOptions]="{standalone: true}"
+          [init]="configTiny" *ngIf="activeTabIndex===3"></editor>
+        <textarea hidden matInput [(ngModel)]="product.Noidung.Thanhphan"
+          [ngModelOptions]="{standalone: true}"></textarea>
+      </mat-tab>
+      <mat-tab label="Thành phần nổi bật">
+        <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Thannhphannoibat" [ngModelOptions]="{standalone: true}"
+          [init]="configTiny" *ngIf="activeTabIndex===4"></editor>
+        <textarea hidden matInput [(ngModel)]="product.Thannhphannoibat"
+          [ngModelOptions]="{standalone: true}"></textarea>
+      </mat-tab>
+      <mat-tab label="Thành phần chi tiết">
+        <mat-form-field appearance="outline" class="w-full">
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Thannhphanchitiet" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny" *ngIf="activeTabIndex===5"></editor>
+          <textarea hidden matInput [(ngModel)]="product.Thannhphanchitiet"
+            [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Hướng dẫn">
+        <mat-form-field appearance="outline" class="w-full">
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Huongdan" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny" *ngIf="activeTabIndex===6"></editor>
+          <textarea matInput hidden [(ngModel)]="product.Huongdan" [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Loại da phù hợp">
+        <mat-form-field appearance="outline" class="w-full">
+          <editor [apiKey]="APITINYMCE" [(ngModel)]="product.Loaidaphuhop" [ngModelOptions]="{standalone: true}"
+            [init]="configTiny" *ngIf="activeTabIndex===7"></editor>
+          <textarea matInput hidden [(ngModel)]="product.Loaidaphuhop" [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="flex flex-row space-x-2">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Tình Trạng Da</mat-label>
+        <mat-select [(ngModel)]="tagsTinhtrangData" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn"
+          (ngModelChange)="selectTags()" multiple>
+          <mat-option [value]="item" *ngFor="let item of tinhtrangdas">{{item.Tieude}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Loại sản phẩm</mat-label>
+        <mat-select [(ngModel)]="tagsLoaiSpData" [ngModelOptions]="{standalone: true}" [compareWith]="compareFn"
+          (ngModelChange)="selectTags()" multiple>
+          <mat-option [value]="item" *ngFor="let item of loaisanphams">{{item.Tieude}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+
+      <div class="flex flex-col space-y-2 p-4 shadow">
+        <div class="font-bold text-center">Content Image</div>
+        <div
+          class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+          <span
+            class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Cloud</span>
+          <img src="https://drive.google.com/uc?id={{product.ContentImage}}">
+        </div>
+        <ng-container *ngIf="product.Hinhanh.ContentImage; else elseTemplate">
+          <div class="relative">
+            <div
+              class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+              <span
+                class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Server</span>
+              <ng-container *ngIf="product.Hinhanh.ContentImage.spath ; else elseTemplate">
+                <img src="{{product.Hinhanh.ContentImage.spath}}">
+              </ng-container>
+              <ng-template #elseTemplate>
+                <img src="https://drive.google.com/uc?id={{product.Hinhanh.ContentImage.idDrive}}">
+              </ng-template>
+              <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+                (click)="removeSimpleImage('ContentImage')">
+                cancel
+              </span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="text-center">
+            <img src="/assets/image/logo.png" class="m-auto w-32" />
+            <div>Chưa có hình ảnh</div>
+          </div>
+        </ng-template>
+        <div class="space-y-3 text-center">
+          <div class="flex flex-row space-x-3 justify-between text-sm">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Alt Hình</mat-label>
+              <input matInput #altInput1 placeholder="Alt Hình" class="w-full">
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" (click)="fileInput1.click()">
+                <span>Upload</span>
+                <input #fileInput1 (change)="Uploadfile($event,'ContentImage',altInput1.value)" type="file"
+                  accept="image/*" class="hidden">
+              </button>
+            </div>
+          </div>
+          <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB </div>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-2 p-4 shadow">
+        <div class="font-bold text-center">Hình cách sử dụng</div>
+        <div
+          class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+          <span
+            class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Cloud</span>
+          <img src="https://drive.google.com/uc?id={{product.Imagecachsudung}}">
+        </div>
+        <div class="relative">
+          <div
+            class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+            <span
+              class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Server</span>
+            <ng-container *ngIf="product.Hinhanh.Imagecachsudung; else elseTemplate">
+              <ng-container *ngIf="product.Hinhanh.Imagecachsudung.spath ; else elseTemplate">
+                <img src="{{product.Hinhanh.Imagecachsudung.spath}}">
+              </ng-container>
+              <ng-template #elseTemplate>
+                <img src="https://drive.google.com/uc?id={{product.Hinhanh.Imagecachsudung.idDrive}}">
+              </ng-template>
+              <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+                (click)="removeSimpleImage('Imagecachsudung')">
+                cancel
+              </span>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <div class="text-center">
+                <img src="/assets/image/logo.png" class="m-auto w-32" />
+                <div>Chưa có hình ảnh</div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="space-y-3 text-center">
+          <div class="flex flex-row space-x-3 justify-between text-sm">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Alt Hình</mat-label>
+              <input matInput #altInput2 placeholder="Alt Hình" class="w-full">
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" (click)="fileInput2.click()">
+                <span>Upload</span>
+                <input #fileInput2 (change)="Uploadfile($event,'Imagecachsudung',altInput2.value)" type="file"
+                  accept="image/*" class="hidden">
+              </button>
+            </div>
+          </div>
+          <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col space-y-2 p-4 shadow">
+        <div class="font-bold text-center">Hình Thumbnail</div>
+        <div
+          class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+          <span
+            class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Cloud</span>
+          <img src="https://drive.google.com/uc?id={{product.Image}}">
+        </div>
+        <div class="relative">
+          <div
+            class="relative w-full min-h-[14rem] h- bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+            <span
+              class="bg-blue-200 text-xs font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">Server</span>
+            <ng-container *ngIf="product.Hinhanh.Image; else elseTemplate">
+              <ng-container *ngIf="product.Hinhanh.Image.spath ; else elseTemplate">
+                <img src="{{product.Hinhanh.Image.spath}}">
+              </ng-container>
+              <ng-template #elseTemplate>
+                <img src="https://drive.google.com/uc?id={{product.Hinhanh.Image.idDrive}}">
+              </ng-template>
+              <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+                (click)="removeSimpleImage('Image')">
+                cancel
+              </span>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <div class="text-center">
+                <img src="/assets/image/logo.png" class="m-auto w-32" />
+                <div>Chưa có hình ảnh</div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="space-y-3 text-center">
+          <div class="flex flex-row space-x-3 justify-between text-sm">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Alt Hình</mat-label>
+              <input matInput #altInput3 placeholder="Alt Hình" class="w-full">
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" (click)="fileInput3.click()">
+                <span>Upload</span>
+                <input #fileInput3 (change)="Uploadfile($event,'Image',altInput3.value)" type="file"
+                  accept="image/*" class="hidden">
+              </button>
+            </div>
+          </div>
+          <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB </div>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-2 p-4 shadow">
+        <div class="font-bold text-center">Content Image</div>
+        <img src="https://drive.google.com/uc?id={{product.Image}}">
+        <ng-container *ngIf="product.Hinhanh.Image; else elseTemplate">
+          <div class="relative">
+            <ng-container *ngIf="product.Hinhanh.Image.spath ; else elseTemplate">
+              <img src="{{product.Hinhanh.Image.spath}}">
+            </ng-container>
+            <ng-template #elseTemplate>
+              <img src="https://drive.google.com/uc?id={{product.Hinhanh.Image.idDrive}}">
+            </ng-template>
+            <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+              (click)="removeSimpleImage('Image')">
+              cancel
+            </span>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="text-center">
+            <img src="/assets/image/logo.png" class="m-auto w-32" />
+            <div>Chưa có hình ảnh</div>
+          </div>
+        </ng-template>
+        <div class="space-y-3 text-center">
+          <div class="flex flex-row space-x-3 justify-between text-sm">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Alt Hình</mat-label>
+              <input matInput #altInput3 placeholder="Alt Hình" class="w-full">
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" (click)="fileInput3.click()">
+                <span>Upload</span>
+                <input #fileInput3 (change)="Uploadfile($event,'Image',altInput3.value)" type="file" accept="image/*"
+                  class="hidden">
+              </button>
+            </div>
+          </div>
+          <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="flex flex-col space-y-3 shadow p-4">
+      <label class="font-bold">Danh sách hình</label>
+      <ng-container *ngIf="(product.ListImage|keyvalue).length>0; else elseTemplate">
+        <div class="grid grid-cols-2 gap-5">
+          <div class="relative" *ngFor="let item of product.ListImage | keyvalue">
+            <img src="https://drive.google.com/uc?id={{item.value}}">
+            <span class="material-icons absolute right-[-10px] top-[-10px] cursor-pointer"
+              (click)="removeImage(item.key)">
+              cancel
+            </span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="text-center">
+          <img src="/assets/image/logo.png" class="m-auto w-32" />
+          <div>Chưa có hình ảnh</div>
+        </div>
+      </ng-template>
+
+      <div class="space-y-3 text-center">
+        <div class="flex flex-row space-x-2 justify-center">
+          <button mat-raised-button color="warn" (click)="fileInput5.click()">
+            <span>Chọn Hình</span>
+            <input #fileInput5 (change)="selectFile($event)" type="file" accept="image/*" multiple class="hidden">
+          </button>
+          <button mat-raised-button color="primary" [disabled]="!selectedFiles" (click)="uploadListImage()">
+            Upload
+          </button>
+        </div>
+        <div class="text-xs">Kích Thước File (800x800)px | Định dạng : .png,jpg | Dung Lượng File dưới 1MB </div>
+      </div>
+    </div>
+
+    <div class="flex flex-row justify-center space-x-2 items-center">
+      <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!product.id">Tạo mới</button>
+      <button mat-raised-button class="text-white bg-green-500" (click)="updateSanpham()" *ngIf="product.id">Cập nhật</button>
+    </div>
+    <!-- <div class="flex items-center">
+
+            <span class="px-3 py-1 text-white rounded bg-green-500 cursor-pointer" *ngIf="slug=='themsanphammoi'"
+                (click)="onSubmit()">Tạo mới</span>
+
+            <span class="px-3 py-1 text-white rounded bg-blue-500 cursor-pointer" *ngIf="slug"
+                (click)="updateSanpham()">Cập nhật</span>
+        </div> -->
+  </div>
+</div>

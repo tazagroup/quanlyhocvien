@@ -1,0 +1,207 @@
+.circle1 {
+    animation: circle1 2s ease-in infinite;
+}
+.circle2 {
+    animation: circle2 3s ease-in infinite;
+}
+.circle3 {
+    animation: circle3 3s ease-in infinite;
+}
+.light1{
+    animation: light1 2s ease-in infinite;
+}
+.light2{
+    animation: light2 2s ease-in 1s infinite;
+}
+.light3{
+    animation: light3 3.5s ease-in infinite;
+}
+.light4{
+    animation: light4 3s ease-in infinite;
+}
+.light5{
+    animation: light5 2s ease-in 1s infinite;
+}
+.light6{
+    animation: light6 2s ease-in infinite;
+}
+.light7{
+    animation: light7 2.5s ease-in 1s infinite;
+}
+.light8{
+    animation: light8 2s ease-in infinite;
+}
+.light9{
+    animation: light9 2.5s ease-in infinite;
+}
+.light10{
+    animation: light10 3s ease-in 1s infinite;
+}
+.light11{
+    animation: light11 2s ease-in infinite;
+}
+@keyframes motion1 {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes circle1 {
+    0% {
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+@keyframes circle2 {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes circle3 {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes light1 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light2 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light3 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light4 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light5 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light6 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light7 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light8 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light9 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light10 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes light11 {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

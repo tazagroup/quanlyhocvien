@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    @media only screen and (max-width: 680px) {
+        max-width: 600px;
+    }
+    @media only screen and (max-width: 500px) {
+        max-width: 450px;
+    }
+    @media only screen and (max-width: 320px) {
+        max-width: 300px;
+    }
+    .home-product{
+        font-size: 18px;
+        line-height: 24px;
+        color: rgba(0, 0, 0, 0.4);
+    }
+    .mat-drawer-side {
+        border-right: solid 1px black;
+    }
+}
+.button-slide {
+    @media only screen and (max-width: 1024px) {
+        display: none;
+    }
+}
+

@@ -1,0 +1,62 @@
+<div class="flex flex-col space-y-2 w-full justify-between">
+      <div class="flex-col flex space-y-4 w-full">
+         <div class="flex flex-row space-x-2 items-center">
+         <span>{{Level.capbac}}</span>
+         <span class="material-icons text-blue-100" *ngIf="Level.id>=1">stars</span>
+         <span class="material-icons text-blue-200" *ngIf="Level.id>=2">stars</span>
+         <span class="material-icons text-blue-300" *ngIf="Level.id>=3">stars</span>
+         <span class="material-icons text-blue-400" *ngIf="Level.id>=4">stars</span>
+         <span class="material-icons text-blue-500" *ngIf="Level.id>=5">stars</span>
+         <span class="material-icons text-blue-600" *ngIf="Level.id>=6">stars</span>
+         <span class="material-icons text-blue-700" *ngIf="Level.id>=7">stars</span>
+         <span class="material-icons text-blue-800" *ngIf="Level.id>=8">stars</span>
+         </div>
+         <div>
+          <span *ngIf="ThisTichdiem.TongDiemCap && ThisTichdiem.Hoahong">
+            {{ThisTichdiem.TongDiemCap}}/{{ThisTichdiem.Hoahong.doanhthuden/10000}}
+          </span>  
+            <mat-progress-bar  matTooltip="Thêm {{Nextlevel}} điểm để lên cấp tiếp theo"
+            [color]="color"
+            [mode]="mode"
+            [value]="value"
+            [bufferValue]="bufferValue">
+            </mat-progress-bar>
+         </div>
+   <div class="flex space-x-2 items-center">   
+    <span> Điểm Đổi Quà </span>
+      <span class="material-icons"> card_giftcard </span> : {{ThisTichdiem.TongDiemqua}} điểm</div>
+      </div>
+      <div class="w-full">
+         <div class="shadow-md">
+            <table class="w-full" mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="diem">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Điểm </th>
+                <td mat-cell *matCellDef="let row"> 
+                  <ng-container *ngIf="row.Diemqua>0; else elseTemplate">
+                    <span class="text-green-500">+ {{row.Diemqua}}</span>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                     <span class="text-red-500">- {{row.Diemqua}}</span>
+                  </ng-template> </td>
+              </ng-container>
+              <ng-container matColumnDef="madonhang">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã Đơn Hàng </th>
+                <td mat-cell *matCellDef="let row"> {{row.donhang.MaDonHang}}</td>
+              </ng-container>
+              <ng-container matColumnDef="ngaytao">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày Tạo </th>
+                <td mat-cell *matCellDef="let row"> {{row.donhang.Ngaytao|date:'dd/MM/yyyy'}}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter</td>
+              </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+          </div>
+      </div>
+</div>
+
+
+

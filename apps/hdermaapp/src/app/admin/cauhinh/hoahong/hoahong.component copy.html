@@ -1,0 +1,77 @@
+<div class="flex md:flex-row md:space-x-2 flex-col pace-y-2 h-full  p-4 rounded-md bg-white">
+  <div class="flex flex-col space-y-2 md:w-1/3 p-3">
+    <div class="rounded-md p-3 bg-white border shadow" *ngIf="!IsThemHH" (click)="IsThemHH=!IsThemHH">
+      Bạn Có Muốn Thêm Mới Hoa Hồng?
+
+    </div>
+    <div class="flex flex-col bg-white border rounded-md shadow p-3 w-full" *ngIf="IsThemHH">
+      <mat-form-field appearance="outline">
+        <mat-label>Cấp Bậc</mat-label>
+        <input matInput placeholder="VD: Vàng" [(ngModel)]="Cauhinh.capbac">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Doanh Thu Từ</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Cauhinh.doanhthutu">
+        <span matSuffix class="text-red-500 ml-2">
+          {{Cauhinh.doanhthutu|number:'1.0-2'}}đ
+        </span>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Doanh Thu Đến</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Cauhinh.doanhthuden">
+        <span matSuffix class="text-red-500 ml-2">
+          {{Cauhinh.doanhthuden|number:'1.0-2'}}đ
+        </span>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Hoa Hồng Cá Nhân</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Cauhinh.hhcanhan">
+        <span matSuffix>%</span>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Hoa Hồng Giới Thiệu</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Cauhinh.hhgioithieu">
+        <span matSuffix>%</span>
+      </mat-form-field>
+      <div class="flex flex-row space-x-2 justify-center">
+        <button mat-raised-button color="primary" (click)="IsThemHH=!IsThemHH">Hủy</button>
+        <button mat-raised-button color="primary" (click)="AddCauhinh(Cauhinh)">Thêm</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="w-full p-3">
+    <mat-form-field appearance="outline">
+      <mat-label>Tìm Kiếm</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Tìm Kiếm" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+      <table class="w-full" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="capbac">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Cấp Bậc </th>
+          <td mat-cell *matCellDef="let row"> {{row.capbac}} </td>
+        </ng-container>
+        <ng-container matColumnDef="doanhthu">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Doanh Thu</th>
+          <td mat-cell *matCellDef="let row"> {{row.doanhthutu|number:'1.0-2'}}đ - {{row.doanhthuden|number:'1.0-2'}}đ
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="hhcanhan">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hoa Hồng Cá Nhân </th>
+          <td mat-cell *matCellDef="let row"> {{row.hhcanhan}}% </td>
+        </ng-container>
+        <ng-container matColumnDef="hhgioithieu">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hoa Hồng Giới Thiệu </th>
+          <td mat-cell *matCellDef="let row"> {{row.hhgioithieu}}% </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+  </div>
+</div>

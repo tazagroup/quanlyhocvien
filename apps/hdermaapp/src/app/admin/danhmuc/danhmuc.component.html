@@ -1,0 +1,97 @@
+<mat-drawer-container class="example-container bg-white" autosize>
+    <mat-drawer #drawer class="example-sidenav w-1/3" opened mode="side">
+        <mat-tree [dataSource]="dataSource1" [treeControl]="treeControl">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                <div class="flex items-center justify-between space-x-4 cursor-pointer w-full px-3 py-1 group"
+                    routerLink="detail/{{ node.Slug }}" routerLinkActive="bg-gray-200">
+                    <div class="flex items-center space-x-2">
+                        <span class="material-icons text-yellow-500"> collections_bookmark </span>
+                        <span class="">{{ node.Title }}</span>
+                    </div>
+                    <div class="hidden group-hover:flex items-center space-x-2">
+                      
+                        <span class="material-icons cursor-pointer text-blue-500"
+                            (click)="OpenThemDanhmuc(node,ThemDanhmucDialog)" title="Tạo danh mục con">
+                            note_add
+                        </span>
+                        <span class="material-icons text-blue-500" title="Chỉnh sửa">
+                            edit
+                        </span>
+                        <span class="material-icons cursor-pointer text-red-500" (click)="deleteDanhmuc(node.id)"
+                            title="Xoá">
+                            delete
+                        </span>
+                    </div>
+                </div>
+
+
+            </mat-tree-node>
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.Title">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{
+                        treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'
+                        }}
+                    </mat-icon>
+                </button>
+                <div class="flex items-center space-x-4 justify-between cursor-pointer w-full group hover:bg-gray-200 px-3 py-1 rounded"
+                    routerLink="detail/{{ node.Slug }}" routerLinkActive="bg-gray-200">
+                    <div class="flex items-center space-x-2">
+                        <span class="material-icons text-yellow-500"> collections_bookmark </span>
+                        <span class="">{{ node.Title }} </span>
+                    </div>
+                    <div class="items-center space-x-2 hidden group-hover:flex">
+
+                        <span class="material-icons cursor-pointer text-blue-500"
+                            (click)="OpenThemDanhmuc(node,ThemDanhmucDialog)" title="Tạo danh mục con"
+                            matTooltip="Tạo danh mục con">
+                            note_add
+                        </span>
+                        <span class="material-icons text-blue-500">
+                            edit
+                        </span>
+                        <span class="material-icons cursor-pointer text-red-500" (click)="deleteDanhmuc(node.id)">
+                            delete
+                        </span>
+                    </div>
+                </div>
+            </mat-tree-node>
+        </mat-tree>
+
+    </mat-drawer>
+    <div>
+
+        <router-outlet></router-outlet>
+
+    </div>
+
+</mat-drawer-container>
+
+
+<ng-template #ThemDanhmucDialog>
+    <mat-dialog-content>
+        <form [formGroup]="DanhmucList">
+            <div>
+                <mat-form-field appearance="outline" class="flex w-full">
+                    <mat-label>Slug</mat-label>
+                    <input matInput type="text" placeholder="Slug" [formControlName]="'Slug'" />
+
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="flex ư-full">
+                    <mat-label>Tên Danh Mục</mat-label>
+                    <input matInput type="text" placeholder="Tên danh muc" [formControlName]="'Title'" />
+
+                </mat-form-field>
+            </div>
+        </form>
+        <div class="flex justify-end">
+            <button mat-button matDialogClose color="white" class="bg-green-500 text-white" (click)="onSave()">
+                Xác nhận
+            </button>
+        </div>
+    </mat-dialog-content>
+
+</ng-template>

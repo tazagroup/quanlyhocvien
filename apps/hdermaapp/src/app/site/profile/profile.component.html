@@ -1,0 +1,30 @@
+
+
+<div class="lg:max-w-7xl lg:p-8 p-2 m-auto">
+  <mat-drawer-container class="example-container w-full h-[80vh] lg:rounded-md bg-white rounded-md" autosize>
+    <mat-drawer #drawer [mode]="mode" [opened]="isOpened" class="!flex flex-col flex-auto min-w-0 relative h-full w-full lg:w-4/5" position="end">
+      <div class="relative flex flex-col h-full w-full overflow-auto">
+        <div class="lg:hidden flex"><span class="material-icons p-3 hover:bg-gray-200 rounded-full" (click)="drawer.close()">
+            cancel
+          </span></div>
+          <div class="p-4">
+            <router-outlet></router-outlet>
+          </div>
+
+      </div>
+    </mat-drawer>
+    <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative">
+      <div class="relative flex flex-col">
+          <div class="flex flex-col w-full h-full">
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" routerLink="account"  routerLinkActive="bg-gray-200" (click)="drawer.open()">Thông Tin Tài Khoản</div>
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" routerLink="donhang"  routerLinkActive="bg-gray-200" (click)="drawer.open()">Đơn Hàng</div>
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" routerLink="tichdiem" routerLinkActive="bg-gray-200" (click)="drawer.open()">Tích Điểm</div>
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" routerLink="referral" routerLinkActive="bg-gray-200" (click)="drawer.open()">Giới Thiệu</div>
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" routerLink="chiendich" routerLinkActive="bg-gray-200" (click)="drawer.open()">Chiến Dịch</div>
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" routerLink="../admin" routerLinkActive="bg-gray-200" (click)="drawer.open()">Trang Quản Trị</div>
+            <div class="p-4 border-b-2 flex flex-col hover:bg-gray-200" (click)="Dangxuat()">Đăng Xuất</div>
+          </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

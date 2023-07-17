@@ -1,0 +1,342 @@
+<mat-drawer-container class="example-container w-full h-full" autosize>
+  <mat-drawer #drawer mode="side" opened class="!flex flex-col flex-auto min-w-0 relative h-full w-1/2" position="end">
+    <div class="relative flex flex-col h-full w-full overflow-auto ">
+      <div class="absolute top-0 right-0">
+        <span class="material-icons p-3 hover:bg-gray-200 rounded-full" (click)="drawer.toggle()">
+          arrow_back
+        </span>
+        <div class="flex flex-col space-y-2 bg-white p-4">
+          <div class="flex flex-col space-y-2  p-3 justify-between">
+            <div class="flex flex-col space-y-3">
+                <div class="flex flex-row space-x-2 justify-between">
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Tên Chiến Dịch</mat-label>
+                    <input matInput placeholder="VD: Vàng" [(ngModel)]="Chiendich.TenCD">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Doanh Thu</mat-label>
+                    <input matInput type="number" placeholder="VD: Vàng" [(ngModel)]="Chiendich.DoanhThu">
+                    <span matSuffix class="ml-2 text-blue-500" *ngIf="Chiendich.DoanhThu">{{Chiendich.DoanhThu|number:'1.0-2'}}đ</span>
+                  </mat-form-field>
+                </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Nội Dung Chiến Dịch</mat-label>
+                <textarea matInput placeholder="Placeholder" [(ngModel)]="Chiendich.Noidung"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="flex flex-col space-y-2">
+              <div class="flex md:flex-row md:space-x-2 flex-col space-y-2  items-center justify-between" *ngFor="let item of ListCauhinh; let i=index">
+                <div>{{item.capbac}} ({{Chiendich.ListMax[i]}}%) -
+                  <span class="text-red-500">({{Chiendich.ListActive[i]}}%)</span>
+                </div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Điểm Đạt Được</mat-label>
+                  <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.ListDiem[i]" (input)="CheckListDiem(i,$event)">
+                  <span matSuffix>%</span>
+                    <mat-hint class="text-blue-500" *ngIf="Chiendich.ListDiem[i]">{{Chiendich.DoanhThu*Chiendich.ListDiem[i]/100|number:'1.0-2'}}đ</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Giá Trị Quà</mat-label>
+                  <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.ListGiatriqua[i]" (input)="CheckListGiatriqua(i,$event)">
+                  <span matSuffix>%</span>
+                    <mat-hint class="text-blue-500" *ngIf="Chiendich.ListGiatriqua[i]">{{Chiendich.DoanhThu*Chiendich.ListGiatriqua[i]/100|number:'1.0-2'}}đ</mat-hint>
+                </mat-form-field>
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="text-center flex flex-row space-x-3 justify-center">
+            <button mat-raised-button color="warn" (click)="IsThemCD=!IsThemCD">Hủy</button>
+            <button mat-raised-button color="primary" (click)="AddChiendich(Chiendich)">Thêm</button>
+          </div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative bg-white !h-[100vh]">
+    <div class="relative border-b-2 flex flex-col">
+      <div class="flex flex-row">
+        <div class="px-3">
+          <div class="flex flex-row space-x-3 py-3 items-center min-h-[50px] justify-between">
+              <div class="flex rounded-md border-2 border-slate-100 w-full">
+                <input id="user" type="text"
+                  class="block w-full py-4 px-2 first-letter:w-full bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder="Tìm Kiếm" />
+                <div class="inline-flex items-center px-3">
+                  <span class="material-icons">search</span>
+                </div>
+              </div>
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tùy Chỉnh">
+              tune
+            </span>
+            <!-- <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Lấy Mẫu" *ngIf="Phanquyen|checkquyen:'CHTG-EX':'CanView'">
+              file_download
+            </span> -->
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Upload File">
+              file_upload
+            </span>
+            <!-- <span [routerLink]="['datcauhoi']" class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tạo mới" *ngIf="Phanquyen|checkquyen:'CHTG-AD':'CanView'">
+              add_circle
+            </span> -->
+            <span [routerLink]="['danhmuc/danhmucmoi']" class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tạo mới" (click)="drawer.open()">
+              add_circle
+            </span>
+          </div>
+    </div>
+      </div>
+    </div>
+    <div class="relative flex flex-col h-full w-full overflow-auto">
+      <div class="mat-elevation-z8">
+        <table class="w-full" mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="TenCD">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên Chiến Dịch</th>
+            <td mat-cell *matCellDef="let row"> {{row.TenCD}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Doanhthu">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Doanh Thu</th>
+            <td mat-cell *matCellDef="let row"> {{row.DoanhThu|number:'1.0-2'}}đ</td>
+          </ng-container>
+          <ng-container matColumnDef="Noidung">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nội Dung</th>
+            <td mat-cell *matCellDef="let row"> {{row.Noidung}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Diem">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Điểm </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="flex flex-row justify-between px-4" *ngFor="let item of ListCauhinh; let i=index">
+                <span>{{item.capbac}} ({{row.ListDiem[i]}}%)</span>
+                <span>{{row.ListDiem[i]*row.DoanhThu/100|number:'1.0-2'}}đ</span>
+              </div>
+             </td>
+          </ng-container>
+          <ng-container matColumnDef="Giatriqua">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Giá Trị Quà </th>
+            <td mat-cell *matCellDef="let row">
+              <div class="flex flex-row justify-between px-4" *ngFor="let item of ListCauhinh; let i=index">
+                <span>{{item.capbac}} ({{row.ListGiatriqua[i]}}%)</span>
+                <span>{{row.ListGiatriqua[i]*row.DoanhThu/100|number:'1.0-2'}}đ</span>
+              </div>
+               </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter </td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<mat-drawer-container class="example-container w-full h-full" autosize>
+  <mat-drawer #drawer mode="side" opened class="!flex flex-col flex-auto min-w-0 relative h-full w-full" position="end">
+    <div class="relative flex flex-col h-full w-full overflow-auto ">
+      <div>
+        <span class="material-icons p-3 hover:bg-gray-200 rounded-full" (click)="Chiendich={};drawer.close()">
+          arrow_back
+        </span>
+        <div class="flex flex-col p-3 w-full">
+          <mat-form-field appearance="outline">
+            <mat-label>Cấp Bậc</mat-label>
+            <input matInput placeholder="VD: Vàng" [(ngModel)]="Chiendich.capbac">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Doanh Thu Từ</mat-label>
+            <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.doanhthutu">
+            <mat-hint class="text-red-500"> {{Chiendich.doanhthutu|number:'1.0-2'}}đ</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Doanh Thu Đến</mat-label>
+            <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.doanhthuden">
+            <mat-hint class="text-red-500"> {{Chiendich.doanhthuden|number:'1.0-2'}}đ</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Hoa Hồng Cá Nhân</mat-label>
+            <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.hhcanhan">
+            <span matSuffix>%</span>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Hoa Hồng Giới Thiệu</mat-label>
+            <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.hhgioithieu">
+            <span matSuffix>%</span>
+          </mat-form-field>
+          <div class="flex flex-row space-x-2 justify-center">
+            <ng-container *ngIf="checkEmptyObject(Chiendich); else elseTemplate">
+              <button mat-raised-button color="basic" class="bg-blue-500 text-white hover:shadow-md" *ngIf="Chiendich" (click)="CreateChiendich(Chiendich)">Thêm</button>
+            </ng-container>
+            <ng-template #elseTemplate>      
+            <button mat-raised-button class="bg-green-500 text-white hover:shadow-md" color="basic" *ngIf="Chiendich" (click)="UpdateChiendich(Chiendich)">Cập Nhật</button>
+            <button mat-raised-button class="bg-red-500 text-white hover:shadow-md" color="basic" *ngIf="Chiendich" (click)="DeleteChiendich(Chiendich)">Xoá</button>
+            </ng-template>       
+          </div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative bg-white !h-[80vh]">
+    <div class="relative border-b-2 flex flex-col">
+      <div class="flex flex-row">
+        <div class="px-3">
+          <div class="flex flex-row space-x-3 py-3 items-center min-h-[50px] justify-between">
+              <div class="flex rounded-md border-2 border-slate-100 w-full">
+                <input id="user" type="text"
+                  class="block w-full py-4 px-2 first-letter:w-full bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder="Tìm Kiếm" (keyup)="applyFilter($event)" />
+                <div class="inline-flex items-center px-3">
+                  <span class="material-icons">search</span>
+                </div>
+              </div>
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tùy Chỉnh">
+              tune
+            </span>
+            <!-- <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Lấy Mẫu" *ngIf="Phanquyen|checkquyen:'CHTG-EX':'CanView'">
+              file_download
+            </span> -->
+            <span class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Upload File">
+              file_upload
+            </span>
+            <!-- <span [routerLink]="['datcauhoi']" class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tạo mới" *ngIf="Phanquyen|checkquyen:'CHTG-AD':'CanView'">
+              add_circle
+            </span> -->
+            <span [routerLink]="['danhmuc/danhmucmoi']" class="material-icons p-2 hover:bg-slate-200 rounded-lg" matTooltip="Tạo mới" (click)="drawer.open();Chiendich={}">
+              add_circle
+            </span>
+          </div>
+    </div>
+      </div>
+    </div>
+    <div class="relative flex flex-col h-full w-full overflow-auto">
+      <div class="mat-elevation-z8">
+        <table class="w-full h-full" mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="capbac">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cấp Bậc </th>
+            <td mat-cell *matCellDef="let row"> {{row.capbac}} </td>
+          </ng-container>
+          <ng-container matColumnDef="doanhthu">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Doanh Thu</th>
+            <td mat-cell *matCellDef="let row"> {{row.doanhthutu|number:'1.0-2'}}đ - {{row.doanhthuden|number:'1.0-2'}}đ
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="hhcanhan">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hoa Hồng Cá Nhân </th>
+            <td mat-cell *matCellDef="let row"> {{row.hhcanhan}}% </td>
+          </ng-container>
+          <ng-container matColumnDef="hhgioithieu">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hoa Hồng Giới Thiệu </th>
+            <td mat-cell *matCellDef="let row"> {{row.hhgioithieu}}% </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Chiendich=row;drawer.open()"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter </td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" pageSize="10"></mat-paginator>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+
+<!-- 
+<div class="flex flex-col h-full space-y-2 p-4 rounded-md bg-white">
+ <div class="rounded-md p-3 bg-white border shadow" *ngIf="!IsThemCD" (click)="IsThemCD=!IsThemCD">Bạn Có Muốn Thêm Mới Chiến Dịch?</div>
+  <div class="flex flex-col space-y-2 bg-white border rounded-md shadow p-3" *ngIf="IsThemCD">
+  <div class="flex md:flex-row md:space-x-2 flex-col space-y-2  p-3 justify-between">
+    <div class="flex flex-col space-y-3 md:w-1/3">
+      <mat-form-field appearance="outline">
+        <mat-label>Tên Chiến Dịch</mat-label>
+        <input matInput placeholder="VD: Vàng" [(ngModel)]="Chiendich.TenCD">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Doanh Thu</mat-label>
+        <input matInput type="number" placeholder="VD: Vàng" [(ngModel)]="Chiendich.DoanhThu">
+        <span matSuffix class="ml-2 text-blue-500" *ngIf="Chiendich.DoanhThu">{{Chiendich.DoanhThu|number:'1.0-2'}}đ</span>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nội Dung Chiến Dịch</mat-label>
+        <textarea matInput placeholder="Placeholder" [(ngModel)]="Chiendich.Noidung"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col space-y-2">
+      <div class="flex md:flex-row md:space-x-2 flex-col space-y-2  items-center justify-between" *ngFor="let item of ListCauhinh; let i=index">
+        <div>{{item.capbac}} ({{Chiendich.ListMax[i]}}%) -
+          <span class="text-red-500">({{Chiendich.ListActive[i]}}%)</span>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Điểm Đạt Được</mat-label>
+          <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.ListDiem[i]" (input)="CheckListDiem(i,$event)">
+          <span matSuffix>%</span>
+            <mat-hint class="text-blue-500" *ngIf="Chiendich.ListDiem[i]">{{Chiendich.DoanhThu*Chiendich.ListDiem[i]/100|number:'1.0-2'}}đ</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Giá Trị Quà</mat-label>
+          <input matInput type="number" placeholder="Placeholder" [(ngModel)]="Chiendich.ListGiatriqua[i]" (input)="CheckListGiatriqua(i,$event)">
+          <span matSuffix>%</span>
+            <mat-hint class="text-blue-500" *ngIf="Chiendich.ListGiatriqua[i]">{{Chiendich.DoanhThu*Chiendich.ListGiatriqua[i]/100|number:'1.0-2'}}đ</mat-hint>
+        </mat-form-field>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="text-center flex flex-row space-x-3 justify-center">
+    <button mat-raised-button color="warn" (click)="IsThemCD=!IsThemCD">Hủy</button>
+    <button mat-raised-button color="primary" (click)="AddChiendich(Chiendich)">Thêm</button>
+  </div>
+</div>
+  <div class="w-full p-3">
+    <mat-form-field appearance="outline">
+      <mat-label>Tìm Kiếm</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Tìm Kiếm" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+      <table class="w-full" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="TenCD">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên Chiến Dịch</th>
+          <td mat-cell *matCellDef="let row"> {{row.TenCD}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Doanhthu">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Doanh Thu</th>
+          <td mat-cell *matCellDef="let row"> {{row.DoanhThu|number:'1.0-2'}}đ</td>
+        </ng-container>
+        <ng-container matColumnDef="Noidung">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nội Dung</th>
+          <td mat-cell *matCellDef="let row"> {{row.Noidung}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Diem">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Điểm </th>
+          <td mat-cell *matCellDef="let row">
+            <div class="flex flex-row justify-between px-4" *ngFor="let item of ListCauhinh; let i=index">
+              <span>{{item.capbac}} ({{row.ListDiem[i]}}%)</span>
+              <span>{{row.ListDiem[i]*row.DoanhThu/100|number:'1.0-2'}}đ</span>
+            </div>
+           </td>
+        </ng-container>
+        <ng-container matColumnDef="Giatriqua">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Giá Trị Quà </th>
+          <td mat-cell *matCellDef="let row">
+            <div class="flex flex-row justify-between px-4" *ngFor="let item of ListCauhinh; let i=index">
+              <span>{{item.capbac}} ({{row.ListGiatriqua[i]}}%)</span>
+              <span>{{row.ListGiatriqua[i]*row.DoanhThu/100|number:'1.0-2'}}đ</span>
+            </div>
+             </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+  </div>
+</div> -->

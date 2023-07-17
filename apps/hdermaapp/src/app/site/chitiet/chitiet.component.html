@@ -1,0 +1,180 @@
+<div class="py-10 bg-white">
+    <div class="container grid lg:grid-cols-2 grid-cols-1 gap-10 lg:space-x-3 space-x-0 px-3">
+        <div class="w-full">
+            <div class="lg:flex hidden lg:flex-row flex-col lg:space-x-3 space-x-0">
+                <div class="w-1/6 relative">
+                    <swiper (swiper)="thumbsSwiper = $event" [allowTouchMove]="false" [direction]="'vertical'"
+                        [freeMode]="true" [watchSlidesProgress]="true" [spaceBetween]="0" [slidesPerView]="5"
+                        class="mySwiper image-product">
+                        <ng-template swiperSlide>
+                            <img src="https://drive.google.com/uc?id={{product.Image}}" alt="">
+                        </ng-template>
+                        <ng-template swiperSlide *ngFor="let item of product.ListImage | keyvalue">
+                            <img src="https://drive.google.com/uc?id={{item.value}}" alt="">
+                        </ng-template>
+                    </swiper>
+                    <div class="button-slide">
+                        <div
+                            class="z-10 top-[-40px] absolute left-[20px] text-gray-500 bg-white p-3 rounded-full border translate-y-[50%]">
+                            <span class="font-bold p-1 rounded-full cursor-pointer" (click)="slidePrev()">
+                                <i class="fa-sharp fa-solid fa-arrow-up"></i>
+                            </span>
+                        </div>
+                        <div
+                            class="z-10 bottom-2 absolute right-[22px] text-gray-500 bg-white border p-3 rounded-full translate-y-[50%]">
+                            <span class="font-bold p-1 rounded-ful cursor-pointer" (click)="slideNext()">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-5/6">
+                    <swiper [thumbs]="{ swiper: thumbsSwiper }" effect="fade" [thumbs]="{ swiper: thumbsSwiper1 }"
+                        [allowTouchMove]="false" class="mySwiper2">
+                        <ng-template swiperSlide>
+                            <img src="https://drive.google.com/uc?id={{product.Image}}" alt="">
+                        </ng-template>
+                        <ng-template swiperSlide *ngFor="let item of product.ListImage | keyvalue">
+                            <img src="https://drive.google.com/uc?id={{item.value}}" alt="">
+                        </ng-template>
+                    </swiper>
+                </div>
+            </div>
+            <div class="lg:hidden flex lg:flex-row flex-col">
+                <div class="w-full">
+                    <swiper [thumbs]="{ swiper: thumbsSwiper1 }" effect="fade" [thumbs]="{ swiper: thumbsSwiper1 }"
+                        [allowTouchMove]="false" class="mySwiper2">
+                        <ng-template swiperSlide>
+                            <img src="https://drive.google.com/uc?id={{product.Image}}" alt="">
+                        </ng-template>
+                        <ng-template swiperSlide *ngFor="let item of product.ListImage | keyvalue">
+                            <img src="https://drive.google.com/uc?id={{item.value}}" alt="">
+                        </ng-template>
+                    </swiper>
+                </div>
+                <div class="w-full">
+                    <swiper (swiper)="thumbsSwiper1 = $event" [freeMode]="true" [watchSlidesProgress]="true"
+                        [spaceBetween]="0" [slidesPerView]="6" class="mySwiper image-product h-[1000px]">
+                        <ng-template swiperSlide>
+                            <img src="https://drive.google.com/uc?id={{product.Image}}" alt="">
+                        </ng-template>
+                        <ng-template swiperSlide *ngFor="let item of product.ListImage | keyvalue">
+                            <img src="https://drive.google.com/uc?id={{item.value}}" alt="">
+                        </ng-template>
+                    </swiper>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-3 font-bold">
+            <h3 class="lg:tracking-widest tracking-normal lg:text-xl text-base">{{product.Tieude}}</h3>
+            <!-- <div class="flex items-center lg:space-x-3 space-x-1">
+                <span class="font-medium md:leading-none text-48 md:text-48">4.4</span>
+                    <div class="flex space-x-1">
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="fill-current w-3 h-3">
+                            <path d="M5 0L6.66667 3.33333L10 3.75L7.71111 6.31667L8.33333 10L5 8.33333L1.66667 10L2.29444 6.31667L0 3.75L3.33333 3.33333L5 0Z"></path>
+                        </svg>
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="fill-current w-3 h-3">
+                            <path d="M5 0L6.66667 3.33333L10 3.75L7.71111 6.31667L8.33333 10L5 8.33333L1.66667 10L2.29444 6.31667L0 3.75L3.33333 3.33333L5 0Z"></path>
+                        </svg>
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="fill-current w-3 h-3">
+                            <path d="M5 0L6.66667 3.33333L10 3.75L7.71111 6.31667L8.33333 10L5 8.33333L1.66667 10L2.29444 6.31667L0 3.75L3.33333 3.33333L5 0Z"></path>
+                        </svg>
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="fill-current w-3 h-3">
+                            <path d="M5 0L6.66667 3.33333L10 3.75L7.71111 6.31667L8.33333 10L5 8.33333L1.66667 10L2.29444 6.31667L0 3.75L3.33333 3.33333L5 0Z"></path>
+                        </svg>
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="fill-current w-3 h-3">
+                            <path d="M5 0L3.33333 3.33333L0 3.75L2.29444 6.31667L1.66667 10L5 8.33333L8.33333 10L7.71111 6.31667L10 3.75L6.66667 3.33333L5 0ZM5 1.24444L6.3 3.85L8.88333 4.17222L7.11667 6.15L7.6 9.01111L5 7.71111V1.24444Z"></path>
+                        </svg>
+                    </div>
+                <span class="underline cursor-pointer text-gray-500 text-xs">View 9799 Reviews</span>
+            </div> -->
+            <div class="flex flex-row space-x-2">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button (click)="decrement(product)" type="button"
+                      class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                      -
+                    </button>
+                    <input type="number" [min]="1" (blur)="onBlur()" (keydown)="onKeyDown($event)"  [(ngModel)]="cartNum" [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="changeQuantity(product, $event)"
+                      class="w-24 px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                    <button (click)="increment(product)" type="button"
+                      class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                      +
+                    </button>
+                  </div>
+                  <div class="space-y-1">
+                    <p class="text-xl price" style="letter-spacing: 0.2em;">{{product.Gia |number:'1.0-2'}}đ</p>
+                    <!-- <p class="space-x-1">
+                        <span class="underline text-xs text-gray-500">Shipping</span>
+                        <span class="text-xs text-gray-500">&</span>
+                        <span class="underline text-xs text-gray-500">Free Returns</span>
+                    </p> -->
+                </div>
+            </div>
+            <div class="flex flex-row space-x-2">
+                <button mat-flat-button color="warn" (click)="updateCart()">
+                    <span class="material-icons">
+                        add_shopping_cart
+                        </span>
+                        Thêm
+                </button>
+                <button mat-flat-button color="primary" (click)="updateCart()" [routerLink]="['/checkout']">Mua Ngay</button>
+                <button mat-flat-button color="primary">
+                    <span class="material-icons">
+                    share
+                    </span>
+                </button>
+            </div>
+            <!-- <p class="text-xs pt-4">Due to local ordinances, this product may not be available to ship to Hawaii</p> -->
+            <div class="flex pt-5 overflow-hidden">
+                <div class="grid lg:grid-cols-4 grid-cols-3 lg:gap-5 gap-2 text-center">
+                    <span class="space-y-1">
+                        <img class="overflow-hidden mx-auto"
+                            src="/assets/image/face1.png" alt="">
+                    </span>
+                    <span class="space-y-1">
+                        <img class="overflow-hidden mx-auto"
+                            src="/assets/image/face2.png" alt="">
+                    </span>
+                    <span class="space-y-1">
+                        <img class="overflow-hidden mx-auto"
+                            src="/assets/image/face3.png" alt="">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pt-12" style="background: #f5f9fe;">
+    <tazagroup-radiance></tazagroup-radiance>
+    <div class="container py-8 md:py-10 relative px-3">
+        <h1 class="lg:text-center mb-5 text-left font-bold text-3xl">SẢN PHẨM GỢI Ý</h1>
+        <tazagroup-san-pham [products]="hotProduct"></tazagroup-san-pham>
+    </div>
+</div>
+
+<div class="lg:hidden fixed z-10 bottom-12 left-0 w-full bg-white shadow-lg p-2 transform transition-all duration-300 ease-in-out" *ngIf="showcartmenu">
+    <div class="flex flex-row space-x-2">
+        <div class="inline-flex rounded-md shadow-sm" role="group">
+            <button (click)="decrement(product)" type="button"
+              class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+              -
+            </button>
+            <input type="number" [min]="1" (blur)="onBlur()" (keydown)="onKeyDown($event)"  [(ngModel)]="cartNum" [ngModelOptions]="{standalone: true}"
+            (ngModelChange)="changeQuantity(product, $event)"
+              class="max-w-[70px] px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+            <button (click)="increment(product)" type="button"
+              class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+              +
+            </button>
+          </div>
+        <button mat-flat-button color="warn" (click)="updateCart()">
+            <span class="material-icons">
+                add_shopping_cart
+                </span>
+                Thêm
+        </button>
+        <button mat-flat-button color="primary" (click)="updateCart()" [routerLink]="['/checkout']">Mua Ngay</button>
+
+    </div>   
+  </div>

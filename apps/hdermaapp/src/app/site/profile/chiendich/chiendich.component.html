@@ -1,0 +1,60 @@
+<!-- <div class="flex flex-col space-y-3 border p-3" *ngFor="let item of chiendichs">
+    <div class="flex flex-row space-x-2 justify-between items-center">
+        <span class="">
+            {{item.TenCD}}
+        </span>
+        <span class="italic">
+            {{item.Noidung}}
+        </span>
+        <span class="italic">
+            {{item.Deadline.Batdau|date:'dd/MM/yyyy'}} - {{item.Deadline.Ketthuc|date:'dd/MM/yyyy'}}
+        </span>
+    </div>
+    <div class="flex flex-row space-x-2 justify-between items-center">
+        <span class="">
+            {{item.Sanpham.Tieude}}
+        </span>
+        <span class="italic">
+            {{item.Soluong}}
+        </span>
+        <span class="italic">
+            {{item.DoanhThu|number:'1.0-2'}}đ
+        </span>
+    </div>
+</div> -->
+<div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel *ngFor="let item of chiendichs">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{item.TenCD||'Chưa Có Tiêu Đề'}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{item.Noidung||'Chưa Có Nội Dung'}}
+                <div class="flex space-x-2 items-center"> 
+                    <span class="material-icons">
+                        date_range
+                        </span>
+                    {{item.Deadline.Batdau|date:'dd/MM/yyyy'}} - {{item.Deadline.Ketthuc|date:'dd/MM/yyyy'}}
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="flex flex-row space-x-2 justify-between items-center">
+            <span class="">
+                {{item.Sanpham.Tieude}}
+            </span>
+            <span class="italic">
+                {{item.Soluong}}
+            </span>
+            <span class="italic">
+                {{item.DoanhThu|number:'1.0-2'}}đ
+            </span>
+            <span class="italic">
+                {{item.Loai|json}}
+            </span>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

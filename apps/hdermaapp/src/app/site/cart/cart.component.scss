@@ -1,0 +1,33 @@
+.discount{
+    input::placeholder {
+        color: #184363;
+      }
+}
+.three-dot{
+    overflow: hidden;
+    display: -webkit-box; 
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-height: 3.2rem;
+}
+@media all and (max-width:500px){
+    
+    .cart-table{
+        thead{
+            display: none;
+        }
+        tbody{
+            tr{
+                display: flex;
+                flex-direction: column;
+                padding: 12px;
+                td{
+                    display: flex;
+                    
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+    
+}

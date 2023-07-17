@@ -1,0 +1,38 @@
+<div class="overflow-hidden pb-10 bg-white">
+    <div class=" bg-cover bg-center bg-no-repeat banner-image h-52 background lg:hidden block" >
+    </div>
+    <img src="https://drive.google.com/uc?id=1qKAGnEu6mQ-Py3HhxXobCi3_KRwERV7a" class="lg:block hidden" alt="">
+    <div class="lg:w-[1340px] mx-auto lg:flex mt-10 px-4 lg:px-0 space-y-5 lg:space-y-0">
+        <div class="lg:w-1/4 lg:pr-10">
+            <h3 class="!text-3xl" [innerHTML]="data.Title"></h3>
+        </div>
+        <div class="lg:w-2/4 lg:space-y-6 text-justify lg:pr-3 blog-detail">
+            <div class=" items-center space-x-5 py-3 lg:flex hidden">
+                <span class="share">Chia sẻ</span>
+                <img src="https://drive.google.com/uc?id=12oE-ZM9XyWkmBymLapwn8i2jNKf7eJLx" alt="">
+                <img src="https://drive.google.com/uc?id=1ERLVi9hJZlDyNVh6EcWRNO-dF4YLwkgq" alt="">
+            </div>
+            <div class="space-y-5 lg:text-base text-sm text-justify" [innerHTML]="data.Baiviet">
+            </div>
+        </div>
+        <div class="lg:w-1/4 lg:pl-5 space-y-10 blog-detail1">
+            <div class="space-y-5" *ngFor="let item of [1]">
+                <h3 class="text-3xl font-bold uppercase">Bài viết phổ biến</h3>
+                <div class="mt-10 w-full space-y-5">
+                    <div *ngFor="let item of items" class="cursor-pointer" routerLink="/bai-viet/{{item.Slug}}">
+                        <div *ngIf="item.Loaibaiviet === 2" class="flex">
+                            <div class="lg:w-1/2 w-1/4 lg:pr-4 pr-3">
+                                <img src="https://drive.google.com/uc?id={{item.Image}}" class="w-full rounded-2xl" alt="">
+                            </div>
+                            <div class="lg:w-1/2 w-3/4 space-y-2">
+                                <p class="lg:text-xl text-base  font-gb three-dot text-justify" [innerHTML]="item.Title"></p>
+                                <p class="text-sm lg:hidden block one-dot text-justify" [innerHTML]="item.Mota"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <img src="https://paulaschoice.vn/wp-content/uploads/2022/12/banner_1080x1920.jpg" alt=""> -->
+        </div>
+    </div>
+</div>

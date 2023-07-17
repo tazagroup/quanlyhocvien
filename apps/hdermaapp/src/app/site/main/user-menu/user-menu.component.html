@@ -1,0 +1,16 @@
+
+<ng-container *ngIf="token!==null; else elseTemplate">
+  <span class="material-icons" [matMenuTriggerFor]="beforeMenu">
+    account_circle
+    </span>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <button mat-menu-item routerLink="profile/account"  routerLinkActive="bg-gray-200">Thông Tin Tài Khoản</button>
+          <button mat-menu-item routerLink="profile/donhang"  routerLinkActive="bg-gray-200">Đơn Hàng</button>
+          <button mat-menu-item routerLink="profile/referral"  routerLinkActive="bg-gray-200">Giới Thiệu</button>
+          <button mat-menu-item routerLink="profile/tichdiem" routerLinkActive="bg-gray-200">Tích Điểm</button>
+          <button mat-menu-item (click)="Dangxuat()">Đăng Xuất</button>
+        </mat-menu>
+</ng-container>
+<ng-template #elseTemplate>
+<span class="material-icons text-3xl cursor-pointer" routerLink="profile"> person </span>
+</ng-template>

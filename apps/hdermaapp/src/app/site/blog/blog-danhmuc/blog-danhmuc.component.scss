@@ -1,0 +1,100 @@
+.blog {
+  .tieude{
+    font-size: 20px!important;
+    line-height: 24px!important;
+  }
+  .text-sm{
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .text-xl{
+    font-size: 17px;
+    line-height: 17px;
+  }
+  .hover-button {
+    transition: 0.5s;
+    .material-icons {
+      transform: translateX(0);
+      transition: 0.5s;
+    }
+  }
+  .hover-button:hover {
+    transition: 0.5s;
+    .material-icons {
+      transform: translateX(12px);
+      transition: 0.5s;
+    }
+  }
+  .blog-item {
+    img {
+      transition: 0.6s;
+    }
+    // .underline-title {
+    //   background: linear-gradient(90deg, transparent, transparent), linear-gradient(90deg, #1f1c17, #1f1c17);
+    //   background-size: 100% 1px, 0 1px;
+    //   background-position: 100% calc(100% - 3px), 0 calc(100% - 3px);
+    //   background-repeat: no-repeat;
+    //   transition: background-size 0.3s;
+    // }
+  }
+  .blog-item:hover {
+    img {
+      transition: 0.6s;
+      transform: scale(1.1);
+    }
+    // .underline-title {
+    //   background-size: 0 1px, 100% 1px;
+    // }
+  }
+
+  .carouesl-blog {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
+    .swiper-pagination-bullet {
+      background-color: #c4a15d;
+      height: 10px;
+      width: 10px;
+    }
+    .icon-prev {
+      transform: translateX(-50px);
+      transition: 0.5s;
+    }
+    .icon-next {
+      transform: translateX(50px);
+      transition: 0.5s;
+    }
+  }
+  .carouesl-blog:hover {
+    .icon-prev,
+    .icon-next {
+      transform: translateX(0);
+      transition: 0.5s;
+    }
+  }
+  .carousel-blog-mobile {
+    .swiper-horizontal > .swiper-scrollbar,
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+      height: 2px;
+    }
+    .swiper-scrollbar {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+  .three-dot {
+    line-height: 2rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .one-dot {
+    line-height: 2rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    max-height: 6rem;
+  }
+}

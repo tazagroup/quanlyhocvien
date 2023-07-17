@@ -1,0 +1,148 @@
+<div class="blog overflow-hidden bg-white">
+    <div class="container-demo lg:w-[1220px] mx-auto lg:px-0 px-4 mt-5">
+        <div class=" flex items-center space-x-1 text-[#999999]">
+            <a class="text-sm uppercase font-gb" routerLink="">HOME</a><span>/</span>
+            <a class="text-sm uppercase font-gb" routerLink="/bai-viet">BLOG</a>
+        </div>
+    </div>
+    <div class="container-demo lg:w-[1220px] mx-auto lg:px-0 px-4 mt-10">
+        <h3 class="text-3xl font-bold uppercase font-gb">Bài viết</h3>
+        <div class="h-px w-1/6 bg-black mt-2"></div>
+    </div>
+    <div class="lg:w-[1220px] mx-auto space-y-10 mt-10">
+            <div  class="flex lg:flex-row flex-col-reverse">
+                <div class="lg:w-1/3 w-full">
+                    <div class="lg:space-y-10 space-y-5 lg:p-0 p-4">
+                        <h3 class="lg:text-3xl text-2xl font-bold lg:leading-[50px] font-gb uppercase" [innerHTML]="baivietnoibat?.Title">
+                        </h3>
+                        <p class="text-justify" [innerHTML]="baivietnoibat.Mota"></p>
+                    </div>
+                    <div routerLink="/bai-viet/{{baivietnoibat.Slug}}"
+                        class="flex items-center space-x-2 hover-button border-b-[1px] border-[#000000] w-[45%] mt-2 cursor-pointer">
+                        <span class="uppercase font-bold">Xem thêm</span>
+                        <span class="material-icons text-3xl transition  ">
+                            arrow_forward
+                        </span>
+                    </div>
+                </div>
+                <div class="lg:w-2/3 w-full lg:pl-28">
+                    <img src="https://drive.google.com/uc?id={{baivietnoibat.Imagenoibat}}" alt="">
+                </div>
+            </div>
+        <div class="lg:space-y-20 space-y-10 carousel-blog-mobile baiviet">
+            <div class="space-y-10" *ngFor="let danhmuc of danhmucs">
+                <div class="flex items-center justify-between">
+                    <div class="">
+                        <h3 class="text-3xl font-bold uppercase text-justify" [innerHTML]="danhmuc.Title"></h3>
+                        <div class="h-px w-[110%] bg-black mt-2"></div>
+                    </div>
+                    <div
+                        class="lg:flex hidden lg:space-x-2 border-b-[1px] border-[#000000] items-center hover-button cursor-pointer" routerLink="danh-muc">
+                        <span class="lg:text-xl text-base uppercase font-bold" >Xem thêm</span>
+                        <span class="material-icons text-3xl transition  ">
+                            arrow_forward
+                        </span>
+                    </div>
+                </div>
+                <swiper [config]="config" [scrollbar]="true" class="mySwiper !lg:pb-0 !pb-5" *ngIf="danhmuc.Baiviets.length > 0">
+                    <ng-template swiperSlide *ngFor="let item of danhmuc.Baiviets; let i = index" class="{{i > 3? 'hidden' : 'block'}}">
+                        <div class="space-y-3 blog-item cursor-pointer" routerLink="/bai-viet/{{item.Slug}}">
+                            <div class="w-full overflow-hidden rounded-xl h-80">
+                                <img src="https://drive.google.com/uc?id={{item.Image}}" alt="">
+                            </div>
+                            <div class="flex items-center pt-2">
+                                <h3>Làm đẹp | <span>{{item.CreateAt | date}}</span></h3>
+                            </div>
+                            <div>
+                                <span class="lg:text-2xl text-xl text-justify !text-black font-gb underline-title three-dot" [innerHTML]="item.Title"></span> 
+                            </div>
+                            <div class="text-justify lg:text-base text-sm  three-dot" [innerHTML]="item.Mota">
+                            </div>
+
+                            <div class="lg:hidden block">
+                                <a class="text-sm underline">Đọc thêm</a>
+                            </div>
+                        </div>
+                    </ng-template>
+                </swiper>
+                <swiper [config]="config" [scrollbar]="true" class="mySwiper !lg:pb-0 !pb-5" *ngIf="danhmuc.Baiviets.length === 0">
+                    <ng-template swiperSlide *ngFor="let item of lamdeps">
+                        <div class="space-y-3 blog-item cursor-pointer" routerLink="/bai-viet/{{item.Slug}}">
+                            <div class="w-full overflow-hidden rounded-xl h-80">
+                                <img src="{{item.Image}}" alt="">
+                            </div>
+                            <div class="flex items-center pt-2">
+                                <h3 class="text-xl font-gb">Làm đẹp | <strong
+                                        class="text-[#C4A15E] text-lg">{{item.CreateAt | date}}</strong></h3>
+                            </div>
+                            <div>
+                                <span class="lg:text-2xl text-xl  !text-black underline-title three-dot tieude" [innerHTML]="item.Title"></span> 
+                            </div>
+                            <div class="text-justify lg:text-base text-sm mota" [innerHTML]="item.Mota">
+                            </div>
+                            <div class="lg:hidden block">
+                                <a class="text-sm underline">Đọc thêm</a>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </swiper>
+
+            </div>
+            <!--<img src="https://image.cocoonvietnam.com/uploads/banner_green_living_ca9790eb2d.jpg"
+                class="hidden lg:block" alt="">
+            <img src="https://image.cocoonvietnam.com/uploads/banner_green_living_mobile_cfc551dd4e.jpg"
+                class="lg:hidden block" alt="">-->
+        </div>
+    </div>
+    <!--<div class="relative mt-10 py-10 bg-[#FAF4EB] carouesl-blog cursor-pointer">
+        <swiper [config]="configBlog" [navigation]="true" [pagination]="{ clickable: true }" class="mySwiper  !pb-10">
+            <ng-template swiperSlide *ngFor="let item of [1,2,3,4]">
+                <div data-v-a8463eba="" data-v-e4caeaf8=""
+                    class="py-7 lg:py-9 w-full flex flex-col justify-center items-center"><a data-v-a8463eba=""
+                        data-v-e4caeaf8=""
+                        href="https://www.elle.vn/tin-lam-dep/cocoon-vietnam-tai-elle-beauty-awards-2021"
+                        target="_blank" rel="noopener noreferrer" class="
+                    quote
+                    px-2
+                    font-gb
+                    italic
+                    text-2xl
+                    lg:w-[52rem]
+                    text-[#CCB48E]
+                    leading leading-7
+                    lg:text-4xl lg:leading-tight
+                    text-secondary-light1 text-center
+                  ">
+                        “Cocoon Vietnam – Từ mầm xanh làm đẹp đến giải thưởng danh giá tại ELLE Beauty Awards
+                        2021”
+                    </a>
+                    <p data-v-a8463eba="" data-v-e4caeaf8="" class="
+                    mt-1.5
+                    lg:mt-4
+                    font-barlow-condensed font-bold
+                    uppercase
+                    text-base
+                    lg:text-xl
+                    leading-none
+                    !text-black
+                    tracking-widest
+                    text-typo-heading
+                  ">
+                        elle vietnam
+                    </p>
+                </div>
+            </ng-template>
+        </swiper>
+        <div class="absolute left-2 z-10 top-1/2 centerY-img">
+            <span class="material-icons p-1 rounded-full text-4xl cursor-pointer icon-prev" (click)="swipePrev()">
+                chevron_left
+            </span>
+        </div>
+        <div class="absolute right-2 z-10 top-1/2 centerY-img">
+            <span class="material-icons p-1 rounded-full text-4xl cursor-pointer icon-next" (click)="swipeNext()">
+                chevron_right
+            </span>
+        </div>
+    </div>-->
+</div>
