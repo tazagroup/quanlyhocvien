@@ -5,96 +5,96 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class KhoahocService {
+export class HocvienService {
   private urlApi = environment.APIURL;
-  private _khoahocs: BehaviorSubject<any[] | null> = new BehaviorSubject<
+  private _hocviens: BehaviorSubject<any[] | null> = new BehaviorSubject<
     any[] | null
   >(null);
 
-  get khoahocs$(): Observable<any[] | null> {
-    return this._khoahocs.asObservable();
+  get hocviens$(): Observable<any[] | null> {
+    return this._hocviens.asObservable();
   }
-  private _khoahoc: BehaviorSubject<any | null> = new BehaviorSubject<
+  private _hocvien: BehaviorSubject<any | null> = new BehaviorSubject<
     any | null
   >(null);
 
-  get khoahoc$(): Observable<any | null> {
-    return this._khoahoc.asObservable();
+  get hocvien$(): Observable<any | null> {
+    return this._hocvien.asObservable();
   }
   constructor(private http: HttpClient) { }
 
-  getKhoahocs() {
-    return this.http.get(this.urlApi + '/qlhocvien-khoahoc').pipe(
+  getHocviens() {
+    return this.http.get(this.urlApi + '/qlhocvien-hocvien').pipe(
       map((data: any) => {
-        this._khoahocs.next(data);
+        this._hocviens.next(data);
         return data;
       })
     );
   }
-  getKhoahocBySlug(slug: string) {
-    return this.http.get(this.urlApi + `/qlhocvien-khoahoc/findid/${slug}`).pipe(
+  getHocvienBySlug(slug: string) {
+    return this.http.get(this.urlApi + `/qlhocvien-hocvien/findid/${slug}`).pipe(
       map((data: any) => {
-        this._khoahoc.next(data);
+        this._hocvien.next(data);
         return data;
       })
     );
   }
-  getKhoahocById(id: string) {
-    return this.http.get(this.urlApi + `/qlhocvien-khoahoc/findid/${id}`).pipe(
+  getHocvienById(id: string) {
+    return this.http.get(this.urlApi + `/qlhocvien-hocvien/findid/${id}`).pipe(
       map((data: any) => {
-        this._khoahoc.next(data);
+        this._hocvien.next(data);
         return data;
       })
     );
   }
-  postKhoahoc(data: any) {
-    return this.khoahocs$.pipe(
+  postHocvien(data: any) {
+    return this.hocviens$.pipe(
       take(1),
-      switchMap((khoahocs: any) =>
-        this.http.post(this.urlApi + '/qlhocvien-khoahoc', data).pipe(
-          map((khoahoc) => {
-            if (khoahocs?.length > 0) {
-              this._khoahocs.next([...khoahocs, khoahoc]);
+      switchMap((hocviens: any) =>
+        this.http.post(this.urlApi + '/qlhocvien-hocvien', data).pipe(
+          map((hocvien) => {
+            if (hocviens?.length > 0) {
+              this._hocviens.next([...hocviens, hocvien]);
             }
-            return khoahoc;
+            return hocvien;
           })
         )
       )
     );
   }
-  updateKhoahoc(data: any) {
-    return this.khoahocs$.pipe(
+  updateHocvien(data: any) {
+    return this.hocviens$.pipe(
       take(1),
-      switchMap((khoahocs: any) =>
-        this.http.patch(this.urlApi + `/qlhocvien-khoahoc/${data.id}`, data).pipe(
-          map((khoahoc) => {
+      switchMap((hocviens: any) =>
+        this.http.patch(this.urlApi + `/qlhocvien-hocvien/${data.id}`, data).pipe(
+          map((hocvien) => {
             // Find the index of the updated tag
-            const index = khoahocs.findIndex((item: any) => item.id === data.id);
+            const index = hocviens.findIndex((item: any) => item.id === data.id);
             if (index != -1) {
-              khoahocs[index] = data;
-              this._khoahocs.next(khoahocs as any[]);
+              hocviens[index] = data;
+              this._hocviens.next(hocviens as any[]);
 
             } else {
-              this._khoahocs.next([khoahoc]);
+              this._hocviens.next([hocvien]);
 
             }
 
             // Return the updated tag
-            return khoahoc;
+            return hocvien;
           })
         )
       )
     );
   }
-  deleteKhoahoc(id: string) {
-    return this.khoahocs$.pipe(
+  deleteHocvien(id: string) {
+    return this.hocviens$.pipe(
       take(1),
-      switchMap((khoahocs: any) =>
-        this.http.delete(this.urlApi + `/qlhocvien-khoahoc/${id}`).pipe(
+      switchMap((hocviens: any) =>
+        this.http.delete(this.urlApi + `/qlhocvien-hocvien/${id}`).pipe(
           map((isDelete) => {
-            const updateKhoahoc = khoahocs.filter((e: any) => e.id != id);
+            const updateHocvien = hocviens.filter((e: any) => e.id != id);
 
-            this._khoahocs.next(updateKhoahoc);
+            this._hocviens.next(updateHocvien);
             return isDelete;
           })
         )

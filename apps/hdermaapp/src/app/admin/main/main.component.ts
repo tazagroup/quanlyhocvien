@@ -13,61 +13,66 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class MainComponent implements OnInit,AfterViewInit {
   AdminMenu = [
     {
+      Title:'Học Viên',
+      Link:'hoc-vien',
+
+    },
+    {
       Title:'Khóa Học',
       Link:'khoa-hoc',
 
     },
-    {
-      Title:'Bài viết',
-      Link:'baiviet',
-
-    },
-    {
-      Title:'Sản phẩm',
-      Link:'sanpham',
-
-    },
-    {
-      Title:'Seo Tool',
-      Link:'seotool',
-
-    },
-    {
-      Title:'Tags',
-      Link:'tags',
-
-    },
-    {
-      Title:'Đơn hàng',
-      Link:'donhang',
-    },
-    {
-      Title:'Khách Hàng',
-      Link:'khachhang',
-    },
-    {
-      Title:'Comment',
-      Link:'comment',
-    },
     // {
-    //   Title:'Hình Ảnh',
-    //   Link:'hinhanh',
+    //   Title:'Bài viết',
+    //   Link:'baiviet',
+
     // },
-    {
-      Title:'Cấu Hình',
-      children: [
-        {Title:'Hoa Hồng',Link:'cauhinh/hoahong'},
-        {Title:'Chiến Dịch',Link:'cauhinh/chiendich'},
-        {Title:'Đổi Quà',Link:'cauhinh/doiqua'},
-        {Title:'Cấu Hình Chung',Link:'cauhinh/cauhinhchung'},
-        {Title:'Cấu Hình API',Link:'cauhinh/cauhinhapi'}
-      ],
-      Link:'#',
-    },
-    {
-      Title:'Nhân Viên',
-      Link:'nhanvien',
-    }
+    // {
+    //   Title:'Sản phẩm',
+    //   Link:'sanpham',
+
+    // },
+    // {
+    //   Title:'Seo Tool',
+    //   Link:'seotool',
+
+    // },
+    // {
+    //   Title:'Tags',
+    //   Link:'tags',
+
+    // },
+    // {
+    //   Title:'Đơn hàng',
+    //   Link:'donhang',
+    // },
+    // {
+    //   Title:'Khách Hàng',
+    //   Link:'khachhang',
+    // },
+    // {
+    //   Title:'Comment',
+    //   Link:'comment',
+    // },
+    // // {
+    // //   Title:'Hình Ảnh',
+    // //   Link:'hinhanh',
+    // // },
+    // {
+    //   Title:'Cấu Hình',
+    //   children: [
+    //     {Title:'Hoa Hồng',Link:'cauhinh/hoahong'},
+    //     {Title:'Chiến Dịch',Link:'cauhinh/chiendich'},
+    //     {Title:'Đổi Quà',Link:'cauhinh/doiqua'},
+    //     {Title:'Cấu Hình Chung',Link:'cauhinh/cauhinhchung'},
+    //     {Title:'Cấu Hình API',Link:'cauhinh/cauhinhapi'}
+    //   ],
+    //   Link:'#',
+    // },
+    // {
+    //   Title:'Nhân Viên',
+    //   Link:'nhanvien',
+    // }
   ]
   private _transformer = (node: any, level: number) => {
     return {

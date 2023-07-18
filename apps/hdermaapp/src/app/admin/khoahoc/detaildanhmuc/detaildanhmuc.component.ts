@@ -12,7 +12,7 @@ import { KhoahocService } from '../../../shared/khoahoc.service';
   styleUrls: ['./detaildanhmuc.component.scss'],
 })
 export class DetaildanhmucComponent implements OnInit {
-  Detail: any
+  Detail: any = {Title:'',Hinhanh:{spath:''}}
   images: File[] = [];
   Danhmucs: any[] = [];
   constructor(
@@ -29,10 +29,9 @@ export class DetaildanhmucComponent implements OnInit {
     this.route.params.subscribe((paramsId) => {
       const id = paramsId['id'];
       console.log(id);
-      
       if (id) {
         this._KhoahocComponent.drawer.open();
-        this._KhoahocService.getDanhmucDetail(id).subscribe();
+        this._KhoahocService.getDanhmucbyid(id).subscribe();
         this._KhoahocService.danhmuc$.subscribe((res) => {
           if (res) {
             console.log(res);
@@ -69,6 +68,7 @@ export class DetaildanhmucComponent implements OnInit {
   }
   GetImage(data:any)
   {
+
     return GetImage(data);
   }
 }

@@ -9,27 +9,25 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { GetImage, convertToSlug, nest } from '../../shared/shared.utils';
 import { MainComponent } from '../main/main.component';
-import { KhoahocService } from '../../shared/khoahoc.service';
+import { HocvienService } from '../../shared/hocvien.service';
 import * as XLSX from 'xlsx';
 @Component({
-  selector: 'tazagroup-khoahoc',
-  templateUrl: './khoahoc.component.html',
-  styleUrls: ['./khoahoc.component.scss'],
+  selector: 'app-hocvien',
+  templateUrl: './hocvien.component.html',
+  styleUrls: ['./hocvien.component.css']
 })
-export class KhoahocComponent implements OnInit {
+export class HocvienComponent implements OnInit {
   Begindata:number = 1;
   Enddata:number= 1;
   Loidata:number= 0;
   Hoanthanhdata:number= 0;
   isLoading:boolean = false
-  Detail: any = {Title:''};
   Lists: any[] = []
   FilterLists: any[] = []
   Sitemap: any = { loc: '', priority: '' }
   APITINYMCE=environment.APITINYMCE
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
-  DMDetail: any = {};
-  KHDetail: any ={Title:'',Hinhanh:{
+  Detail: any ={Hoten:'',Hinhanh:{
     ContentImage: {spath: ""},
     hinhchinh: {spath: ""},
     hinh1:{spath: ""},
@@ -42,7 +40,7 @@ export class KhoahocComponent implements OnInit {
   Filterdanhmuc:any[]=[];
   dataFilter!: any[]
   id!: any
-  khoahoc: any = []
+  hocvien: any = []
    private _transformer = (node: any, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -66,29 +64,20 @@ export class KhoahocComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private _Notification: NotifierService,
-    private _khoahocService: KhoahocService,
+    private _hocvienService: HocvienService,
     private _MainComponent: MainComponent,
    private _router: Router,
   ) {}
     ngOnInit(): void {
-    this._khoahocService.getDanhmucs().subscribe()
-    this._khoahocService.getKhoahocs().subscribe()
-    this._khoahocService.danhmucs$.subscribe(data => {
-      if (data) {
-        data.forEach(v=>v.isDM=true) 
-        this.danhmuc = data
-        this._khoahocService.khoahocs$.subscribe(res => {
-          if (res) {
-            res.forEach(v=>v.isDM=false)
-            this.khoahoc = res
-            this.khoahoc.sort((a: any, b: any) => {
-              return a.Ordering - b.Ordering;
-            });
-            let arr = [...this.danhmuc, ...this.khoahoc]            
-            this.dataFilter = this.dataSource.data = nest(arr,'','idDM')
-            this.treeControl.expandAll();
-          }
-        })
+    this._hocvienService.getDanhmucs().subscribe()
+    this._hocvienService.getHocviens().subscribe()
+    this._hocvienService.hocviens$.subscribe(res => {
+      if (res) {
+        this.hocvien = res          
+        this.dataFilter = this.dataSource.data =this.hocvien
+        this.treeControl.expandAll();
+        console.log(res);
+        
       }
     })
   }
@@ -105,7 +94,7 @@ export class KhoahocComponent implements OnInit {
     const dialogRef = this.dialog.open(teamplate);
     dialogRef.afterClosed().subscribe((result) => {
       if (result=='true') {
-        this._khoahocService.deleteKhoahoc(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
+        this._hocvienService.deleteHocvien(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
       }
     });
   }
@@ -113,7 +102,7 @@ export class KhoahocComponent implements OnInit {
     const dialogRef = this.dialog.open(teamplate);
     dialogRef.afterClosed().subscribe((result) => {
       if (result=='true') {
-        this._khoahocService.deleteDanhmuc(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
+        this._hocvienService.deleteDanhmuc(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
       }
     });
   }
@@ -128,18 +117,18 @@ export class KhoahocComponent implements OnInit {
   }
   CreateDM(data:any)
   {
-    this._khoahocService.postDanhmuc(data).subscribe((data)=>this._Notification.notify("success","Thêm Thành Công"));
+    this._hocvienService.postHocvien(data).subscribe((data)=>this._Notification.notify("success","Thêm Thành Công"));
   }
-  CreateKhoahoc(data:any)
+  CreateHocvien(data:any)
   {
-   const find = this.khoahoc.find((v:any)=>v.Title==data.Title)
+   const find = this.hocvien.find((v:any)=>v.Title==data.Title)
    if(find)
    {
     this._Notification.notify("error","Đã Tồn Tại")
    }
    else
    {
-    this._khoahocService.postKhoahoc(data).subscribe((data)=>this._Notification.notify("success","Thêm Thành Công"));
+    this._hocvienService.postHocvien(data).subscribe((data)=>this._Notification.notify("success","Thêm Thành Công"));
    }
 
   }
@@ -151,7 +140,7 @@ export class KhoahocComponent implements OnInit {
   {
     this._MainComponent.drawer.toggle();
   }
-  KhoahocExcel(event: any) {
+  HocvienExcel(event: any) {
       const file = event.target.files[0];
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
@@ -175,14 +164,14 @@ export class KhoahocComponent implements OnInit {
           }
           v.Hinhanh = Hinhanh
           v.Slug = convertToSlug(v.Title)
-          const find = this.khoahoc.find((v1:any)=>v1.Title==v.Title)
+          const find = this.hocvien.find((v1:any)=>v1.Title==v.Title)
           if(find)
           {
            this.Loidata++
           }
           else
           {
-           this._khoahocService.postKhoahoc(v).subscribe();
+           this._hocvienService.postHocvien(v).subscribe();
            this.Hoanthanhdata++
           }
             this.Begindata = k     

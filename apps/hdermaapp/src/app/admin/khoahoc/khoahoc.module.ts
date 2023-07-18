@@ -26,8 +26,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
         component: KhoahocComponent,
         children: [
           { path: 'danhmuc/:id', component: DetaildanhmucComponent },
-          { path: 'chitiet/:id', component: DetailkhoahocComponent },
-          // { path: ':id/spmoi', component: DetailkhoahocComponent },
+          { path: 'chitiet/:id', component: DetailkhoahocComponent }
         ],
       },
     ]),

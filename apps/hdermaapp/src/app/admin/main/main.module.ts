@@ -30,96 +30,101 @@ import { MaterialModule } from '../../shared/material.module';
         component:MainComponent,
         children: [
           {
-            path: 'demo',
-            loadChildren: () =>
-              import('../demo/demo.module').then((m) => m.DemosModule),
-            // canActivate: [CauhoiGuard],
-          },
-          {
-            path: 'dashboard',
-            component: DashboardComponent
-          },
-          {
-            path: 'hinhanh',
-            component: HinhanhComponent
-          },
-          {
-            path: 'baiviet',
-            loadChildren: () =>
-              import('../baiviet/baiviet.module').then((m) => m.BaivietModule),
-            // canActivate: [CauhoiGuard],
-          },
-          {
-            path: 'seotool',
-            loadChildren: () =>
-              import('../seotool/seotool.module').then((m) => m.SeotoolModule),
-            // canActivate: [CauhoiGuard],
-          },
-          {
-            path: 'danhmuc',
-            loadChildren: () =>
-              import('../danhmuc/danhmuc.module').then((m) => m.DanhmucModule),
-          },
-          {
-            path: 'san-pham',
-            loadChildren: () =>
-              import('../product/product.module').then((m) => m.ProductModule),
-          },
-          {
             path: 'khoa-hoc',
             loadChildren: () =>
               import('../khoahoc/khoahoc.module').then((m) => m.KhoahocModule),
           },
           {
-            path: 'sanpham',
+            path: 'hoc-vien',
             loadChildren: () =>
-              import('../sanpham/sanpham.module').then((m) => m.SanphamModule),
+              import('../hocvien/hocvien.module').then((m) => m.HocvienModule),
           },
-          {
-            path: 'danh-muc-san-pham',
-            loadChildren: () =>
-              import('../danhmuc-product/danhmuc-product.module').then(
-                (m) => m.DanhmucProductModule
-              ),
-          },
-          {
-            path: 'tags',
-            loadChildren: () =>
-              import('../tags/tags.module').then((m) => m.TagsModule),
-          },
-          {
-            path: 'donhang',
-            loadChildren: () =>
-              import('../donhang/donhang.module').then((m) => m.DonhangModule),
-          },
-          {
-            path: 'comment',
-            loadChildren: () =>
-              import('../comment/comment.module').then((m) => m.CommentModule),
-          },
-          {
-            path: 'cauhinh',
-            loadChildren: () =>
-              import('../cauhinh/cauhinh.module').then((m) => m.CauhinhModule),
-          },
-          {
-            path: 'nhanvien',
-            component:UsersComponent,
-            children:[
-              {path:':id',component:UsersDetailComponent}
-            ]
-          },
-          {
-            path: 'khachhang',
-            component:KhachhangComponent,
-            children:[
-              {path:':id',component:KhachhangDetailComponent}
-            ]
-          },
-          {
-            path: 'page',
-            component:PageComponent
-          },
+          // {
+          //   path: 'demo',
+          //   loadChildren: () =>
+          //     import('../demo/demo.module').then((m) => m.DemosModule),
+          //   // canActivate: [CauhoiGuard],
+          // },
+          // {
+          //   path: 'dashboard',
+          //   component: DashboardComponent
+          // },
+          // {
+          //   path: 'hinhanh',
+          //   component: HinhanhComponent
+          // },
+          // {
+          //   path: 'baiviet',
+          //   loadChildren: () =>
+          //     import('../baiviet/baiviet.module').then((m) => m.BaivietModule),
+          //   // canActivate: [CauhoiGuard],
+          // },
+          // {
+          //   path: 'seotool',
+          //   loadChildren: () =>
+          //     import('../seotool/seotool.module').then((m) => m.SeotoolModule),
+          //   // canActivate: [CauhoiGuard],
+          // },
+          // {
+          //   path: 'danhmuc',
+          //   loadChildren: () =>
+          //     import('../danhmuc/danhmuc.module').then((m) => m.DanhmucModule),
+          // },
+          // {
+          //   path: 'san-pham',
+          //   loadChildren: () =>
+          //     import('../product/product.module').then((m) => m.ProductModule),
+          // },
+          // {
+          //   path: 'sanpham',
+          //   loadChildren: () =>
+          //     import('../sanpham/sanpham.module').then((m) => m.SanphamModule),
+          // },
+          // {
+          //   path: 'danh-muc-san-pham',
+          //   loadChildren: () =>
+          //     import('../danhmuc-product/danhmuc-product.module').then(
+          //       (m) => m.DanhmucProductModule
+          //     ),
+          // },
+          // {
+          //   path: 'tags',
+          //   loadChildren: () =>
+          //     import('../tags/tags.module').then((m) => m.TagsModule),
+          // },
+          // {
+          //   path: 'donhang',
+          //   loadChildren: () =>
+          //     import('../donhang/donhang.module').then((m) => m.DonhangModule),
+          // },
+          // {
+          //   path: 'comment',
+          //   loadChildren: () =>
+          //     import('../comment/comment.module').then((m) => m.CommentModule),
+          // },
+          // {
+          //   path: 'cauhinh',
+          //   loadChildren: () =>
+          //     import('../cauhinh/cauhinh.module').then((m) => m.CauhinhModule),
+          // },
+          // {
+          //   path: 'nhanvien',
+          //   component:UsersComponent,
+          //   children:[
+          //     {path:':id',component:UsersDetailComponent}
+          //   ]
+          // },
+          // {
+          //   path: 'khachhang',
+          //   component:KhachhangComponent,
+          //   children:[
+          //     {path:':id',component:KhachhangDetailComponent}
+          //   ]
+          // },
+          // {
+          //   path: 'page',
+          //   component:PageComponent
+          // },
         ],
       },
     ]),

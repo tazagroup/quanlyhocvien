@@ -12,7 +12,7 @@ export function GetImage(data:any) {
    }
 
 }
-export function nest(items: any[], id:any = '', link:any = 'pid'):any {
+export function nest(items: any[], id:any = '', link:any = 'idDM'):any {   
       if (items) {
         return items.filter((item) => item[link] == id)
           .map((item) => ({
@@ -20,6 +20,19 @@ export function nest(items: any[], id:any = '', link:any = 'pid'):any {
             children: nest(items, item.id),
           }));
       };
+}
+export function convertToSlug(str:any):any {   
+  return str
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .replace(/[àáảạãâầấẩậẫăằắẳặẵ]/g, 'a')
+    .replace(/[èéẻẹẽêềếểệễ]/g, 'e')
+    .replace(/[ìíỉịĩ]/g, 'i')
+    .replace(/[òóỏọõôồốổộỗơờớởợỡ]/g, 'o')
+    .replace(/[ùúủụũưừứửựữ]/g, 'u')
+    .replace(/[ỳýỷỵỹ]/g, 'y')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9-]/g, '');
 }
 export function sharedFunction(): void {
           // Your shared function logic goes here

@@ -4,7 +4,7 @@
             <router-outlet></router-outlet>
         </div>
     </mat-drawer>
-    <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative bg-white !h-[90vh]">
+    <mat-drawer-content class="!flex flex-col flex-auto min-w-0 relative bg-white !h-screen">
         <div class="relative border-b-2 flex flex-col">
                 <div class="flex flex-row space-x-4 p-3 justify-between items-center w-full">
                     <button type="button" mat-icon-button (click)="ToggleMat()">
@@ -16,25 +16,41 @@
                         <span matPrefix class="material-icons mr-2">search</span>
                     </mat-form-field>
                     <div class="flex flex-row space-x-3 items-center">
-                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
+                    <div (click)="treeControl.collapseAll()" class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
                         <span class="material-icons text-xl" matTooltip="Tùy Chỉnh">tune</span>
                         <span class="text-sm">Cấu Hình</span>
                     </div>
-                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
+                    <div (click)="writeExcelFile(danhmuc,'danhmuc')" class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
                         <span class="material-icons text-xl" matTooltip="Lấy Mẫu">file_download</span>
-                        <span class="text-sm">Download</span>
+                        <span class="text-sm">Danh Mục</span>
                     </div>
-                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
+                    <div (click)="writeExcelFile(khoahoc,'khoahoc')" class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
+                        <span class="material-icons text-xl" matTooltip="Lấy Mẫu">file_download</span>
+                        <span class="text-sm">Khóa Học</span>
+                    </div>
+                    <div class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
                         (click)="openDialog(dlImportDanhmuc)">
                         <span class="material-icons text-xl" matTooltip="Upload File">file_upload</span>
-                        <span class="text-sm">Upload</span>
+                        <span class="text-sm">Danh Mục</span>
                     </div>
-                    <div class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
+                    <div (click)="uploadKhoahoc.click()" class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
+                        <span class="material-icons text-xl" matTooltip="Upload File">file_upload</span>
+                        <span class="text-xs">Khóa Học</span>
+                        <input class="hidden" (change)="KhoahocExcel($event)" type="file" #uploadKhoahoc>
+                      </div>
+                    <div class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
                         (click)="openDialog(dialogDanhmuc)">
                         <span class="material-icons text-xl" matTooltip="Tạo mới">add_circle</span>
                         <span class="text-sm">Thêm</span>
                     </div>
                 </div>
+                </div>
+                <div class="p-3 flex flex-col space-x-3 justify-center items-center max-w-lg mx-auto" *ngIf="isLoading">
+                    <mat-progress-bar mode="determinate" [value]="(Begindata/Enddata)*100"></mat-progress-bar>
+                    <div class="w-ful flex flex-row space-x-3">
+                    <div>{{(Begindata)}}/{{(Enddata)}}</div>
+                    <div>{{(Loidata)}} Lỗi/{{(Hoanthanhdata)}} Hoàn Thành</div>   
+                    </div>
                 </div>
         </div>
         <div class="relative flex flex-col h-full w-full overflow-auto">
@@ -51,11 +67,11 @@
                             <!-- <span class="material-icons text-blue-500"> menu_book </span> -->
                             <img [src]="GetImage(node.Hinhanh.hinhchinh?node.Hinhanh.hinhchinh.spath:'')"
                                 class="rounded max-w-[50px] max-h-[50px]" />
-                            <div>{{node.Tieude}}</div>
+                            <div>{{node.Title}}</div>
                         </div>
                         <div class="items-center space-x-2" *ngIf="node.isDM">
                             <span class="material-icons cursor-pointer text-green-500"
-                                (click)="openDialog(dialogKhoahoc);BVDetail.idDM=node.id">
+                                (click)="openDialog(dialogKhoahoc);KHDetail.idDM=node.id">
                                 note_add
                             </span>
                             <span class="material-icons cursor-pointer text-red-500" title="Xoá"
@@ -93,7 +109,7 @@
                         <ng-container *ngIf="node.isDM; else elseTemplate">
                             <div class="flex flex-row space-x-2 items-center">
                                 <span class="material-icons cursor-pointer text-green-500"
-                                    (click)="openDialog(dialogKhoahoc);BVDetail.pid=node.id">
+                                    (click)="openDialog(dialogKhoahoc);KHDetail.idDM=node.id">
                                     note_add
                                 </span>
                                 <span class="material-icons cursor-pointer text-red-500"
@@ -114,7 +130,7 @@
                     *ngFor="let item of FilterLists; let i = index">
                     <div class="flex flex-row space-x-2 items-center justify-between w-full">
                         <div class="flex flex-col space-y-2">
-                            <span>{{item.Tieude}} </span>
+                            <span>{{item.Title}} </span>
                             <span class="text-xs italic">Oldlink : {{item.Oldlink}}</span>
                             <span class="text-xs italic">Newlink : {{item.Newlink}}</span>
                         </div>
@@ -131,7 +147,7 @@
             <div class="flex flex-col w-full space-y-4 p-4">
                 <mat-form-field appearance="outline" class="w-full">
                     <mat-label>Tiêu Đề</mat-label>
-                    <input matInput [(ngModel)]="Detail.Tieude" [ngModelOptions]="{standalone: true}"
+                    <input matInput [(ngModel)]="Detail.Title" [ngModelOptions]="{standalone: true}"
                         placeholder="Tiêu Đề">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="w-full">
@@ -152,26 +168,25 @@
         </div>
     </div>
 </ng-template>
-
 <ng-template #dialogKhoahoc>
     <div class="min-w-[672px]">
-        <div mat-dialog-title>Thêm Sản Phẩm</div>
+        <div mat-dialog-title>Thêm Khóa Học</div>
         <div mat-dialog-content>
             <div class="flex flex-col w-full space-y-4 p-4">
                 <mat-form-field appearance="outline">
                     <mat-label>Danh Mục</mat-label>
-                    <mat-select [(ngModel)]="BVDetail.idDM" [ngModelOptions]="{standalone: true}">
+                    <mat-select [(ngModel)]="KHDetail.idDM" [ngModelOptions]="{standalone: true}">
                         <mat-option [value]="item.id" *ngFor="let item of danhmuc">{{item.Title}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="w-full">
                     <mat-label>Tiêu Đề</mat-label>
-                    <input matInput [(ngModel)]="BVDetail.Tieude" [ngModelOptions]="{standalone: true}"
+                    <input matInput [(ngModel)]="KHDetail.Title" [ngModelOptions]="{standalone: true}"
                         placeholder="Tiêu Đề">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="w-full">
                     <mat-label>Slug</mat-label>
-                    <input matInput [(ngModel)]="BVDetail.Slug" [ngModelOptions]="{standalone: true}"
+                    <input matInput [(ngModel)]="KHDetail.Slug" [ngModelOptions]="{standalone: true}"
                         placeholder="Slug">
                 </mat-form-field>
             </div>
@@ -179,7 +194,7 @@
         <div mat-dialog-actions class="justify-center">
             <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
             <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true"
-                (click)="CreateKhoahoc(BVDetail)">Đồng Ý</button>
+                (click)="CreateKhoahoc(KHDetail)">Đồng Ý</button>
         </div>
     </div>
 </ng-template>
@@ -214,7 +229,7 @@
     </div>
 </ng-template>
 <ng-template #dialogXoaKhoahoc>
-    <div mat-dialog-title class="text-center">Xoá Bài Viết</div>
+    <div mat-dialog-title class="text-center">Xoá Khóa Học</div>
     <div mat-dialog-actions class="justify-center">
         <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
         <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
