@@ -204,7 +204,7 @@ export class KhoahocService {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
     const formattedDate = `${day}_${month}_${year}`;
-    return this.http.post(this.urlApi + `/upload/server?folder=hderma/${formattedDate}`, formData).pipe(
+    return this.http.post(this.urlApi + `/upload/server?folder=qlhocvien/${formattedDate}`, formData).pipe(
       map((data: any) => {
         if (data) {
           return data;

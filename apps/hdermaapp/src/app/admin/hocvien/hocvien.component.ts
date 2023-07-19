@@ -11,6 +11,9 @@ import { GetImage, convertToSlug, nest } from '../../shared/shared.utils';
 import { MainComponent } from '../main/main.component';
 import { HocvienService } from '../../shared/hocvien.service';
 import * as XLSX from 'xlsx';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-hocvien',
   templateUrl: './hocvien.component.html',
@@ -41,26 +44,10 @@ export class HocvienComponent implements OnInit {
   dataFilter!: any[]
   id!: any
   hocvien: any = []
-   private _transformer = (node: any, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      level: level,
-      ...node,
-    };
-  };
-  treeControl = new FlatTreeControl<any>(
-    (node) => node.level,
-    (node) => node.expandable
-  );
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    (node) => node.level,
-    (node) => node.expandable,
-    (node) => node.children
-  );
-  hasChild = (_: number, node: any) => node.expandable;
-  hasNoContent = (_: number, _nodeData: any) => _nodeData.name === '';
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  displayedColumns: string[] = ['Hoten','SDT','Email', 'Gioitinh'];
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private dialog: MatDialog,
     private _Notification: NotifierService,
@@ -73,11 +60,11 @@ export class HocvienComponent implements OnInit {
     this._hocvienService.getHocviens().subscribe()
     this._hocvienService.hocviens$.subscribe(res => {
       if (res) {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
         this.hocvien = res          
-        this.dataFilter = this.dataSource.data =this.hocvien
-        this.treeControl.expandAll();
-        console.log(res);
-        
+        console.log(res);  
       }
     })
   }
@@ -153,18 +140,7 @@ export class HocvienComponent implements OnInit {
         this.isLoading=true
         jsonData.forEach((v:any,k:any) => {
           setTimeout(() => {
-          const Hinhanh = {
-            ContentImage: {spath: ""},           
-            hinhchinh: {spath: ""},
-            hinh1:{spath: ""},
-            hinh2:{spath: ""},
-            hinh3:{spath: ""},
-            hinh4:{spath: ""},
-            hinh5:{spath: ""}
-          }
-          v.Hinhanh = Hinhanh
-          v.Slug = convertToSlug(v.Title)
-          const find = this.hocvien.find((v1:any)=>v1.Title==v.Title)
+          const find = this.hocvien.find((v1:any)=>v1.SDT==v.SDT)
           if(find)
           {
            this.Loidata++
@@ -202,28 +178,16 @@ export class HocvienComponent implements OnInit {
       fileReader.readAsArrayBuffer(file);
     }
     writeExcelFile(data:any,name:any) {
-      let mappedData = []
-      if(name=="danhmuc")
-      {
-        mappedData = data.map((item:any) => ({
-          Title: item.Title,
-          Mota: item.Mota,
-          Slug: item.Slug
+       const hocvien = data.map((item:any) => ({
+          Hoten: item.Hoten,
+          MaHV: item.MaHV,
+          SDT: item.SDT,
+          Email: item.Email,
+          Diachi: item.Diachi,
+          Giotinh: item.Giotinh,
+          Ghichu: item.Ghichu
         }));
-        }
-      else
-      {
-        mappedData = data.map((item:any) => ({
-          idDM: item.idDM,
-          SKU: item.SKU,
-          Title: item.Title,
-          Mota: item.Mota,
-          Slug: item.Slug,
-          Giamin: item.Giamin,
-          Giamax: item.Giamax
-        }));
-     }
-      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(mappedData);
+      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(hocvien);
       const workbook: XLSX.WorkBook = { Sheets: { 'Sheet1': worksheet }, SheetNames: ['Sheet1'] };
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, name);
