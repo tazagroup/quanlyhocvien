@@ -7,26 +7,13 @@
 @import "swiper/css/pagination";
 @import "swiper/css/navigation";
 @import "swiper/css/scrollbar";
-@font-face {
-  font-family: utm;
-  src: url("../src/assets/font/UTM/UTM_Helve.ttf");
-}
-/* You can add global styles to this file, and also import other style files */
-// html,
-// body {
-//   height: 100%;
-// }
-// body {
-//   margin: 0;
-//   font-family: Roboto, 'Helvetica Neue', sans-serif;
-// }
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: "utm";
+  font-family: 'Poppins', sans-serif;
   //font-size: 20px;
   //line-height: 1.5rem;
   color: #000000;

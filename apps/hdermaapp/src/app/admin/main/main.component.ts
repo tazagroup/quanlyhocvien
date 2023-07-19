@@ -20,7 +20,15 @@ export class MainComponent implements OnInit,AfterViewInit {
     {
       Title:'Khóa Học',
       Link:'khoa-hoc',
+    },
+    {
+      Title:'Giảng Viên',
+      Link:'giang-vien',
 
+    },
+    {
+      Title:'Khách Hàng',
+      Link:'khach-hang',
     },
     // {
     //   Title:'Bài viết',
@@ -45,10 +53,6 @@ export class MainComponent implements OnInit,AfterViewInit {
     // {
     //   Title:'Đơn hàng',
     //   Link:'donhang',
-    // },
-    // {
-    //   Title:'Khách Hàng',
-    //   Link:'khachhang',
     // },
     // {
     //   Title:'Comment',

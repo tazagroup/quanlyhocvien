@@ -8,13 +8,7 @@ import { SwiperModule } from 'swiper/angular';
 import { MainComponent } from './main.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HinhanhComponent } from '../hinhanh/hinhanh.component';
-import { PageComponent } from '../page/page.component';
-import { UsersComponent } from '../users/users.component';
-import { UsersDetailComponent } from '../users/users-detail/users-detail.component';
-import { KhachhangComponent } from '../khachhang/khachhang.component';
-import { KhachhangDetailComponent } from '../khachhang/khachhang-detail/khachhang-detail.component';
 import { MaterialModule } from '../../shared/material.module';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +32,16 @@ import { MaterialModule } from '../../shared/material.module';
             path: 'hoc-vien',
             loadChildren: () =>
               import('../hocvien/hocvien.module').then((m) => m.HocvienModule),
+          },
+          {
+            path: 'giang-vien',
+            loadChildren: () =>
+              import('../giangvien/giangvien.module').then((m) => m.GiangvienModule),
+          },
+          {
+            path: 'khach-hang',
+            loadChildren: () =>
+              import('../khachhang/khachhang.module').then((m) => m.KhachhangModule),
           },
           // {
           //   path: 'demo',
@@ -115,13 +119,6 @@ import { MaterialModule } from '../../shared/material.module';
           //   ]
           // },
           // {
-          //   path: 'khachhang',
-          //   component:KhachhangComponent,
-          //   children:[
-          //     {path:':id',component:KhachhangDetailComponent}
-          //   ]
-          // },
-          // {
           //   path: 'page',
           //   component:PageComponent
           // },
@@ -136,8 +133,6 @@ import { MaterialModule } from '../../shared/material.module';
   MainComponent,
   DashboardComponent,
   HinhanhComponent,
-  KhachhangComponent,
-  KhachhangDetailComponent
   ],
 })
 export class MainModule {}

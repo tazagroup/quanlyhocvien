@@ -26,11 +26,11 @@
                   </div>
                   <div (click)="uploadKhoahoc.click()" class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg">
                     <span class="material-icons text-xl" matTooltip="Upload File">file_upload</span>
-                    <span class="text-xs">Học Viên</span>
+                    <span class="text-sm">Học Viên</span>
                     <input class="hidden" (change)="HocvienExcel($event)" type="file" #uploadKhoahoc>
                   </div>
                   <div class="flex flex-col items-center space-x-2 p-2 hover:bg-gray-200 rounded-lg"
-                      (click)="openDialog(dialogDanhmuc)">
+                      (click)="CreateHocvien(dialogDanhmuc,Detail)">
                       <span class="material-icons text-xl" matTooltip="Tạo mới">add_circle</span>
                       <span class="text-sm">Thêm</span>
                   </div>
@@ -69,7 +69,7 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [routerLink]="[row.id]" (click)="drawer.open()"></tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" pageSize="10"></mat-paginator>
           </div>
       </div>
   </mat-drawer-content>
@@ -120,8 +120,7 @@
       </div>
       <div mat-dialog-actions class="justify-center">
           <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
-          <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true"
-              (click)="CreateDM(Detail)">Đồng Ý</button>
+          <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
       </div>
   </div>
 </ng-template>
@@ -134,34 +133,6 @@
 </ng-template>
 <ng-template #dialogXoaHocvien>
   <div mat-dialog-title class="text-center">Xoá Khóa Học</div>
-  <div mat-dialog-actions class="justify-center">
-      <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
-      <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>
-  </div>
-</ng-template>
-<ng-template #dlImportDanhmuc>
-  <div mat-dialog-title class="text-center">Import Danh Mục</div>
-  <div mat-dialog-content class="text-center">
-
-      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="small_size">Small file
-          input</label>
-      <input
-          class="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          id="small_size" type="file">
-
-      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="default_size">Default
-          size</label>
-      <input
-          class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          id="default_size" type="file">
-
-      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Large file
-          input</label>
-      <input
-          class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          id="large_size" type="file">
-
-  </div>
   <div mat-dialog-actions class="justify-center">
       <button mat-button class="bg-red-400 hover:bg-red-600 text-white" mat-dialog-close="false">Huỷ</button>
       <button mat-button class="bg-blue-400 hover:bg-blue-600 text-white" mat-dialog-close="true">Đồng Ý</button>

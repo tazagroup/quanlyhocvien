@@ -7,15 +7,15 @@ import { GetImage } from '../../../shared/shared.utils';
 import { UsersService } from '../../../shared/users.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { KhoahocService } from '../../../shared/khoahoc.service';
-import { HocvienComponent } from '../hocvien.component';
-import { HocvienService } from '../../../shared/hocvien.service';
+import { GiangvienComponent } from '../giangvien.component';
+import { GiangvienService } from '../../../shared/giangvien.service';
 import { UploadService } from '../../../shared/upload.service';
 @Component({
-  selector: 'app-hocvien-chitiet',
-  templateUrl: './hocvien-chitiet.component.html',
-  styleUrls: ['./hocvien-chitiet.component.css']
+  selector: 'app-giangvien-chitiet',
+  templateUrl: './giangvien-chitiet.component.html',
+  styleUrls: ['./giangvien-chitiet.component.css']
 })
-export class HocvienChitietComponent implements OnInit {
+export class GiangvienChitietComponent implements OnInit {
   Detail: any={
     Title:'',
     Danhmuc:{idDM:0},
@@ -38,8 +38,8 @@ export class HocvienChitietComponent implements OnInit {
     private router: Router,
     private _userservice: UsersService,
     private _NotifierService: NotifierService,
-    private _HocvienComponent: HocvienComponent,
-    private _HocvienService: HocvienService,
+    private _GiangvienComponent: GiangvienComponent,
+    private _GiangvienService: GiangvienService,
     private _UploadService: UploadService
     
   ) {}
@@ -47,9 +47,9 @@ export class HocvienChitietComponent implements OnInit {
     this.route.params.subscribe((paramsId) => {
       const id = paramsId['id'];
       if (id) {
-        this._HocvienComponent.drawer.open();
-        this._HocvienService.getByid(id).subscribe();
-        this._HocvienService.hocvien$.subscribe((res:any) => {
+        this._GiangvienComponent.drawer.open();
+        this._GiangvienService.getByid(id).subscribe();
+        this._GiangvienService.giangvien$.subscribe((res:any) => {
           if (res) {
             console.log(res);    
             this.Detail = res;
@@ -125,11 +125,11 @@ export class HocvienChitietComponent implements OnInit {
   };
   CloseDrawer()
   {
-    this._HocvienComponent.drawer.close();
+    this._GiangvienComponent.drawer.close();
   }
   Update(data:any)
   {
-    this._HocvienService.updateHocvien(data).subscribe((res) => {
+    this._GiangvienService.updateGiangvien(data).subscribe((res) => {
       if (res) {
         this._NotifierService.notify("success","Cập nhật thành công")
       }
@@ -140,7 +140,7 @@ export class HocvienChitietComponent implements OnInit {
     this._UploadService.uploadDriver(event.addedFiles[0]).subscribe((data)=>
     {
       this.Detail.Hinhanh[field] = data
-      this._HocvienService.updateHocvien(this.Detail).subscribe((res) => {
+      this._GiangvienService.updateGiangvien(this.Detail).subscribe((res) => {
         if (res) {
           this._NotifierService.notify("success","Cập nhật thành công")
         }
@@ -152,7 +152,7 @@ export class HocvienChitietComponent implements OnInit {
     this._UploadService.DeleteuploadDriver(data[field]).subscribe(()=>
     {
       this.Detail.Hinhanh[field] = {}
-      this._HocvienService.updateHocvien(this.Detail).subscribe((res) => {
+      this._GiangvienService.updateGiangvien(this.Detail).subscribe((res) => {
         if (res) {
           this._NotifierService.notify("success","Cập nhật thành công")
         }

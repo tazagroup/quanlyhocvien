@@ -4,19 +4,22 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { environment } from 'apps/hdermaapp/src/environments/environment';
 import { NotifierService } from 'angular-notifier';
+import { DanhmucService } from '../../shared/danhmuc.service';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { GetImage, convertToSlug, nest } from '../../shared/shared.utils';
 import { MainComponent } from '../main/main.component';
+import { GiangvienService } from '../../shared/giangvien.service';
 import * as XLSX from 'xlsx';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { KhachhangService } from '../../shared/khachhang.service';
 @Component({
-  selector: 'app-khachhang',
-  templateUrl: './khachhang.component.html',
-  styleUrls: ['./khachhang.component.css']
+  selector: 'app-giangvien',
+  templateUrl: './giangvien.component.html',
+  styleUrls: ['./giangvien.component.css']
 })
-export class KhachhangComponent implements OnInit {
+export class GiangvienComponent implements OnInit {
   Begindata:number = 1;
   Enddata:number= 1;
   Loidata:number= 0;
@@ -40,26 +43,26 @@ export class KhachhangComponent implements OnInit {
   Filterdanhmuc:any[]=[];
   dataFilter!: any[]
   id!: any
-  khachhang: any = []
-  displayedColumns: string[] = ['Hoten','SDT','Email', 'Gioitinh','Doanhso','Doanhthu','Congno'];
+  giangvien: any = []
+  displayedColumns: string[] = ['Hoten','SDT','Email', 'Gioitinh'];
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private dialog: MatDialog,
     private _Notification: NotifierService,
-    private _khachhangService: KhachhangService,
+    private _giangvienService: GiangvienService,
     private _MainComponent: MainComponent,
    private _router: Router,
   ) {}
     ngOnInit(): void {
-    this._khachhangService.getAll().subscribe()
-    this._khachhangService.khachhangs$.subscribe(res => {
+    this._giangvienService.getAll().subscribe()
+    this._giangvienService.giangviens$.subscribe(res => {
       if (res) {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.khachhang = res          
+        this.giangvien = res          
         console.log(res);  
       }
     })
@@ -77,25 +80,25 @@ export class KhachhangComponent implements OnInit {
     const dialogRef = this.dialog.open(teamplate);
     dialogRef.afterClosed().subscribe((result) => {
       if (result=='true') {
-        this._khachhangService.deleteKhachhang(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
+        this._giangvienService.deleteGiangvien(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
       }
     });
   }
-  CreateKhachhang(teamplate: TemplateRef<any>,data:any)
+  CreateGiangvien(teamplate: TemplateRef<any>,data:any)
   {
 
     const dialogRef = this.dialog.open(teamplate);
     dialogRef.afterClosed().subscribe((result) => {
       if (result=='true') {
-        const find = this.khachhang.find((v:any)=>v.Hoten==data.Hoten)
+        const find = this.giangvien.find((v:any)=>v.Hoten==data.Hoten)
         if(find)
         {
          this._Notification.notify("error","Đã Tồn Tại")
         }
         else
         {
-         this._khachhangService.createKhachhang(data).subscribe(()=>this._Notification.notify("success","Thêm Thành Công"));
-         this.dataSource = new MatTableDataSource(this.khachhang);
+         this._giangvienService.createGiangvien(data).subscribe(()=>this._Notification.notify("success","Thêm Thành Công"));
+         this.dataSource = new MatTableDataSource(this.giangvien);
          this.dataSource.paginator = this.paginator;
          this.dataSource.sort = this.sort;
         }
@@ -110,7 +113,7 @@ export class KhachhangComponent implements OnInit {
   {
     this._MainComponent.drawer.toggle();
   }
-  KhachhangExcel(event: any) {
+  GiangvienExcel(event: any) {
       const file = event.target.files[0];
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
@@ -122,16 +125,17 @@ export class KhachhangComponent implements OnInit {
         this.Enddata = jsonData.length
         this.isLoading=true
         console.log(jsonData);
+        
         jsonData.forEach((v:any,k:any) => {
           setTimeout(() => {
-          const find = this.khachhang.find((v1:any)=>v1.SDT==v.SDT)
+          const find = this.giangvien.find((v1:any)=>v1.SDT==v.SDT)
           if(find)
           {
            this.Loidata++
           }
           else
           {
-           this._khachhangService.createKhachhang(v).subscribe();
+           this._giangvienService.createGiangvien(v).subscribe();
            this.Hoanthanhdata++
           }
             this.Begindata = k     
@@ -141,12 +145,8 @@ export class KhachhangComponent implements OnInit {
       fileReader.readAsArrayBuffer(file);
     }
     writeExcelFile(data:any,name:any) {
-       const khachhang = data.map((item:any) => ({
+       const giangvien = data.map((item:any) => ({
           Hoten: item.Hoten,
-          idUser: item.idUser,
-          idCN: item.idCN,
-          Doanhso: item.Doanhso,
-          Doanhthu: item.Doanhthu,
           MaGV: item.MaGV,
           SDT: item.SDT,
           Email: item.Email,
@@ -154,7 +154,7 @@ export class KhachhangComponent implements OnInit {
           Giotinh: item.Giotinh,
           Ghichu: item.Ghichu
         }));
-      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(khachhang);
+      const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(giangvien);
       const workbook: XLSX.WorkBook = { Sheets: { 'Sheet1': worksheet }, SheetNames: ['Sheet1'] };
       const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, name);

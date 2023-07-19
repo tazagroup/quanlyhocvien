@@ -2,13 +2,13 @@ import { environment } from "../../environments/environment";
 export function GetImage(data:any) {
    if(data)
    {
-    const checkdomain =  data.toLowerCase().includes('hderma')
+    const checkdomain =  data.toLowerCase().includes('qlhocvein')
     const checkhttp =  data.toLowerCase().includes('http')
-    const result = checkhttp?data:checkdomain?`${environment.BaseImage+data}`:`${environment.BaseImage+'hderma/'+data}`
+    const result = checkhttp?data:checkdomain?`${environment.BaseImage+data}`:`${environment.BaseImage+data}`
     return result
    }
    else {
-     return environment.BaseImage+"hderma/assets/image/logo.png";
+     return environment.BaseImage+"qlhocvein/assets/image/logo.png";
    }
 
 }

@@ -56,8 +56,7 @@ export class HocvienComponent implements OnInit {
    private _router: Router,
   ) {}
     ngOnInit(): void {
-    this._hocvienService.getDanhmucs().subscribe()
-    this._hocvienService.getHocviens().subscribe()
+    this._hocvienService.getAll().subscribe()
     this._hocvienService.hocviens$.subscribe(res => {
       if (res) {
         this.dataSource = new MatTableDataSource(res);
@@ -85,39 +84,23 @@ export class HocvienComponent implements OnInit {
       }
     });
   }
-  DLDeleteDanhmuc(teamplate: TemplateRef<any>,data:any): void {
+  CreateHocvien(teamplate: TemplateRef<any>,data:any)
+  {
+
     const dialogRef = this.dialog.open(teamplate);
     dialogRef.afterClosed().subscribe((result) => {
       if (result=='true') {
-        this._hocvienService.deleteDanhmuc(data.id).subscribe((data)=>this._Notification.notify('success','Xoá thành công'))
+        const find = this.hocvien.find((v:any)=>v.Title==data.Title)
+        if(find)
+        {
+         this._Notification.notify("error","Đã Tồn Tại")
+        }
+        else
+        {
+         this._hocvienService.createHocvien(data).subscribe(()=>this._Notification.notify("success","Thêm Thành Công"));
+        }
       }
     });
-  }
-  openDialog(teamplate: TemplateRef<any>): void {
-    const dialogRef = this.dialog.open(teamplate, {
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      // if (result) {
-      //   this._RedirectService.createRedirect(this.Detail).subscribe((data)=>this._Notification.notify('success','Thêm mới thành công'))
-      // }
-    });
-  }
-  CreateDM(data:any)
-  {
-    this._hocvienService.postHocvien(data).subscribe((data)=>this._Notification.notify("success","Thêm Thành Công"));
-  }
-  CreateHocvien(data:any)
-  {
-   const find = this.hocvien.find((v:any)=>v.Title==data.Title)
-   if(find)
-   {
-    this._Notification.notify("error","Đã Tồn Tại")
-   }
-   else
-   {
-    this._hocvienService.postHocvien(data).subscribe((data)=>this._Notification.notify("success","Thêm Thành Công"));
-   }
-
   }
   GetImage(data:any)
   {
@@ -147,33 +130,12 @@ export class HocvienComponent implements OnInit {
           }
           else
           {
-           this._hocvienService.postHocvien(v).subscribe();
+           this._hocvienService.createHocvien(v).subscribe();
            this.Hoanthanhdata++
           }
             this.Begindata = k     
           }, 100*k);
         });
-      };
-      fileReader.readAsArrayBuffer(file);
-    }
-  readExcelFile(event: any) {
-      const file = event.target.files[0];
-      const fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        const data = new Uint8Array((e.target as any).result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        console.log(jsonData);
-        // jsonData.forEach((v:any,k:any) => {
-        //   setTimeout(() => {
-        //     const convertedDate = v.Ngay.replace(/_/g, "/")
-        //     v.Ngayformat = new Date(convertedDate)
-        //     this.AddChart(v)
-        //     console.log(v);
-        //   }, 100*k);
-        // });
       };
       fileReader.readAsArrayBuffer(file);
     }
