@@ -30,6 +30,10 @@ export class MainComponent implements OnInit,AfterViewInit {
       Title:'Khách Hàng',
       Link:'khach-hang',
     },
+    {
+      Title:'Zalo',
+      Link:'zalo',
+    },
     // {
     //   Title:'Bài viết',
     //   Link:'baiviet',

@@ -43,6 +43,11 @@ import { MaterialModule } from '../../shared/material.module';
             loadChildren: () =>
               import('../khachhang/khachhang.module').then((m) => m.KhachhangModule),
           },
+          {
+            path: 'zalo',
+            loadChildren: () =>
+              import('../zalo/zalo.module').then((m) => m.ZaloModule),
+          },
           // {
           //   path: 'demo',
           //   loadChildren: () =>
