@@ -6,7 +6,6 @@ import { environment } from 'apps/hdermaapp/src/environments/environment';
 import { GetImage } from '../../../shared/shared.utils';
 import { UsersService } from '../../../shared/users.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { KhoahocService } from '../../../shared/khoahoc.service';
 import { GiangvienComponent } from '../giangvien.component';
 import { GiangvienService } from '../../../shared/giangvien.service';
 import { UploadService } from '../../../shared/upload.service';
