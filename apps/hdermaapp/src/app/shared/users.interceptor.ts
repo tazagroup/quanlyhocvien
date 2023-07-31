@@ -29,6 +29,7 @@ export class UsersInterceptor implements HttpInterceptor {
                 //   type: 'error',
                 // });
                 console.log(error.error);
+               //localStorage.removeItem('TazagroupToken')
             }
             return throwError(errorMsg);
         })
