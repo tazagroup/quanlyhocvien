@@ -7,7 +7,7 @@
 
 # dependencies
 node_modules
-apps/hdermaapp/src/assets
+apps/demo/src/assets
 # IDEs and editors
 /.idea
 .project
