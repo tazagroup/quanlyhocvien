@@ -11,12 +11,77 @@ import * as XLSX from 'xlsx';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ChartConfiguration,ChartData, ChartEvent, ChartType } from 'chart.js';
 @Component({
-  selector: 'app-hocvien',
-  templateUrl: './hocvien.component.html',
-  styleUrls: ['./hocvien.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class HocvienComponent implements OnInit {
+export class DashboardComponent implements OnInit {
+  // Doughnut
+  public doughnutChartLabels: string[] = [
+    'Download Sales',
+    'In-Store Sales',
+    'Mail-Order Sales',
+  ];
+  public doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      { data: [350, 450, 100] },
+      { data: [50, 150, 120] },
+      { data: [250, 130, 70] },
+    ],
+  };
+  public doughnutChartType: ChartType = 'doughnut';
+
+  // events
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);
+  }
+  public bubbleChartOptions: ChartConfiguration<'bubble'>['options'] = {
+    responsive: false,
+    scales: {
+      x: {
+        min: 0,
+        max: 30,
+      },
+      y: {
+        min: 0,
+        max: 30,
+      }
+    }
+  };
+  public bubbleChartLegend = true;
+
+  public bubbleChartDatasets: ChartConfiguration<'bubble'>['data']['datasets'] = [
+    {
+      data: [
+        { x: 10, y: 10, r: 10 },
+        { x: 15, y: 5, r: 15 },
+        { x: 26, y: 12, r: 23 },
+        { x: 7, y: 8, r: 8 },
+      ],
+      label: 'Series A',
+    },
+  ];
+
+
   Begindata:number = 1;
   Enddata:number= 1;
   Loidata:number= 0;
@@ -162,7 +227,7 @@ export class HocvienComponent implements OnInit {
       const url: string = window.URL.createObjectURL(data);
       const link: HTMLAnchorElement = document.createElement('a');
       link.href = url;
-      link.download = `${fileName}.xlsx`;
+      link.download = `fileName.xlsx`;
       link.click();
       window.URL.revokeObjectURL(url);
       link.remove();

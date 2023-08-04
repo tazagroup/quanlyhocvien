@@ -1,0 +1,14 @@
+<div class="!flex flex-col flex-auto min-w-0 relative bg-white !h-screen">
+  <div class="grid grid-cols-2 gap-4 justify-center p-8">
+    <div class="w-full">
+      <canvas baseChart [datasets]="bubbleChartDatasets" [options]="bubbleChartOptions" [legend]="bubbleChartLegend"
+        [type]="'bubble'">
+      </canvas>
+    </div>
+    <div class="w-1/2">
+      <canvas baseChart class="chart h-10" [data]="doughnutChartData" [type]="doughnutChartType">
+      </canvas>
+    </div>
+    <app-barchart></app-barchart>
+  </div>
+</div>

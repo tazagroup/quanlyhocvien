@@ -24,6 +24,11 @@ import { MaterialModule } from '../../shared/material.module';
         component:MainComponent,
         children: [
           {
+            path: 'dashboard',
+            loadChildren: () =>
+              import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
+          },
+          {
             path: 'khoa-hoc',
             loadChildren: () =>
               import('../khoahoc/khoahoc.module').then((m) => m.KhoahocModule),
@@ -39,7 +44,7 @@ import { MaterialModule } from '../../shared/material.module';
               import('../giangvien/giangvien.module').then((m) => m.GiangvienModule),
           },
           {
-            path: 'khach-hang',
+            path: 'lich-hen',
             loadChildren: () =>
               import('../khachhang/khachhang.module').then((m) => m.KhachhangModule),
           },

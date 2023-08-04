@@ -42,9 +42,9 @@ export class HocvienService {
       take(1),
       switchMap(datas => this._httpClient.post<any>(`${this.APIURL}/qlhocvien-hocvien`, dulieu).pipe(
         map((res: any) => {
-          this._hocviens.next([res[1], ...datas]);
+          this._hocviens.next([res, ...datas]);
           console.log(res);
-          return res[1];
+          return res;
         })
       ))
     );

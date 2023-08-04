@@ -171,4 +171,5 @@ export class KhachhangComponent implements OnInit {
       window.URL.revokeObjectURL(url);
       link.remove();
     }
+    
 }

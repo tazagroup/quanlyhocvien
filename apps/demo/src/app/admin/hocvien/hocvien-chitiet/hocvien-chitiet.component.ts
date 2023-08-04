@@ -6,7 +6,6 @@ import { environment } from 'apps/demo/src/environments/environment';
 import { GetImage } from '../../../shared/shared.utils';
 import { UsersService } from '../../../shared/users.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { KhoahocService } from '../../../shared/khoahoc.service';
 import { HocvienComponent } from '../hocvien.component';
 import { HocvienService } from '../../../shared/hocvien.service';
 import { UploadService } from '../../../shared/upload.service';
